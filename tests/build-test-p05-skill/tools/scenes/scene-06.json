@@ -1,0 +1,30 @@
+{
+  "scene": "scene-06",
+  "title": "The Ask",
+  "clips": ["s07_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-5" },
+        { "fn": "show", "id": "s6-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "twenty-five", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-raise" }]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "Series", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-expand" }]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "We", "n": 2 },
+      "actions": [
+        { "fn": "fade", "id": "s6-raise" },
+        { "fn": "fade", "id": "s6-expand" },
+        { "fn": "show", "id": "s6-cta" }
+      ]
+    }
+  ]
+}

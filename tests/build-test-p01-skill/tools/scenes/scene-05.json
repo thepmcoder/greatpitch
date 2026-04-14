@@ -1,0 +1,38 @@
+{
+  "scene": "scene-05",
+  "title": "Traction",
+  "clips": ["s06_traction"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s5-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "Five", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-users" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "ninety-one", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-precision" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "Zero", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-zero-missed" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "Family", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-nps" }
+      ]
+    }
+  ]
+}

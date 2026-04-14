@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBuddy — AI Tutor for Every Student</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e1a; color: #e8ecf1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; overflow: hidden;
+  }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: linear-gradient(135deg, #0a0e1a 0%, #141b2d 100%);
+    overflow: hidden;
+  }
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px; }
+  .hidden { display: none !important; }
+  .fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+  /* Scene 0 — Hook */
+  #s0-question { font-size: 40px; font-weight: 600; text-align: center; line-height: 1.5; color: #7cb3ff; }
+  #s0-insight { font-size: 38px; font-weight: 600; text-align: center; line-height: 1.5; color: #a78bfa; }
+  #s0-answer { font-size: 42px; font-weight: 700; text-align: center; color: #34d399; }
+
+  /* Scene 1 — Problem */
+  #s1-heading { font-size: 38px; font-weight: 700; color: #f87171; margin-bottom: 36px; }
+  .stat-card {
+    background: #1e2536; border: 1px solid #2d3548; border-radius: 12px;
+    padding: 20px 32px; margin: 8px 0; width: 620px; text-align: center;
+    font-size: 22px; color: #e8ecf1;
+  }
+  .stat-card .num { font-size: 30px; font-weight: 700; color: #f87171; display: block; margin-bottom: 4px; }
+
+  /* Scene 2 — Gap */
+  #s2-heading { font-size: 38px; font-weight: 700; color: #fbbf24; margin-bottom: 36px; }
+  .gap-card {
+    background: #1e2536; border: 1px solid #2d3548; border-radius: 12px;
+    padding: 18px 32px; margin: 8px 0; width: 580px; text-align: center;
+    font-size: 22px; color: #94a3b8;
+  }
+  .gap-card.warn { border-color: #f87171; color: #f87171; }
+
+  /* Scene 3 — Solution */
+  #s3-logo { font-size: 52px; font-weight: 800; color: #7cb3ff; letter-spacing: -1px; }
+  #s3-tagline { font-size: 26px; color: #94a3b8; margin-top: 16px; }
+  #s3-approach { font-size: 28px; color: #34d399; margin-top: 20px; font-weight: 600; }
+  #s3-method { font-size: 28px; color: #a78bfa; margin-top: 20px; font-weight: 600; text-align: center; line-height: 1.5; }
+  #s3-multiway { font-size: 24px; color: #fbbf24; margin-top: 20px; font-weight: 500; letter-spacing: 2px; }
+
+  /* Scene 4 — Proof */
+  #s4-heading { font-size: 38px; font-weight: 700; color: #34d399; margin-bottom: 32px; }
+  .proof-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .proof-card {
+    background: #1e2536; border: 1px solid #2d3548; border-radius: 12px;
+    padding: 24px; text-align: center; min-width: 180px;
+  }
+  .proof-card .big { font-size: 34px; font-weight: 800; color: #34d399; }
+  .proof-card .sub { font-size: 14px; color: #94a3b8; margin-top: 6px; }
+  .proof-card.highlight { border-color: #7cb3ff; }
+  .proof-card.highlight .big { color: #7cb3ff; }
+
+  /* Scene 5 — Ask */
+  #s5-heading { font-size: 44px; font-weight: 700; color: #7cb3ff; margin-bottom: 40px; }
+  #s5-amount { font-size: 36px; color: #34d399; font-weight: 700; margin-bottom: 16px; }
+  #s5-scale { font-size: 26px; color: #e8ecf1; margin-bottom: 24px; }
+  #s5-mission { font-size: 30px; color: #a78bfa; font-weight: 600; text-align: center; line-height: 1.5; }
+
+  /* Player controls */
+  #play-btn {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #2563eb; color: #fff; border: none; border-radius: 8px;
+    padding: 14px 40px; font-size: 18px; font-weight: 600; cursor: pointer;
+    z-index: 1000;
+  }
+  #play-btn:hover { background: #3b82f6; }
+  #play-btn.playing { background: #1e2536; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scene 0: Hook -->
+  <div class="scene" id="scene-0">
+    <div id="s0-question" class="hidden">A patient tutor<br>at 9 PM on a Tuesday?</div>
+    <div id="s0-insight" class="hidden">Watches how they think.<br>Asks the right question.</div>
+    <div id="s0-answer" class="hidden">1,200 students already have one.</div>
+  </div>
+
+  <!-- Scene 1: Problem -->
+  <div class="scene" id="scene-1">
+    <div id="s1-heading" class="hidden">The Classroom Reality</div>
+    <div id="s1-stat-ratio" class="stat-card hidden"><span class="num">1 : 30</span>One teacher, thirty students, thirty levels</div>
+    <div id="s1-stat-faster" class="stat-card hidden"><span class="num">40% faster</span>When content matches their level</div>
+    <div id="s1-stat-impossible" class="stat-card hidden"><span class="num">Impossible</span>30 personalized lesson plans simultaneously</div>
+  </div>
+
+  <!-- Scene 2: The Gap -->
+  <div class="scene" id="scene-2">
+    <div id="s2-heading" class="hidden">What Doesn't Work</div>
+    <div id="s2-cost" class="gap-card hidden">💰 $40–80/hr — Tutoring prices out most families</div>
+    <div id="s2-khan" class="gap-card hidden">📺 Khan Academy — Helpful but no feedback loop</div>
+    <div id="s2-noloop" class="gap-card warn hidden">✗ Can't detect confused, frustrated, or ready</div>
+  </div>
+
+  <!-- Scene 3: Solution -->
+  <div class="scene" id="scene-3">
+    <div id="s3-logo" class="hidden">StudyBuddy</div>
+    <div id="s3-tagline" class="hidden">AI tutor alongside the student</div>
+    <div id="s3-approach" class="hidden">Watches the process, not just answers</div>
+    <div id="s3-method" class="hidden">Doesn't give the answer —<br>asks the right question</div>
+    <div id="s3-multiway" class="hidden">Visual · Verbal · Analogy</div>
+  </div>
+
+  <!-- Scene 4: Proof -->
+  <div class="scene" id="scene-4">
+    <div id="s4-heading" class="hidden">The Results</div>
+    <div class="proof-grid">
+      <div id="s4-stat-students" class="proof-card hidden"><div class="big">1,200</div><div class="sub">Students · 8 Schools</div></div>
+      <div id="s4-stat-improvement" class="proof-card highlight hidden"><div class="big">+0.6</div><div class="sub">Grade-level improvement in 3 months</div></div>
+      <div id="s4-stat-remediation" class="proof-card hidden"><div class="big">−35%</div><div class="sub">Teacher remediation time</div></div>
+      <div id="s4-stat-confidence" class="proof-card hidden"><div class="big">+28</div><div class="sub">Percentile points in confidence</div></div>
+      <div id="s4-stat-nps" class="proof-card hidden"><div class="big">+67</div><div class="sub">Parent NPS</div></div>
+      <div id="s4-stat-cost" class="proof-card highlight hidden"><div class="big">$8/mo</div><div class="sub">Per student (vs $40–80/hr)</div></div>
+    </div>
+  </div>
+
+  <!-- Scene 5: Ask -->
+  <div class="scene" id="scene-5">
+    <div id="s5-heading" class="hidden">The Ask</div>
+    <div id="s5-amount" class="hidden">$3M Seed Round</div>
+    <div id="s5-scale" class="hidden">8 → 50 Schools + Science Curriculum</div>
+    <div id="s5-mission" class="hidden">Every student deserves<br>a patient tutor.</div>
+  </div>
+</div>
+
+<button id="play-btn" onclick="startVideo()">▶ Play</button>
+
+<script>
+const SCENES = [
+  {
+    scene: "scene-00",
+    title: "The Hook",
+    clips: ["s00_hook"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s0-question') } },
+    { delay: 7063, run() { fade('s0-question'); show('s0-insight') } },
+    { delay: 11038, run() { fade('s0-insight'); show('s0-answer') } }
+    ]
+  },
+  {
+    scene: "scene-01",
+    title: "The Problem",
+    clips: ["s01_problem"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s1-heading') } },
+    { delay: 288, run() { show('s1-stat-ratio') } },
+    { delay: 6813, run() { show('s1-stat-faster') } },
+    { delay: 11538, run() { show('s1-stat-impossible') } }
+    ]
+  },
+  {
+    scene: "scene-02",
+    title: "The Gap",
+    clips: ["s02_gap"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-1'); show('s2-heading') } },
+    { delay: 725, run() { show('s2-cost') } },
+    { delay: 5538, run() { show('s2-khan') } },
+    { delay: 9650, run() { show('s2-noloop') } }
+    ]
+  },
+  {
+    scene: "scene-03",
+    title: "The Solution",
+    clips: ["s03a_solution", "s03b_how"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-2'); show('s3-logo') } },
+    { delay: 2063, run() { show('s3-tagline') } },
+    { delay: 4913, run() { show('s3-approach') } },
+    { delay: 11451, run() { fade('s3-tagline'); fade('s3-approach'); show('s3-method') } },
+    { delay: 18788, run() { show('s3-multiway') } }
+    ]
+  },
+  {
+    scene: "scene-04",
+    title: "The Proof",
+    clips: ["s04a_traction", "s04b_results"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-3'); show('s4-heading') } },
+    { delay: 100, run() { show('s4-stat-students') } },
+    { delay: 5063, run() { show('s4-stat-improvement') } },
+    { delay: 12225, run() { show('s4-stat-remediation') } },
+    { delay: 15538, run() { show('s4-stat-confidence') } },
+    { delay: 19113, run() { show('s4-stat-nps') } },
+    { delay: 23175, run() { show('s4-stat-cost') } }
+    ]
+  },
+  {
+    scene: "scene-05",
+    title: "The Ask",
+    clips: ["s05_ask"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-4'); show('s5-heading') } },
+    { delay: 750, run() { show('s5-amount') } },
+    { delay: 2625, run() { show('s5-scale') } },
+    { delay: 10238, run() { fade('s5-amount'); fade('s5-scale'); show('s5-mission') } }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('hidden'); el.classList.remove('fade-out'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('hidden');
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('fade-out');
+    setTimeout(() => el.classList.add('hidden'), 400);
+  }
+}
+function clearAll(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (const child of container.querySelectorAll('[id]')) {
+    child.classList.add('hidden');
+    child.classList.remove('fade-out');
+  }
+}
+
+function playClip(clipId) {
+  return new Promise((resolve) => {
+    const dataUri = AUDIO_DATA[clipId];
+    if (!dataUri) { resolve(); return; }
+    const audio = new Audio(dataUri);
+    audio.onended = resolve;
+    audio.onerror = resolve;
+    audio.play().catch(resolve);
+  });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function playScene(scene) {
+  for (const t of scene.triggers) {
+    if (t.delay === 0) t.run();
+  }
+
+  let elapsed = 0;
+  for (const clipId of scene.clips) {
+    if (typeof clipId === 'object' && clipId.pause) {
+      await sleep(clipId.pause);
+      elapsed += clipId.pause;
+      continue;
+    }
+    const clipMeta = WORD_META[clipId] || [];
+    const clipDuration = clipMeta.length > 0
+      ? clipMeta[clipMeta.length - 1].t + clipMeta[clipMeta.length - 1].d + 300
+      : 3000;
+
+    for (const t of scene.triggers) {
+      if (t.delay > elapsed && t.delay <= elapsed + clipDuration) {
+        const fireAt = t.delay - elapsed;
+        setTimeout(() => t.run(), fireAt);
+      }
+    }
+
+    await playClip(clipId);
+    elapsed += clipDuration;
+  }
+  await sleep(600);
+}
+
+async function startVideo() {
+  const btn = document.getElementById('play-btn');
+  btn.textContent = '⏸ Playing...';
+  btn.classList.add('playing');
+  btn.disabled = true;
+
+  for (const scene of SCENES) {
+    await playScene(scene);
+  }
+
+  btn.textContent = '✓ Done';
+}
+</script>
+</body>
+</html>

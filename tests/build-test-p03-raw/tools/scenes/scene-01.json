@@ -1,0 +1,26 @@
+{
+  "scene": "scene-01",
+  "title": "The Pain",
+  "clips": ["clip_pain"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s1-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "forty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-forty-pct" }]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "limited", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-limited" }]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "choice", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-no-choice" }]
+    }
+  ]
+}

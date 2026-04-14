@@ -1,0 +1,484 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1875000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "Five",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 4250000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "hundred",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 7250000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "pilot",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 11750000,
+        "Duration": 3750000,
+        "text": {
+          "Text": "users",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 15625000,
+        "Duration": 4500000,
+        "text": {
+          "Text": "across",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 20250000,
+        "Duration": 3125000,
+        "text": {
+          "Text": "three",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 23500000,
+        "Duration": 5625000,
+        "text": {
+          "Text": "assisted",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 42125000,
+        "text": {
+          "Text": "Five hundred pilot users across three assisted living facilities.",
+          "Length": 65,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 29250000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "living",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 32125000,
+        "Duration": 7375000,
+        "text": {
+          "Text": "facilities",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 43625000,
+        "Duration": 5250000,
+        "text": {
+          "Text": "Twenty-three",
+          "Length": 12,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 49000000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "fall",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 52000000,
+        "Duration": 6500000,
+        "text": {
+          "Text": "detections",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 58625000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "with",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 60625000,
+        "Duration": 6375000,
+        "text": {
+          "Text": "ninety-one",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 42625000,
+        "Duration": 36875000,
+        "text": {
+          "Text": "Twenty-three fall detections with ninety-one percent precision.",
+          "Length": 63,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 67125000,
+        "Duration": 3875000,
+        "text": {
+          "Text": "percent",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 71125000,
+        "Duration": 5250000,
+        "text": {
+          "Text": "precision",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 80500000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "Zero",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 79500000,
+        "Duration": 13750000,
+        "text": {
+          "Text": "Zero missed falls.",
+          "Length": 18,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 83125000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "missed",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 85750000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "falls",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 94250000,
+        "Duration": 3875000,
+        "text": {
+          "Text": "Response",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 98250000,
+        "Duration": 2375000,
+        "text": {
+          "Text": "time",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 100750000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "dropped",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 104250000,
+        "Duration": 1625000,
+        "text": {
+          "Text": "from",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 106000000,
+        "Duration": 4750000,
+        "text": {
+          "Text": "fourteen",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 110875000,
+        "Duration": 3875000,
+        "text": {
+          "Text": "minutes",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 116375000,
+        "Duration": 875000,
+        "text": {
+          "Text": "to",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 117375000,
+        "Duration": 3125000,
+        "text": {
+          "Text": "just",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 93250000,
+        "Duration": 42500000,
+        "text": {
+          "Text": "Response time dropped from fourteen minutes to just forty-seven seconds.",
+          "Length": 72,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 120625000,
+        "Duration": 6250000,
+        "text": {
+          "Text": "forty-seven",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 127000000,
+        "Duration": 5625000,
+        "text": {
+          "Text": "seconds",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 137125000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "Family",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 139750000,
+        "Duration": 6750000,
+        "text": {
+          "Text": "satisfaction",
+          "Length": 12,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 146625000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "score",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 151250000,
+        "Duration": 875000,
+        "text": {
+          "Text": "of",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 135750000,
+        "Duration": 31250000,
+        "text": {
+          "Text": "Family satisfaction score of plus seventy-two.",
+          "Length": 46,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 152250000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "plus",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 157375000,
+        "Duration": 6500000,
+        "text": {
+          "Text": "seventy-two",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

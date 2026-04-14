@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenFleet — EV Fleet Management</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a1628; color: #e8ecf1; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; height: 100vh; }
+
+  /* --- Player chrome --- */
+  #video-container { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+  #play-btn { position: absolute; z-index: 100; width: 80px; height: 80px; border-radius: 50%; background: rgba(34,197,94,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+  #play-btn:hover { transform: scale(1.1); }
+  #play-btn svg { width: 36px; height: 36px; fill: white; margin-left: 4px; }
+  #play-btn.hidden { display: none; }
+  #progress-bar { position: absolute; bottom: 0; left: 0; height: 4px; background: #22c55e; width: 0%; transition: width 0.3s linear; z-index: 90; }
+
+  /* --- Stage / scene layer --- */
+  #stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; }
+  .scene-group { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; pointer-events: none; }
+  .el { opacity: 0; transition: opacity 0.5s ease; position: absolute; text-align: center; }
+  .el.visible { opacity: 1; }
+
+  /* --- Typography --- */
+  .heading { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.5px; top: 15%; }
+  .subtext { font-size: 1.6rem; font-weight: 400; line-height: 1.5; max-width: 700px; }
+  .stat { font-size: 3.2rem; font-weight: 800; color: #22c55e; }
+  .stat-label { font-size: 1.2rem; font-weight: 400; color: #94a3b8; margin-top: 4px; }
+  .accent { color: #22c55e; }
+  .cta { font-size: 2.2rem; font-weight: 700; color: #22c55e; border: 2px solid #22c55e; padding: 20px 48px; border-radius: 12px; }
+
+  /* --- Scene 0: Opening --- */
+  #s0-heading { top: 12%; font-size: 3rem; font-weight: 800; }
+  #s0-heading span { color: #22c55e; }
+  #s0-go-electric { top: 42%; font-size: 1.8rem; }
+  #s0-economics { top: 42%; font-size: 1.5rem; max-width: 600px; }
+  #s0-but { top: 50%; font-size: 2rem; color: #f59e0b; font-weight: 700; }
+
+  /* --- Scene 1: Problem --- */
+  #s1-heading { top: 12%; font-size: 2.8rem; font-weight: 700; color: #f87171; }
+  #s1-harder { top: 40%; font-size: 1.6rem; max-width: 600px; }
+  #s1-range-loss { top: 40%; font-size: 1.5rem; }
+  #s1-range-loss .stat { font-size: 3.5rem; }
+  #s1-fragmented { top: 62%; font-size: 1.4rem; color: #94a3b8; }
+  #s1-spreadsheets { top: 45%; font-size: 2rem; color: #f59e0b; }
+
+  /* --- Scene 2: Why Now --- */
+  #s2-heading { top: 12%; font-size: 2.8rem; font-weight: 700; color: #38bdf8; }
+  #s2-tipping-point { top: 42%; font-size: 1.8rem; }
+  #s2-software-gap { top: 42%; font-size: 1.6rem; color: #f59e0b; }
+  #s2-growing { top: 60%; font-size: 1.4rem; color: #94a3b8; }
+
+  /* --- Scene 3: Solution --- */
+  #s3-heading { top: 10%; font-size: 2.8rem; font-weight: 700; }
+  #s3-heading span { color: #22c55e; }
+  .feature-card { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); border-radius: 12px; padding: 24px 32px; max-width: 500px; }
+  .feature-card h3 { color: #22c55e; font-size: 1.3rem; margin-bottom: 6px; }
+  .feature-card p { color: #cbd5e1; font-size: 1rem; }
+  #s3-routing { top: 35%; }
+  #s3-charging { top: 35%; }
+  #s3-tco { top: 35%; }
+  #s3-maintenance { top: 35%; }
+
+  /* --- Scene 4: Proof --- */
+  #s4-heading { top: 10%; font-size: 2.8rem; font-weight: 700; }
+  .stat-block { text-align: center; }
+  #s4-vehicles { top: 35%; }
+  #s4-fuel { top: 35%; left: 20%; }
+  #s4-downtime { top: 35%; right: 20%; }
+  #s4-deliveries { top: 62%; }
+
+  /* --- Scene 5: Retention --- */
+  #s5-heading { top: 12%; font-size: 2.8rem; font-weight: 700; }
+  #s5-zero-churn { top: 38%; }
+  #s5-zero-churn .stat { font-size: 4rem; }
+  #s5-arr { top: 38%; }
+  #s5-growth { top: 62%; font-size: 1.4rem; color: #22c55e; }
+
+  /* --- Scene 6: Ask --- */
+  #s6-heading { top: 10%; font-size: 2.8rem; font-weight: 700; color: #22c55e; }
+  #s6-raise { top: 38%; }
+  #s6-raise .stat { font-size: 3.5rem; }
+  #s6-expand { top: 60%; font-size: 1.4rem; color: #94a3b8; }
+  #s6-cta { top: 45%; }
+</style>
+</head>
+<body>
+<div id="video-container">
+  <button id="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button>
+  <div id="progress-bar"></div>
+  <div id="stage">
+
+    <!-- Scene 0: Opening -->
+    <div class="scene-group" id="scene-0">
+      <div class="el heading" id="s0-heading"><span>GreenFleet</span></div>
+      <div class="el subtext" id="s0-go-electric">Go Electric</div>
+      <div class="el subtext" id="s0-economics">60% lower fuel · 40% lower maintenance</div>
+      <div class="el" id="s0-but">But there is a problem</div>
+    </div>
+
+    <!-- Scene 1: Problem -->
+    <div class="scene-group" id="scene-1">
+      <div class="el heading" id="s1-heading">The Real Problem</div>
+      <div class="el subtext" id="s1-harder">EV fleets are operationally harder than diesel</div>
+      <div class="el" id="s1-range-loss"><div class="stat">−30%</div><div class="stat-label">range in cold weather</div></div>
+      <div class="el" id="s1-fragmented">Charging infrastructure is fragmented</div>
+      <div class="el" id="s1-spreadsheets">Spreadsheets and gut feel</div>
+    </div>
+
+    <!-- Scene 2: Why Now -->
+    <div class="scene-group" id="scene-2">
+      <div class="el heading" id="s2-heading">Why Now?</div>
+      <div class="el subtext" id="s2-tipping-point">EV adoption crossed the tipping point</div>
+      <div class="el" id="s2-software-gap">The software has not kept up</div>
+      <div class="el" id="s2-growing">The gap is growing every quarter</div>
+    </div>
+
+    <!-- Scene 3: Solution -->
+    <div class="scene-group" id="scene-3">
+      <div class="el heading" id="s3-heading">The <span>GreenFleet</span> Platform</div>
+      <div class="el feature-card" id="s3-routing"><h3>Smart Routing</h3><p>Battery state · Weather · Charging · Delivery windows</p></div>
+      <div class="el feature-card" id="s3-charging"><h3>Charging Orchestration</h3><p>Off-peak scheduling · Mid-route stops · Grid management</p></div>
+      <div class="el feature-card" id="s3-tco"><h3>TCO Dashboard</h3><p>EV vs diesel · Per vehicle · Per route · Every day</p></div>
+      <div class="el feature-card" id="s3-maintenance"><h3>Predictive Maintenance</h3><p>Battery degradation · Before failure on route</p></div>
+    </div>
+
+    <!-- Scene 4: Proof -->
+    <div class="scene-group" id="scene-4">
+      <div class="el heading" id="s4-heading">The Results</div>
+      <div class="el stat-block" id="s4-vehicles"><div class="stat">2,400</div><div class="stat-label">vehicles managed · 12 fleets</div></div>
+      <div class="el stat-block" id="s4-fuel"><div class="stat">58%</div><div class="stat-label">fuel cost reduction</div></div>
+      <div class="el stat-block" id="s4-downtime"><div class="stat">72%</div><div class="stat-label">less unplanned downtime</div></div>
+      <div class="el stat-block" id="s4-deliveries"><div class="stat">+14%</div><div class="stat-label">more deliveries per vehicle per day</div></div>
+    </div>
+
+    <!-- Scene 5: Retention -->
+    <div class="scene-group" id="scene-5">
+      <div class="el heading" id="s5-heading">Retention & Revenue</div>
+      <div class="el stat-block" id="s5-zero-churn"><div class="stat">0% Churn</div><div class="stat-label">100% customer retention · 18 months</div></div>
+      <div class="el stat-block" id="s5-arr"><div class="stat">$2.8M ARR</div><div class="stat-label">annual recurring revenue</div></div>
+      <div class="el" id="s5-growth">Growing 22% quarter over quarter</div>
+    </div>
+
+    <!-- Scene 6: The Ask -->
+    <div class="scene-group" id="scene-6">
+      <div class="el heading" id="s6-heading">The Ask</div>
+      <div class="el stat-block" id="s6-raise"><div class="stat">$25M Series B</div><div class="stat-label">Expand nationally · Medium-duty trucks</div></div>
+      <div class="el subtext" id="s6-expand">National expansion + medium-duty truck support</div>
+      <div class="el cta" id="s6-cta">Let us show you the platform</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// --- Audio & metadata (injected by build-video.js) ---
+const AUDIO_DATA = '__AUDIO_DATA__';
+const WORD_META  = '__WORD_META__';
+const SCENES     = [
+  {
+    "scene": "scene-00",
+    "title": "The EV Promise",
+    "clips": [
+      "s01_opening"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s0-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s01_opening",
+          "word": "electric",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s0-go-electric"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s01_opening",
+          "word": "Sixty",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s0-go-electric"
+          },
+          {
+            "fn": "show",
+            "id": "s0-economics"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s01_opening",
+          "word": "problem",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s0-economics"
+          },
+          {
+            "fn": "show",
+            "id": "s0-but"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "title": "The Real Problem",
+    "clips": [
+      "s02_problem"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-0"
+          },
+          {
+            "fn": "show",
+            "id": "s1-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s02_problem",
+          "word": "harder",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s1-harder"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s02_problem",
+          "word": "temperature",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s1-harder"
+          },
+          {
+            "fn": "show",
+            "id": "s1-range-loss"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s02_problem",
+          "word": "Charging",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s1-fragmented"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s02_problem",
+          "word": "spreadsheets",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s1-range-loss"
+          },
+          {
+            "fn": "fade",
+            "id": "s1-fragmented"
+          },
+          {
+            "fn": "show",
+            "id": "s1-spreadsheets"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "title": "Why Now",
+    "clips": [
+      "s03_whynow"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-1"
+          },
+          {
+            "fn": "show",
+            "id": "s2-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s03_whynow",
+          "word": "tipping",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s2-tipping-point"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s03_whynow",
+          "word": "software",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s2-tipping-point"
+          },
+          {
+            "fn": "show",
+            "id": "s2-software-gap"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s03_whynow",
+          "word": "gap",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s2-growing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "title": "The GreenFleet Platform",
+    "clips": [
+      "s04_solution"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-2"
+          },
+          {
+            "fn": "show",
+            "id": "s3-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s04_solution",
+          "word": "Smart",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s3-routing"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s04_solution",
+          "word": "Charging",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s3-routing"
+          },
+          {
+            "fn": "show",
+            "id": "s3-charging"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s04_solution",
+          "word": "TCO",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s3-charging"
+          },
+          {
+            "fn": "show",
+            "id": "s3-tco"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s04_solution",
+          "word": "predictive",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s3-tco"
+          },
+          {
+            "fn": "show",
+            "id": "s3-maintenance"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "title": "The Results",
+    "clips": [
+      "s05_proof"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-3"
+          },
+          {
+            "fn": "show",
+            "id": "s4-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s05_proof",
+          "word": "twenty-four",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-vehicles"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s05_proof",
+          "word": "Fifty-eight",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s4-vehicles"
+          },
+          {
+            "fn": "show",
+            "id": "s4-fuel"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s05_proof",
+          "word": "Seventy-two",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-downtime"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s05_proof",
+          "word": "Fourteen",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-deliveries"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "title": "Retention & Revenue",
+    "clips": [
+      "s06_retention"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-4"
+          },
+          {
+            "fn": "show",
+            "id": "s5-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s06_retention",
+          "word": "Zero",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s5-zero-churn"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s06_retention",
+          "word": "revenue",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s5-zero-churn"
+          },
+          {
+            "fn": "show",
+            "id": "s5-arr"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s06_retention",
+          "word": "twenty-two",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s5-growth"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-06",
+    "title": "The Ask",
+    "clips": [
+      "s07_ask"
+    ],
+    "triggers": [
+      {
+        "anchor": {
+          "fixed": 0
+        },
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-5"
+          },
+          {
+            "fn": "show",
+            "id": "s6-heading"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s07_ask",
+          "word": "twenty-five",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s6-raise"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s07_ask",
+          "word": "nationally",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s6-expand"
+          }
+        ]
+      },
+      {
+        "anchor": {
+          "clip": "s07_ask",
+          "word": "answer",
+          "n": 1
+        },
+        "actions": [
+          {
+            "fn": "fade",
+            "id": "s6-raise"
+          },
+          {
+            "fn": "fade",
+            "id": "s6-expand"
+          },
+          {
+            "fn": "show",
+            "id": "s6-cta"
+          }
+        ]
+      }
+    ]
+  }
+];
+
+// --- Player engine ---
+(function() {
+  const playBtn = document.getElementById('play-btn');
+  const progressBar = document.getElementById('progress-bar');
+  let audio = null;
+  let clipQueue = [];
+  let currentClipIdx = -1;
+  let sceneIdx = 0;
+  let triggers = [];
+  let firedTriggers = new Set();
+
+  function show(id)  { const el = document.getElementById(id); if (el) el.classList.add('visible'); }
+  function fade(id)  { const el = document.getElementById(id); if (el) el.classList.remove('visible'); }
+  function hide(id)  { fade(id); }
+  function clearAll(groupId) {
+    const g = document.getElementById(groupId);
+    if (g) g.querySelectorAll('.el').forEach(el => el.classList.remove('visible'));
+  }
+
+  const fnMap = { show, fade, hide, clearAll };
+
+  function executeActions(actions) {
+    for (const a of actions) {
+      const fn = fnMap[a.fn];
+      if (fn) fn(a.id || '');
+    }
+  }
+
+  function buildClipQueue() {
+    clipQueue = [];
+    for (const scene of SCENES) {
+      clipQueue.push({ type: 'scene-start', scene });
+      for (const clip of scene.clips) {
+        if (typeof clip === 'object' && clip.pause) {
+          clipQueue.push({ type: 'pause', duration: clip.pause });
+        } else {
+          clipQueue.push({ type: 'clip', clipId: clip, scene });
+        }
+      }
+    }
+  }
+
+  function getTotalDuration() {
+    let total = 0;
+    for (const item of clipQueue) {
+      if (item.type === 'clip') {
+        const m = WORD_META[item.clipId];
+        if (m && m.length > 0) { const last = m[m.length-1]; total += last.t + last.d + 300; }
+      } else if (item.type === 'pause') {
+        total += item.duration;
+      }
+    }
+    return total;
+  }
+
+  function playNext() {
+    currentClipIdx++;
+    if (currentClipIdx >= clipQueue.length) { onFinished(); return; }
+
+    const item = clipQueue[currentClipIdx];
+
+    if (item.type === 'scene-start') {
+      // Fire fixed triggers
+      for (const t of item.scene.triggers) {
+        if (t.anchor.fixed !== undefined) executeActions(t.actions);
+      }
+      playNext();
+      return;
+    }
+
+    if (item.type === 'pause') {
+      setTimeout(playNext, item.duration);
+      return;
+    }
+
+    // type === 'clip'
+    const clipId = item.clipId;
+    const audioSrc = AUDIO_DATA[clipId];
+    if (!audioSrc) { playNext(); return; }
+
+    audio = new Audio('data:audio/mp3;base64,' + audioSrc);
+    triggers = [];
+    firedTriggers = new Set();
+
+    // Collect word-anchored triggers for this clip from its scene
+    for (const t of item.scene.triggers) {
+      if (t.anchor.clip === clipId) {
+        triggers.push(t);
+      }
+    }
+
+    // Resolve trigger times from word metadata
+    const words = WORD_META[clipId] || [];
+    for (const t of triggers) {
+      const wordTarget = t.anchor.word.toLowerCase();
+      const nth = t.anchor.n || 1;
+      let count = 0;
+      t._timeMs = -1;
+      for (const w of words) {
+        if (w.w.toLowerCase() === wordTarget) {
+          count++;
+          if (count === nth) { t._timeMs = w.t; break; }
+        }
+      }
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      const currentMs = audio.currentTime * 1000;
+      for (let i = 0; i < triggers.length; i++) {
+        if (!firedTriggers.has(i) && triggers[i]._timeMs >= 0 && currentMs >= triggers[i]._timeMs) {
+          firedTriggers.add(i);
+          executeActions(triggers[i].actions);
+        }
+      }
+      // Progress bar
+      updateProgress();
+    });
+
+    audio.addEventListener('ended', playNext);
+    audio.play().catch(err => console.error('Play error:', err));
+  }
+
+  let elapsedBefore = 0;
+  let totalDuration = 0;
+
+  function updateProgress() {
+    if (!audio || totalDuration === 0) return;
+    const currentClipTime = audio.currentTime * 1000;
+    const pct = Math.min(100, ((elapsedBefore + currentClipTime) / totalDuration) * 100);
+    progressBar.style.width = pct + '%';
+  }
+
+  function computeElapsedBefore() {
+    let total = 0;
+    for (let i = 0; i < currentClipIdx; i++) {
+      const item = clipQueue[i];
+      if (item.type === 'clip') {
+        const m = WORD_META[item.clipId];
+        if (m && m.length > 0) { const last = m[m.length-1]; total += last.t + last.d + 300; }
+      } else if (item.type === 'pause') {
+        total += item.duration;
+      }
+    }
+    return total;
+  }
+
+  function onFinished() {
+    progressBar.style.width = '100%';
+    playBtn.classList.remove('hidden');
+  }
+
+  playBtn.addEventListener('click', () => {
+    playBtn.classList.add('hidden');
+    // Reset all visuals
+    document.querySelectorAll('.el').forEach(el => el.classList.remove('visible'));
+    buildClipQueue();
+    totalDuration = getTotalDuration();
+    currentClipIdx = -1;
+    elapsedBefore = 0;
+    progressBar.style.width = '0%';
+    playNext();
+  });
+
+  // Override playNext to track elapsed
+  const origPlayNext = playNext;
+  playNext = function() {
+    elapsedBefore = computeElapsedBefore();
+    origPlayNext();
+  };
+})();
+</script>
+</body>
+</html>

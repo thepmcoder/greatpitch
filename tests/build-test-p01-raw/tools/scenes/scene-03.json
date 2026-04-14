@@ -1,0 +1,23 @@
+{
+  "scene": "scene-03",
+  "title": "Predictive Health",
+  "clips": ["c03_predict"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [
+      { "fn": "clearAll", "id": "scene-03" },
+      { "fn": "show", "id": "s03-bg" }
+    ]},
+    { "anchor": { "clip": "c03_predict", "word": "monitors", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s03-chart" }
+    ]},
+    { "anchor": { "clip": "c03_predict", "word": "thirty", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s03-decline" }
+    ]},
+    { "anchor": { "clip": "c03_predict", "word": "seventy-eight", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s03-accuracy" }
+    ]},
+    { "anchor": { "clip": "c03_predict", "word": "Prevention", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s03-prevention" }
+    ]}
+  ]
+}

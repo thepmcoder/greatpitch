@@ -1,0 +1,25 @@
+{
+  "scene": "scene-07",
+  "title": "Validation & Ask",
+  "clips": ["s08_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-06" },
+        { "fn": "show", "id": "s7-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "eighty-seven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s7-stat" }]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "ready", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s7-stat" },
+        { "fn": "show", "id": "s7-ask" }
+      ]
+    }
+  ]
+}

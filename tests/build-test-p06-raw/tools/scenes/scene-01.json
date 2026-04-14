@@ -1,0 +1,11 @@
+{
+  "scene": "scene-01",
+  "title": "The Problem",
+  "clips": ["s1_problem"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-00" }, { "fn": "show", "id": "s1-heading" }] },
+    { "anchor": { "clip": "s1_problem", "word": "overwhelmed", "n": 1 }, "actions": [{ "fn": "show", "id": "s1-overwhelmed" }] },
+    { "anchor": { "clip": "s1_problem", "word": "scattered", "n": 1 }, "actions": [{ "fn": "show", "id": "s1-platforms" }] },
+    { "anchor": { "clip": "s1_problem", "word": "prepare", "n": 1 }, "actions": [{ "fn": "show", "id": "s1-questions" }] }
+  ]
+}

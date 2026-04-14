@@ -1,0 +1,30 @@
+{
+  "scene": "scene-05",
+  "title": "The Ask",
+  "clips": ["s05_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-4" },
+        { "fn": "show", "id": "s5-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "three", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-amount" }]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "expand", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-scale" }]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "deserves", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s5-amount" },
+        { "fn": "fade", "id": "s5-scale" },
+        { "fn": "show", "id": "s5-mission" }
+      ]
+    }
+  ]
+}

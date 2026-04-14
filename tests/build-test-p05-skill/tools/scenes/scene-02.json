@@ -1,0 +1,29 @@
+{
+  "scene": "scene-02",
+  "title": "Why Now",
+  "clips": ["s03_whynow"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-1" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_whynow", "word": "adoption", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-tipping-point" }]
+    },
+    {
+      "anchor": { "clip": "s03_whynow", "word": "software", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-tipping-point" },
+        { "fn": "show", "id": "s2-software-gap" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_whynow", "word": "gap", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-growing" }]
+    }
+  ]
+}

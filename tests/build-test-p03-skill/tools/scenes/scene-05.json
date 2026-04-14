@@ -1,0 +1,29 @@
+{
+  "scene": "scene-5",
+  "title": "Traction",
+  "clips": ["s06_traction"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-4" },
+        { "fn": "show", "id": "s5-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "Austin", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-cities" }]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "forty-seven", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s5-cities" },
+        { "fn": "show", "id": "s5-order-value" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_traction", "word": "Monthly", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-repeat" }]
+    }
+  ]
+}

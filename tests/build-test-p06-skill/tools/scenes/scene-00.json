@@ -1,0 +1,29 @@
+{
+  "scene": "scene-00",
+  "title": "The Student Struggle",
+  "clips": ["s01_opening"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "student", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-student" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "juggling", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-student" },
+        { "fn": "show", "id": "s0-platforms" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "should", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-platforms" },
+        { "fn": "show", "id": "s0-questions" }
+      ]
+    }
+  ]
+}

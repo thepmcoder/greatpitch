@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshLocal — Farm to Door in Under 24 Hours</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a1628; color: #fff; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; height: 100vh; }
+
+  #video-container { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  /* Scenes */
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+  .scene.active { opacity: 1; pointer-events: auto; }
+
+  /* Visual elements — hidden by default */
+  .vis { opacity: 0; transition: opacity 0.6s ease, transform 0.6s ease; transform: translateY(18px); }
+  .vis.visible { opacity: 1; transform: translateY(0); }
+
+  /* Typography */
+  .scene-heading { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 3px; color: #4ecdc4; margin-bottom: 2rem; font-weight: 600; }
+  .key-phrase { font-size: 2.8rem; font-weight: 700; line-height: 1.2; text-align: center; max-width: 800px; padding: 0 2rem; }
+  .sub-phrase { font-size: 1.6rem; font-weight: 400; color: #a0b4c8; text-align: center; max-width: 700px; margin-top: 1.5rem; padding: 0 2rem; }
+  .stat-large { font-size: 4.5rem; font-weight: 800; color: #4ecdc4; }
+  .stat-label { font-size: 1.2rem; color: #a0b4c8; margin-top: 0.5rem; }
+  .stat-row { display: flex; gap: 4rem; align-items: flex-start; margin-top: 2rem; }
+  .stat-box { text-align: center; }
+  .stat-box .stat-large { font-size: 3rem; }
+
+  /* Color accents */
+  .accent-green { color: #4ecdc4; }
+  .accent-coral { color: #ff6b6b; }
+  .accent-gold { color: #ffd93d; }
+
+  /* Controls */
+  #controls { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; z-index: 100; }
+  #controls button { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.7rem 1.8rem; border-radius: 8px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
+  #controls button:hover { background: rgba(255,255,255,0.22); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #4ecdc4; transition: width 0.3s linear; z-index: 100; }
+
+  /* Scene backgrounds */
+  #scene-0 { background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%); }
+  #scene-1 { background: linear-gradient(135deg, #1a0a0a 0%, #2a1a1a 100%); }
+  #scene-2 { background: linear-gradient(135deg, #0a1a1a 0%, #1a2a2a 100%); }
+  #scene-3 { background: linear-gradient(135deg, #0a1628 0%, #0a2a3a 100%); }
+  #scene-4 { background: linear-gradient(135deg, #0a2018 0%, #1a3028 100%); }
+  #scene-5 { background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%); }
+  #scene-6 { background: linear-gradient(135deg, #0a2018 0%, #1a3028 100%); }
+  #scene-7 { background: linear-gradient(135deg, #0a1628 0%, #142848 100%); }
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div id="video-container">
+
+  <!-- Scene 0: Opening -->
+  <div id="scene-0" class="scene">
+    <div id="s0-heading" class="vis scene-heading">The Journey on Your Plate</div>
+    <div id="s0-miles" class="vis key-phrase"><span class="accent-coral">1,500 miles</span> from farm to plate</div>
+    <div id="s0-lost" class="vis sub-phrase">Lost: flavor, nutrition, value</div>
+  </div>
+
+  <!-- Scene 1: Broken Chain -->
+  <div id="scene-1" class="scene">
+    <div id="s1-heading" class="vis scene-heading">A Broken Chain</div>
+    <div id="s1-chain" class="vis key-phrase">Farm → Distributor → Retailer → <span class="accent-coral">You</span></div>
+    <div id="s1-forty-pct" class="vis key-phrase">Farmers lose <span class="accent-coral">40%</span> of revenue</div>
+    <div id="s1-premium" class="vis sub-phrase">Consumers pay premium for produce already days old</div>
+  </div>
+
+  <!-- Scene 2: Alternatives -->
+  <div id="scene-2" class="scene">
+    <div id="s2-heading" class="vis scene-heading">Alternatives Fall Short</div>
+    <div id="s2-markets" class="vis key-phrase">Farmers' markets: <span class="accent-gold">wonderful but inconvenient</span></div>
+    <div id="s2-csa" class="vis key-phrase">CSA boxes: <span class="accent-gold">freshness, not choice</span></div>
+    <div id="s2-neither" class="vis sub-phrase">Neither solution scales</div>
+  </div>
+
+  <!-- Scene 3: Solution -->
+  <div id="scene-3" class="scene">
+    <div id="s3-heading" class="vis scene-heading">FreshLocal</div>
+    <div id="s3-marketplace" class="vis key-phrase">Local farms → <span class="accent-green">urban consumers</span></div>
+    <div id="s3-browse" class="vis sub-phrase">Browse real-time inventory within 50 miles</div>
+    <div id="s3-custom" class="vis sub-phrase">Custom order → <span class="accent-green">next-day delivery</span></div>
+  </div>
+
+  <!-- Scene 4: How It Works -->
+  <div id="scene-4" class="scene">
+    <div id="s4-heading" class="vis scene-heading">How It Works</div>
+    <div id="s4-never-warehoused" class="vis key-phrase">Never <span class="accent-green">warehoused</span></div>
+    <div id="s4-fourteen-hours" class="vis stat-large">14 hours</div>
+    <div id="s4-fourteen-label" class="vis stat-label">average shelf age at delivery</div>
+    <div id="s4-logistics" class="vis sub-phrase">Shared cold-chain trucks, milk-run routes</div>
+  </div>
+
+  <!-- Scene 5: Traction -->
+  <div id="scene-5" class="scene">
+    <div id="s5-heading" class="vis scene-heading">Traction</div>
+    <div id="s5-cities" class="vis key-phrase"><span class="accent-green">Austin & Portland</span> — 340 farms, 8,200 consumers</div>
+    <div id="s5-order-value" class="vis key-phrase">$<span class="accent-green">47</span> avg order vs $32 grocery delivery</div>
+    <div id="s5-repeat" class="vis sub-phrase"><span class="accent-green">64%</span> monthly repeat rate · NPS +61</div>
+  </div>
+
+  <!-- Scene 6: Economics -->
+  <div id="scene-6" class="scene">
+    <div id="s6-heading" class="vis scene-heading">Farm Economics</div>
+    <div id="s6-revenue" class="vis key-phrase"><span class="accent-green">+35%</span> revenue vs wholesale</div>
+    <div id="s6-own-prices" class="vis sub-phrase">Farmers set their own prices</div>
+    <div id="s6-breakeven" class="vis key-phrase">Trending to <span class="accent-green">breakeven</span> at 15K orders/mo/city</div>
+  </div>
+
+  <!-- Scene 7: The Ask -->
+  <div id="scene-7" class="scene">
+    <div id="s7-heading" class="vis scene-heading">The Ask</div>
+    <div id="s7-amount" class="vis key-phrase"><span class="accent-green">$6M</span> Series A</div>
+    <div id="s7-market" class="vis sub-phrase">$90B local food market</div>
+    <div id="s7-proven" class="vis key-phrase">Proven in 2 cities. Ready to scale.</div>
+    <div id="s7-join" class="vis key-phrase" style="margin-top:2rem;">Join us in rebuilding <span class="accent-green">farm to table</span></div>
+  </div>
+
+</div>
+
+<div id="controls">
+  <button id="btn-play" onclick="togglePlay()">▶ Play</button>
+  <button onclick="restart()">↺ Restart</button>
+</div>
+
+<script>
+// --- DATA (injected by build pipeline) ---
+const AUDIO_DATA = /*AUDIO_DATA_PLACEHOLDER*/{};
+const WORD_META  = /*WORD_META_PLACEHOLDER*/{};
+const SCENES     = [
+  {
+    scene: "scene-0",
+    title: "The Journey on Your Plate",
+    clips: ["s01_opening"],
+    triggers: [
+      { delay: 0, actionFn: function() { show('s0-heading') } },
+      { delay: 588, actionFn: function() { show('s0-miles') } },
+      { delay: 5213, actionFn: function() { fade('s0-miles'); show('s0-lost') } }
+    ]
+  },
+  {
+    scene: "scene-1",
+    title: "A Broken Chain",
+    clips: ["s02_broken"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-0'); show('s1-heading') } },
+      { delay: 550, actionFn: function() { show('s1-chain') } },
+      { delay: 3663, actionFn: function() { fade('s1-chain'); show('s1-forty-pct') } },
+      { delay: 15275, actionFn: function() { show('s1-premium') } }
+    ]
+  },
+  {
+    scene: "scene-2",
+    title: "Alternatives Fall Short",
+    clips: ["s03_alternatives"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-1'); show('s2-heading') } },
+      { delay: 2138, actionFn: function() { show('s2-markets') } },
+      { delay: 9013, actionFn: function() { fade('s2-markets'); show('s2-csa') } },
+      { delay: 15275, actionFn: function() { show('s2-neither') } }
+    ]
+  },
+  {
+    scene: "scene-3",
+    title: "FreshLocal: The Solution",
+    clips: ["s04_solution"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-2'); show('s3-heading') } },
+      { delay: 1050, actionFn: function() { show('s3-marketplace') } },
+      { delay: 6038, actionFn: function() { show('s3-browse') } },
+      { delay: 10000, actionFn: function() { fade('s3-browse'); show('s3-custom') } }
+    ]
+  },
+  {
+    scene: "scene-4",
+    title: "How It Works",
+    clips: ["s05_howitworks"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-3'); show('s4-heading') } },
+      { delay: 2400, actionFn: function() { show('s4-never-warehoused') } },
+      { delay: 9000, actionFn: function() { fade('s4-never-warehoused'); show('s4-fourteen-hours') } },
+      { delay: 13388, actionFn: function() { show('s4-logistics') } }
+    ]
+  },
+  {
+    scene: "scene-5",
+    title: "Traction",
+    clips: ["s06_traction"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-4'); show('s5-heading') } },
+      { delay: 1850, actionFn: function() { show('s5-cities') } },
+      { delay: 8250, actionFn: function() { fade('s5-cities'); show('s5-order-value') } },
+      { delay: 12450, actionFn: function() { show('s5-repeat') } }
+    ]
+  },
+  {
+    scene: "scene-6",
+    title: "Farm Economics",
+    clips: ["s07_economics"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-5'); show('s6-heading') } },
+      { delay: 2838, actionFn: function() { show('s6-revenue') } },
+      { delay: 7313, actionFn: function() { show('s6-own-prices') } },
+      { delay: 11563, actionFn: function() { fade('s6-own-prices'); show('s6-breakeven') } }
+    ]
+  },
+  {
+    scene: "scene-7",
+    title: "The Ask",
+    clips: ["s08_ask"],
+    triggers: [
+      { delay: 0, actionFn: function() { clearAll('scene-6'); show('s7-heading') } },
+      { delay: 275, actionFn: function() { show('s7-amount') } },
+      { delay: 7850, actionFn: function() { show('s7-market') } },
+      { delay: 10938, actionFn: function() { fade('s7-market'); show('s7-proven') } },
+      { delay: 10938, actionFn: function() { show('s7-join') } },
+      { delay: 13650, actionFn: function() { fade('s7-proven') } }
+    ]
+  }
+];
+
+// --- PLAYER ENGINE ---
+let currentSceneIdx = 0;
+let isPlaying = false;
+let audioQueue = [];
+let currentAudio = null;
+let sceneTriggers = [];
+let triggersFired = new Set();
+
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('visible');
+}
+
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('visible');
+}
+
+function hide(id) { fade(id); }
+
+function clearAll(sceneId) {
+  const container = document.getElementById(sceneId);
+  if (container) {
+    container.querySelectorAll('.vis').forEach(el => el.classList.remove('visible'));
+  }
+}
+
+function showChapter(id) { show(id); }
+function hideChapter(id) { fade(id); }
+
+function activateScene(idx) {
+  document.querySelectorAll('.scene').forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  currentSceneIdx = idx;
+}
+
+function playScene(sceneIdx) {
+  if (sceneIdx >= SCENES.length) {
+    isPlaying = false;
+    document.getElementById('btn-play').textContent = '▶ Play';
+    return;
+  }
+
+  const scene = SCENES[sceneIdx];
+  activateScene(sceneIdx);
+  triggersFired = new Set();
+
+  // Build audio queue for this scene
+  const clips = scene.clips || [];
+  audioQueue = clips.filter(c => typeof c === 'string' && AUDIO_DATA[c]);
+
+  // Set up triggers
+  sceneTriggers = scene.triggers || [];
+
+  // Fire fixed-0 triggers immediately
+  sceneTriggers.forEach((t, i) => {
+    if (t.delay === 0 || (t.anchor && t.anchor.fixed === 0)) {
+      t.actionFn();
+      triggersFired.add(i);
+    }
+  });
+
+  playClipQueue(sceneIdx, 0, 0);
+}
+
+function playClipQueue(sceneIdx, clipIdx, sceneTimeOffset) {
+  if (clipIdx >= audioQueue.length) {
+    // Scene done — move to next after a brief pause
+    setTimeout(() => playScene(sceneIdx + 1), 800);
+    return;
+  }
+
+  const clipName = audioQueue[clipIdx];
+  const audioSrc = AUDIO_DATA[clipName];
+  if (!audioSrc) { playClipQueue(sceneIdx, clipIdx + 1, sceneTimeOffset); return; }
+
+  currentAudio = new Audio(audioSrc);
+  currentAudio.addEventListener('timeupdate', () => {
+    const currentMs = sceneTimeOffset + (currentAudio.currentTime * 1000);
+
+    // Update progress
+    const totalScenes = SCENES.length;
+    const progress = ((sceneIdx + (clipIdx / audioQueue.length)) / totalScenes) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+    // Check triggers
+    sceneTriggers.forEach((t, i) => {
+      if (!triggersFired.has(i) && t.delay != null && currentMs >= t.delay) {
+        t.actionFn();
+        triggersFired.add(i);
+      }
+    });
+  });
+
+  currentAudio.addEventListener('ended', () => {
+    const clipMeta = WORD_META[clipName] || [];
+    let clipDuration = 0;
+    if (clipMeta.length > 0) {
+      const last = clipMeta[clipMeta.length - 1];
+      clipDuration = last.t + last.d + 300;
+    } else {
+      clipDuration = currentAudio.duration * 1000;
+    }
+    playClipQueue(sceneIdx, clipIdx + 1, sceneTimeOffset + clipDuration);
+  });
+
+  currentAudio.play().catch(e => console.error('Audio play error:', e));
+}
+
+function togglePlay() {
+  if (isPlaying) {
+    if (currentAudio) currentAudio.pause();
+    isPlaying = false;
+    document.getElementById('btn-play').textContent = '▶ Play';
+  } else {
+    isPlaying = true;
+    document.getElementById('btn-play').textContent = '⏸ Pause';
+    if (currentAudio && currentAudio.paused && currentAudio.currentTime > 0) {
+      currentAudio.play();
+    } else {
+      playScene(currentSceneIdx);
+    }
+  }
+}
+
+function restart() {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  isPlaying = false;
+  document.getElementById('btn-play').textContent = '▶ Play';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.querySelectorAll('.vis').forEach(el => el.classList.remove('visible'));
+  currentSceneIdx = 0;
+  activateScene(0);
+}
+
+// Initialize
+activateScene(0);
+</script>
+</body>
+</html>

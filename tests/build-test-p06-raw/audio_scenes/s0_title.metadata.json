@@ -1,0 +1,172 @@
+{
+  "Metadata": [
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 8000000,
+        "text": {
+          "Text": "Elevate.",
+          "Length": 8,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "Elevate",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 8500000,
+        "Duration": 10625000,
+        "text": {
+          "Text": "Your Choices.",
+          "Length": 13,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 9500000,
+        "Duration": 750000,
+        "text": {
+          "Text": "Your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 10375000,
+        "Duration": 5625000,
+        "text": {
+          "Text": "Choices",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 19125000,
+        "Duration": 11750000,
+        "text": {
+          "Text": "Your Preparation.",
+          "Length": 17,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 20125000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "Your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 21375000,
+        "Duration": 6375000,
+        "text": {
+          "Text": "Preparation",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 30875000,
+        "Duration": 11750000,
+        "text": {
+          "Text": "Your Confidence.",
+          "Length": 16,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 31875000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "Your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 33000000,
+        "Duration": 6500000,
+        "text": {
+          "Text": "Confidence",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 42625000,
+        "Duration": 11500000,
+        "text": {
+          "Text": "Your Success.",
+          "Length": 13,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 43625000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "Your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 44750000,
+        "Duration": 6250000,
+        "text": {
+          "Text": "Success",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

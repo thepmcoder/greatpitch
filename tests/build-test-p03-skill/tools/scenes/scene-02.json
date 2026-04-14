@@ -1,0 +1,29 @@
+{
+  "scene": "scene-2",
+  "title": "Alternatives Fall Short",
+  "clips": ["s03_alternatives"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-1" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_alternatives", "word": "markets", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-markets" }]
+    },
+    {
+      "anchor": { "clip": "s03_alternatives", "word": "CSA", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-markets" },
+        { "fn": "show", "id": "s2-csa" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_alternatives", "word": "solution", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-neither" }]
+    }
+  ]
+}

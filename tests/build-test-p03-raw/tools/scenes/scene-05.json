@@ -1,0 +1,30 @@
+{
+  "scene": "scene-05",
+  "title": "The Ask",
+  "clips": ["clip_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s5-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "six", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-raise" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "five", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-cities" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "fifteen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-breakeven" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "future", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-cta" }]
+    }
+  ]
+}

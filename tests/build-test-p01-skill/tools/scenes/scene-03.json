@@ -1,0 +1,33 @@
+{
+  "scene": "scene-03",
+  "title": "How It Works",
+  "clips": ["s04_howworks"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s3-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_howworks", "word": "accelerometer", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-sensors" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_howworks", "word": "device", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-on-device" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_howworks", "word": "alert", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-sensors" },
+        { "fn": "show", "id": "s3-comparison" }
+      ]
+    }
+  ]
+}

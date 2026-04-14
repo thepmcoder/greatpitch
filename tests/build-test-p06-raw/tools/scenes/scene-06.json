@@ -1,0 +1,11 @@
+{
+  "scene": "scene-06",
+  "title": "Validation & CTA",
+  "clips": ["s6_cta"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-05" }, { "fn": "show", "id": "s6-heading" }] },
+    { "anchor": { "clip": "s6_cta", "word": "87 percent", "n": 1 }, "actions": [{ "fn": "show", "id": "s6-stat" }] },
+    { "anchor": { "clip": "s6_cta", "word": "prototype", "n": 1 }, "actions": [{ "fn": "show", "id": "s6-proto" }] },
+    { "anchor": { "clip": "s6_cta", "word": "friction", "n": 1 }, "actions": [{ "fn": "show", "id": "s6-cta" }] }
+  ]
+}

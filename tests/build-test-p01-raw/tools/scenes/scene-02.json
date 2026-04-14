@@ -1,0 +1,23 @@
+{
+  "scene": "scene-02",
+  "title": "The Solution",
+  "clips": ["c02_solution"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [
+      { "fn": "clearAll", "id": "scene-02" },
+      { "fn": "show", "id": "s02-bg" }
+    ]},
+    { "anchor": { "clip": "c02_solution", "word": "HealthTrack", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s02-logo" }
+    ]},
+    { "anchor": { "clip": "c02_solution", "word": "wristband", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s02-wristband" }
+    ]},
+    { "anchor": { "clip": "c02_solution", "word": "two", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s02-speed" }
+    ]},
+    { "anchor": { "clip": "c02_solution", "word": "GPS", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s02-gps" }
+    ]}
+  ]
+}

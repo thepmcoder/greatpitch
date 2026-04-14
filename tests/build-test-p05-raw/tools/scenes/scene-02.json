@@ -1,0 +1,40 @@
+{
+  "scene": "scene-02",
+  "title": "The Operational Nightmare",
+  "clips": ["s02_chaos", "s02_spreadsheets"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s2-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_chaos", "word": "fragmented", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-fragmented" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_chaos", "word": "simultaneously", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-juggling" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_spreadsheets", "word": "spreadsheets", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-fragmented" },
+        { "fn": "fade", "id": "s2-juggling" },
+        { "fn": "show", "id": "s2-spreadsheets" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_spreadsheets", "word": "prayer", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-prayer" }
+      ]
+    }
+  ]
+}

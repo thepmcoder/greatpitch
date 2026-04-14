@@ -1,0 +1,26 @@
+{
+  "scene": "scene-03",
+  "title": "Introducing GreenFleet",
+  "clips": ["s03_intro"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s3-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_intro", "word": "superior", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-superior" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_intro", "word": "optimize", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-pillars" }
+      ]
+    }
+  ]
+}

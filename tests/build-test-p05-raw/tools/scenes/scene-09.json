@@ -1,0 +1,32 @@
+{
+  "scene": "scene-09",
+  "title": "Business & Revenue",
+  "clips": ["s09_arr"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-09" },
+        { "fn": "show", "id": "s9-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s09_arr", "word": "two", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s9-arr" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s09_arr", "word": "twenty-two", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s9-growth" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s09_arr", "word": "eight", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s9-raised" }
+      ]
+    }
+  ]
+}

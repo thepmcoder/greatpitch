@@ -1,0 +1,40 @@
+{
+  "scene": "scene-01",
+  "title": "The EV Promise vs Reality",
+  "clips": ["s01_hook", "s01_but"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s1-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "sixty", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-fuel-stat" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "forty", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-maint-stat" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_but", "word": "harder", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-fuel-stat" },
+        { "fn": "fade", "id": "s1-maint-stat" },
+        { "fn": "show", "id": "s1-reality" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_but", "word": "thirty", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-range-loss" }
+      ]
+    }
+  ]
+}

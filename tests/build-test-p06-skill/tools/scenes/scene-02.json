@@ -1,0 +1,28 @@
+{
+  "scene": "scene-02",
+  "title": "Why Existing Tools Fail",
+  "clips": ["s03_insight"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_insight", "word": "chatbots", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-heading" },
+        { "fn": "show", "id": "s2-silos" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_insight", "word": "cross-domain", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-silos" },
+        { "fn": "show", "id": "s2-crossdomain" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "scene": "scene-00",
+  "title": "The Hook",
+  "clips": ["s00_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s0-question" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "watches", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-question" },
+        { "fn": "show", "id": "s0-insight" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "Twelve", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-insight" },
+        { "fn": "show", "id": "s0-answer" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "scene": "scene-05",
+  "title": "What Elevate Provides",
+  "clips": ["s06_features"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s5-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_features", "word": "Unified", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-guidance" }]
+    },
+    {
+      "anchor": { "clip": "s06_features", "word": "Opportunity", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-awareness" }]
+    },
+    {
+      "anchor": { "clip": "s06_features", "word": "research", "n": 2 },
+      "actions": [{ "fn": "show", "id": "s5-research" }]
+    }
+  ]
+}

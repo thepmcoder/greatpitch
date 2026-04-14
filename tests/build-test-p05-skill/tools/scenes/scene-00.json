@@ -1,0 +1,29 @@
+{
+  "scene": "scene-00",
+  "title": "The EV Promise",
+  "clips": ["s01_opening"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "company", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-go-electric" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "Sixty", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-go-electric" },
+        { "fn": "show", "id": "s0-economics" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "But", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-economics" },
+        { "fn": "show", "id": "s0-but" }
+      ]
+    }
+  ]
+}

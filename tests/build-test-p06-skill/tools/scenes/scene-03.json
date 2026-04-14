@@ -1,0 +1,25 @@
+{
+  "scene": "scene-03",
+  "title": "Introducing Elevate",
+  "clips": ["s04_elevate"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s3-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_elevate", "word": "Elevate", "n": 2 },
+      "actions": [{ "fn": "show", "id": "s3-transforms" }]
+    },
+    {
+      "anchor": { "clip": "s04_elevate", "word": "cross-domain", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-transforms" },
+        { "fn": "show", "id": "s3-reasoning" }
+      ]
+    }
+  ]
+}

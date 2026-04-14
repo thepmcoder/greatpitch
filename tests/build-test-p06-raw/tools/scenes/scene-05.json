@@ -1,0 +1,11 @@
+{
+  "scene": "scene-05",
+  "title": "Features",
+  "clips": ["s5_features"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-04" }, { "fn": "show", "id": "s5-heading" }] },
+    { "anchor": { "clip": "s5_features", "word": "unified", "n": 1 }, "actions": [{ "fn": "show", "id": "s5-feat1" }] },
+    { "anchor": { "clip": "s5_features", "word": "tracks", "n": 1 }, "actions": [{ "fn": "show", "id": "s5-feat2" }] },
+    { "anchor": { "clip": "s5_features", "word": "professors", "n": 1 }, "actions": [{ "fn": "show", "id": "s5-feat3" }] }
+  ]
+}

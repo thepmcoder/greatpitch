@@ -1,0 +1,32 @@
+{
+  "scene": "scene-10",
+  "title": "The Ask",
+  "clips": ["s10_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-10" },
+        { "fn": "show", "id": "s10-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s10_ask", "word": "twenty-five", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s10-amount" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s10_ask", "word": "nationally", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s10-national" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s10_ask", "word": "profitable", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s10-profitable" }
+      ]
+    }
+  ]
+}

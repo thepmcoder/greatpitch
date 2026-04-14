@@ -1,0 +1,38 @@
+{
+  "scene": "scene-04",
+  "title": "Smart Routing",
+  "clips": ["s04_routing"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s4-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_routing", "word": "battery", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-battery" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_routing", "word": "weather", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-weather" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_routing", "word": "charging", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-stations" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_routing", "word": "dynamically", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-dynamic" }
+      ]
+    }
+  ]
+}

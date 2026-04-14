@@ -1,0 +1,29 @@
+{
+  "scene": "scene-4",
+  "title": "How It Works",
+  "clips": ["s05_howitworks"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-3" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_howitworks", "word": "warehoused", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-never-warehoused" }]
+    },
+    {
+      "anchor": { "clip": "s05_howitworks", "word": "fourteen", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4-never-warehoused" },
+        { "fn": "show", "id": "s4-fourteen-hours" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_howitworks", "word": "handle", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-logistics" }]
+    }
+  ]
+}

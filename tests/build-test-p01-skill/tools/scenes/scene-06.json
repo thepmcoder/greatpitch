@@ -1,0 +1,32 @@
+{
+  "scene": "scene-06",
+  "title": "The Ask",
+  "clips": ["s07_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-05" },
+        { "fn": "show", "id": "s6-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "twelve", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-amount" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "three", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-expansion" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_ask", "word": "technology", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-cta" }
+      ]
+    }
+  ]
+}

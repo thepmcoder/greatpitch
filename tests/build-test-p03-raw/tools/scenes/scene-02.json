@@ -1,0 +1,30 @@
+{
+  "scene": "scene-02",
+  "title": "The Solution",
+  "clips": ["clip_solution"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s2-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "FreshLocal", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-logo" }]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "fifty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-local" }]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "custom", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-custom" }]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "next-day", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-delivery" }]
+    }
+  ]
+}

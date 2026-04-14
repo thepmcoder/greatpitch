@@ -1,0 +1,19 @@
+{
+  "scene": "scene-02",
+  "title": "The Solution",
+  "clips": ["s02_intro"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-1" }, { "fn": "show", "id": "s2-logo" }]
+    },
+    {
+      "anchor": { "clip": "s02_intro", "word": "alongside", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-tagline" }]
+    },
+    {
+      "anchor": { "clip": "s02_intro", "word": "how", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-method" }]
+    }
+  ]
+}

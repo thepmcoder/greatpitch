@@ -1,0 +1,32 @@
+{
+  "scene": "scene-07",
+  "title": "Predictive Maintenance",
+  "clips": ["s07_maintenance"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-07" },
+        { "fn": "show", "id": "s7-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_maintenance", "word": "battery", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-battery" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_maintenance", "word": "predicts", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-predicts" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_maintenance", "word": "breakdowns", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-zero-breakdowns" }
+      ]
+    }
+  ]
+}

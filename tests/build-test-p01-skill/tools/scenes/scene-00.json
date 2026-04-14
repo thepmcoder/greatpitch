@@ -1,0 +1,31 @@
+{
+  "scene": "scene-00",
+  "title": "The Crisis",
+  "clips": ["s01_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "thirty-six", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s0-stat-36m" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "number", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-stat-36m" },
+        { "fn": "show", "id": "s0-stat-no1" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "painful", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-stat-no1" },
+        { "fn": "show", "id": "s0-stat-47pct" }
+      ]
+    }
+  ]
+}

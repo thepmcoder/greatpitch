@@ -1,0 +1,10 @@
+{
+  "scene": "scene-00",
+  "title": "Title",
+  "clips": ["s0_title"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "show", "id": "s0-bg" }] },
+    { "anchor": { "fixed": 100 }, "actions": [{ "fn": "show", "id": "s0-logo" }] },
+    { "anchor": { "clip": "s0_title", "word": "Choices", "n": 1 }, "actions": [{ "fn": "show", "id": "s0-tagline" }] }
+  ]
+}

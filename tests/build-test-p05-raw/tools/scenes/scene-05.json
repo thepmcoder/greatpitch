@@ -1,0 +1,32 @@
+{
+  "scene": "scene-05",
+  "title": "Charging Orchestration",
+  "clips": ["s05_charging"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-05" },
+        { "fn": "show", "id": "s5-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_charging", "word": "overnight", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-overnight" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_charging", "word": "off-peak", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-offpeak" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_charging", "word": "overload", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-grid" }
+      ]
+    }
+  ]
+}

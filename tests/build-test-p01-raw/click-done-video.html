@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280,height=720">
+<title>HealthTrack — Pitch</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;display:flex;align-items:center;justify-content:center;height:100vh;font-family:'Segoe UI',system-ui,sans-serif}
+#stage{position:relative;width:1280px;height:720px;background:#0a0e1a;overflow:hidden}
+
+/* Shared element styles */
+.scene{position:absolute;inset:0;display:none}
+.scene.active{display:block}
+.el{position:absolute;opacity:0;transition:opacity 0.5s ease}
+.el.visible{opacity:1}
+.el.fading{opacity:0}
+
+/* Scene backgrounds */
+.scene-bg{inset:0;display:flex;align-items:center;justify-content:center}
+
+/* ── Scene 00: Hook ── */
+#scene-00 .scene-bg{background:linear-gradient(135deg,#1a1a2e,#16213e)}
+#s00-stat-11s,#s00-stat-36m,#s00-stat-cause{
+  top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff}
+#s00-stat-11s .big{font-size:96px;font-weight:800;color:#ff6b6b}
+#s00-stat-36m .big{font-size:96px;font-weight:800;color:#ff6b6b}
+#s00-stat-cause .big{font-size:52px;font-weight:700;color:#ff4757;line-height:1.3}
+.stat-label{font-size:24px;color:#ccc;margin-top:8px}
+
+/* ── Scene 01: Problem ── */
+#scene-01 .scene-bg{background:linear-gradient(135deg,#1e1e2f,#2d1b36)}
+#s01-button-img{top:30%;left:50%;transform:translateX(-50%);width:200px;height:200px;
+  border-radius:50%;background:#c0392b;display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:700;color:#fff;text-align:center;border:6px solid #e74c3c}
+#s01-stat-47{top:40%;left:50%;transform:translateX(-50%);text-align:center;color:#fff}
+#s01-stat-47 .big{font-size:120px;font-weight:800;color:#e74c3c}
+#s01-anxiety{top:40%;left:50%;transform:translateX(-50%);text-align:center;color:#fff}
+#s01-anxiety .big{font-size:42px;font-weight:600;color:#e8a0bf;line-height:1.5}
+
+/* ── Scene 02: Solution ── */
+#scene-02 .scene-bg{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)}
+#s02-logo{top:15%;left:50%;transform:translateX(-50%);text-align:center}
+#s02-logo .big{font-size:64px;font-weight:800;color:#2ed573;letter-spacing:2px}
+#s02-wristband{top:35%;left:50%;transform:translateX(-50%);width:220px;height:220px;
+  border-radius:50%;background:linear-gradient(135deg,#2ed573,#1abc9c);display:flex;
+  align-items:center;justify-content:center;font-size:72px;box-shadow:0 0 60px rgba(46,213,115,0.4)}
+#s02-speed{top:68%;left:25%;transform:translateX(-50%);text-align:center;color:#fff}
+#s02-speed .big{font-size:72px;font-weight:800;color:#2ed573}
+#s02-gps{top:68%;left:75%;transform:translateX(-50%);text-align:center;color:#fff}
+#s02-gps .big{font-size:48px;font-weight:700;color:#3498db}
+
+/* ── Scene 03: Predictive ── */
+#scene-03 .scene-bg{background:linear-gradient(135deg,#141e30,#243b55)}
+#s03-chart{top:25%;left:50%;transform:translateX(-50%);width:500px;height:200px;
+  border:2px solid #555;border-radius:12px;background:#1a1a3e;display:flex;
+  align-items:flex-end;justify-content:space-around;padding:20px}
+.bar{width:40px;background:linear-gradient(to top,#2ed573,#1abc9c);border-radius:6px 6px 0 0}
+#s03-decline{top:62%;left:25%;transform:translateX(-50%);text-align:center;color:#fff}
+#s03-decline .big{font-size:72px;font-weight:800;color:#ff6348}
+#s03-accuracy{top:62%;left:75%;transform:translateX(-50%);text-align:center;color:#fff}
+#s03-accuracy .big{font-size:72px;font-weight:800;color:#2ed573}
+#s03-prevention{top:88%;left:50%;transform:translateX(-50%);text-align:center}
+#s03-prevention .big{font-size:36px;font-weight:700;color:#ffd32a;letter-spacing:3px}
+
+/* ── Scene 04: Traction ── */
+#scene-04 .scene-bg{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)}
+.metric-card{width:200px;padding:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;text-align:center;color:#fff}
+.metric-card .big{font-size:48px;font-weight:800;margin-bottom:6px}
+.metric-card .stat-label{font-size:14px}
+#s04-users{top:20%;left:18%;transform:translateX(-50%)}
+#s04-users .big{color:#3498db}
+#s04-precision{top:20%;left:50%;transform:translateX(-50%)}
+#s04-precision .big{color:#2ed573}
+#s04-zero{top:20%;left:82%;transform:translateX(-50%)}
+#s04-zero .big{color:#2ed573}
+#s04-response{top:55%;left:30%;transform:translateX(-50%)}
+#s04-response .big{color:#ffd32a}
+#s04-nps{top:55%;left:70%;transform:translateX(-50%)}
+#s04-nps .big{color:#2ed573}
+
+/* ── Scene 05: The Ask ── */
+#scene-05 .scene-bg{background:linear-gradient(135deg,#0a3d62,#0c2461)}
+#s05-amount{top:25%;left:50%;transform:translateX(-50%);text-align:center;color:#fff}
+#s05-amount .big{font-size:96px;font-weight:800;color:#2ed573}
+#s05-expand{top:52%;left:50%;transform:translateX(-50%);text-align:center;color:#fff}
+#s05-expand .big{font-size:36px;font-weight:600;color:#dfe6e9;line-height:1.6}
+#s05-cta{top:75%;left:50%;transform:translateX(-50%);text-align:center;padding:24px 60px;
+  background:linear-gradient(135deg,#2ed573,#1abc9c);border-radius:16px;
+  font-size:32px;font-weight:700;color:#fff;box-shadow:0 0 40px rgba(46,213,115,0.5)}
+
+/* Play button */
+#play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:100px;height:100px;border-radius:50%;background:rgba(46,213,115,0.9);
+  border:none;cursor:pointer;font-size:48px;color:#fff;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 40px rgba(46,213,115,0.4)}
+#play-btn:hover{background:rgba(46,213,115,1)}
+#play-btn.hidden{display:none}
+
+/* Progress bar */
+#progress{position:absolute;bottom:0;left:0;height:4px;background:#2ed573;z-index:99;transition:width 0.3s}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- SCENE 00: Hook -->
+  <div id="scene-00" class="scene">
+    <div id="s00-bg" class="el scene-bg"></div>
+    <div id="s00-stat-11s" class="el"><div class="big">11 seconds</div><div class="stat-label">One fall, every 11 seconds</div></div>
+    <div id="s00-stat-36m" class="el"><div class="big">36 Million</div><div class="stat-label">Falls per year in the US</div></div>
+    <div id="s00-stat-cause" class="el"><div class="big">#1 Cause of<br>Injury Death</div><div class="stat-label">Adults 65+</div></div>
+  </div>
+
+  <!-- SCENE 01: Problem -->
+  <div id="scene-01" class="scene">
+    <div id="s01-bg" class="el scene-bg"></div>
+    <div id="s01-button-img" class="el">Press<br>Button</div>
+    <div id="s01-stat-47" class="el"><div class="big">47%</div><div class="stat-label">Can't reach their device after a fall</div></div>
+    <div id="s01-anxiety" class="el"><div class="big">Families live in<br>constant anxiety</div></div>
+  </div>
+
+  <!-- SCENE 02: Solution -->
+  <div id="scene-02" class="scene">
+    <div id="s02-bg" class="el scene-bg"></div>
+    <div id="s02-logo" class="el"><div class="big">HealthTrack</div><div class="stat-label">AI-Powered Fall Detection</div></div>
+    <div id="s02-wristband" class="el">⌚</div>
+    <div id="s02-speed" class="el"><div class="big">&lt;2s</div><div class="stat-label">Detection Time</div></div>
+    <div id="s02-gps" class="el"><div class="big">📍 GPS</div><div class="stat-label">Instant Location Sharing</div></div>
+  </div>
+
+  <!-- SCENE 03: Predictive -->
+  <div id="scene-03" class="scene">
+    <div id="s03-bg" class="el scene-bg"></div>
+    <div id="s03-chart" class="el">
+      <div class="bar" style="height:90%"></div>
+      <div class="bar" style="height:80%"></div>
+      <div class="bar" style="height:85%"></div>
+      <div class="bar" style="height:60%"></div>
+      <div class="bar" style="height:45%"></div>
+      <div class="bar" style="height:30%;background:linear-gradient(to top,#ff6348,#ff4757)"></div>
+      <div class="bar" style="height:20%;background:linear-gradient(to top,#ff6348,#ff4757)"></div>
+    </div>
+    <div id="s03-decline" class="el"><div class="big">30%↓</div><div class="stat-label">Movement Decline</div></div>
+    <div id="s03-accuracy" class="el"><div class="big">78%</div><div class="stat-label">Prediction Accuracy</div></div>
+    <div id="s03-prevention" class="el"><div class="big">PREVENTION, NOT REACTION</div></div>
+  </div>
+
+  <!-- SCENE 04: Traction -->
+  <div id="scene-04" class="scene">
+    <div id="s04-bg" class="el scene-bg"></div>
+    <div id="s04-users" class="el metric-card"><div class="big">500</div><div class="stat-label">Pilot Users<br>3 Facilities</div></div>
+    <div id="s04-precision" class="el metric-card"><div class="big">91%</div><div class="stat-label">Detection<br>Precision</div></div>
+    <div id="s04-zero" class="el metric-card"><div class="big">0</div><div class="stat-label">Missed<br>Falls</div></div>
+    <div id="s04-response" class="el metric-card"><div class="big">47s</div><div class="stat-label">Response Time<br>(was 14 min)</div></div>
+    <div id="s04-nps" class="el metric-card"><div class="big">+72</div><div class="stat-label">Family<br>NPS</div></div>
+  </div>
+
+  <!-- SCENE 05: The Ask -->
+  <div id="scene-05" class="scene">
+    <div id="s05-bg" class="el scene-bg"></div>
+    <div id="s05-amount" class="el"><div class="big">$12M</div><div class="stat-label">Series B</div></div>
+    <div id="s05-expand" class="el"><div class="big">50 Facilities<br>+ Direct-to-Consumer</div></div>
+    <div id="s05-cta" class="el">Protect Those Who Raised Us</div>
+  </div>
+
+  <button id="play-btn" onclick="startVideo()">▶</button>
+  <div id="progress" style="width:0%"></div>
+</div>
+
+<script>
+const SCENES = [
+  {
+    scene: 'scene-00',
+    title: 'Hook',
+    clips: ['c00_hook'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-00'); show('s00-bg') } },
+    { delay: 100, run: function(){ show('s00-stat-11s') } },
+    { delay: 3838, run: function(){ fade('s00-stat-11s'); show('s00-stat-36m') } },
+    { delay: 6463, run: function(){ fade('s00-stat-36m'); show('s00-stat-cause') } }
+    ]
+  },
+  {
+    scene: 'scene-01',
+    title: 'The Problem',
+    clips: ['c01_problem'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-01'); show('s01-bg') } },
+    { delay: 2825, run: function(){ show('s01-button-img') } },
+    { delay: 3688, run: function(){ fade('s01-button-img'); show('s01-stat-47') } },
+    { delay: 9663, run: function(){ fade('s01-stat-47'); show('s01-anxiety') } }
+    ]
+  },
+  {
+    scene: 'scene-02',
+    title: 'The Solution',
+    clips: ['c02_solution'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-02'); show('s02-bg') } },
+    { delay: 113, run: function(){ show('s02-logo') } },
+    { delay: 1613, run: function(){ show('s02-wristband') } },
+    { delay: 4763, run: function(){ show('s02-speed') } },
+    { delay: 10750, run: function(){ show('s02-gps') } }
+    ]
+  },
+  {
+    scene: 'scene-03',
+    title: 'Predictive Health',
+    clips: ['c03_predict'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-03'); show('s03-bg') } },
+    { delay: 2150, run: function(){ show('s03-chart') } },
+    { delay: 4650, run: function(){ show('s03-decline') } },
+    { delay: 9288, run: function(){ show('s03-accuracy') } },
+    { delay: 11313, run: function(){ show('s03-prevention') } }
+    ]
+  },
+  {
+    scene: 'scene-04',
+    title: 'Traction',
+    clips: ['c04_traction'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-04'); show('s04-bg') } },
+    { delay: 188, run: function(){ show('s04-users') } },
+    { delay: 6063, run: function(){ show('s04-precision') } },
+    { delay: 8050, run: function(){ show('s04-zero') } },
+    { delay: 12063, run: function(){ show('s04-response') } },
+    { delay: 15738, run: function(){ show('s04-nps') } }
+    ]
+  },
+  {
+    scene: 'scene-05',
+    title: 'The Ask',
+    clips: ['c05_ask'],
+    triggers: [
+    { delay: 0, run: function(){ clearAll('scene-05'); show('s05-bg') } },
+    { delay: 938, run: function(){ show('s05-amount') } },
+    { delay: 4113, run: function(){ show('s05-expand') } },
+    { delay: 7825, run: function(){ show('s05-cta') } }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+/* ── helper functions used by triggers ── */
+function show(id) { const e = document.getElementById(id); if (e) { e.classList.remove('fading'); e.classList.add('visible'); } }
+function hide(id) { const e = document.getElementById(id); if (e) { e.classList.remove('visible'); } }
+function fade(id) { const e = document.getElementById(id); if (e) { e.classList.add('fading'); e.classList.remove('visible'); } }
+function clearAll(sceneId) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  const s = document.getElementById(sceneId);
+  if (s) { s.classList.add('active'); s.querySelectorAll('.el').forEach(e => { e.classList.remove('visible','fading'); }); }
+}
+function showChapter(id) { show(id); }
+function hideChapter(id) { hide(id); }
+function showHighlight(id) { show(id); }
+
+/* ── Audio player engine ── */
+let totalDuration = 0;
+let playing = false;
+
+function base64ToBlob(b64, mime) {
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+function playClip(clipId) {
+  return new Promise((resolve, reject) => {
+    const data = AUDIO_DATA[clipId];
+    if (!data) { resolve(); return; }
+    const blob = base64ToBlob(data, 'audio/mpeg');
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.onended = () => { URL.revokeObjectURL(url); resolve(); };
+    audio.onerror = (e) => { URL.revokeObjectURL(url); reject(e); };
+    audio.play().catch(reject);
+  });
+}
+
+async function playScene(scene) {
+  // schedule triggers
+  const timers = [];
+  for (const t of scene.triggers) {
+    timers.push(setTimeout(() => { t.run(); }, t.delay));
+  }
+  // play clips sequentially
+  for (const clip of scene.clips) {
+    if (typeof clip === 'object' && clip.pause) {
+      await new Promise(r => setTimeout(r, clip.pause));
+    } else {
+      await playClip(clip);
+    }
+  }
+  timers.forEach(clearTimeout);
+}
+
+async function startVideo() {
+  if (playing) return;
+  playing = true;
+  document.getElementById('play-btn').classList.add('hidden');
+
+  const progress = document.getElementById('progress');
+  const startTime = Date.now();
+
+  // Estimate total duration
+  totalDuration = 0;
+  for (const sc of SCENES) {
+    for (const clip of sc.clips) {
+      if (typeof clip === 'object' && clip.pause) { totalDuration += clip.pause; }
+      else {
+        const m = WORD_META[clip];
+        if (m && m.length > 0) { const last = m[m.length-1]; totalDuration += last.t + last.d + 500; }
+        else { totalDuration += 5000; }
+      }
+    }
+  }
+
+  const progressInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(100, (elapsed / totalDuration) * 100);
+    progress.style.width = pct + '%';
+  }, 100);
+
+  for (const scene of SCENES) {
+    await playScene(scene);
+  }
+
+  clearInterval(progressInterval);
+  progress.style.width = '100%';
+  playing = false;
+}
+</script>
+</body>
+</html>

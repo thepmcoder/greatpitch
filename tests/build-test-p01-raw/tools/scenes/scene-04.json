@@ -1,0 +1,26 @@
+{
+  "scene": "scene-04",
+  "title": "Traction",
+  "clips": ["c04_traction"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [
+      { "fn": "clearAll", "id": "scene-04" },
+      { "fn": "show", "id": "s04-bg" }
+    ]},
+    { "anchor": { "clip": "c04_traction", "word": "Five", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s04-users" }
+    ]},
+    { "anchor": { "clip": "c04_traction", "word": "ninety-one", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s04-precision" }
+    ]},
+    { "anchor": { "clip": "c04_traction", "word": "Zero", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s04-zero" }
+    ]},
+    { "anchor": { "clip": "c04_traction", "word": "forty-seven", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s04-response" }
+    ]},
+    { "anchor": { "clip": "c04_traction", "word": "seventy-two", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s04-nps" }
+    ]}
+  ]
+}

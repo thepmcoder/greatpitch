@@ -1,0 +1,30 @@
+{
+  "scene": "scene-03",
+  "title": "How It Works",
+  "clips": ["clip_how"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s3-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_how", "word": "harvested", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-harvest" }]
+    },
+    {
+      "anchor": { "clip": "clip_how", "word": "logistics", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-logistics" }]
+    },
+    {
+      "anchor": { "clip": "clip_how", "word": "warehoused", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-no-warehouse" }]
+    },
+    {
+      "anchor": { "clip": "clip_how", "word": "fourteen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-fourteen-hrs" }]
+    }
+  ]
+}

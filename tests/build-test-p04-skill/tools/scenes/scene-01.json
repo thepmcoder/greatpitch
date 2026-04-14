@@ -1,0 +1,26 @@
+{
+  "scene": "scene-01",
+  "title": "The Problem",
+  "clips": ["s01_problem"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s1-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_problem", "word": "teacher", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-ratio" }]
+    },
+    {
+      "anchor": { "clip": "s01_problem", "word": "forty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-faster" }]
+    },
+    {
+      "anchor": { "clip": "s01_problem", "word": "thirty", "n": 3 },
+      "actions": [{ "fn": "show", "id": "s1-stat-impossible" }]
+    }
+  ]
+}

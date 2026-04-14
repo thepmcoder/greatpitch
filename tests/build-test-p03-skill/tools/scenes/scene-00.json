@@ -1,0 +1,22 @@
+{
+  "scene": "scene-0",
+  "title": "The Journey on Your Plate",
+  "clips": ["s01_opening"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "vegetable", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-miles" }]
+    },
+    {
+      "anchor": { "clip": "s01_opening", "word": "picked", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-miles" },
+        { "fn": "show", "id": "s0-lost" }
+      ]
+    }
+  ]
+}

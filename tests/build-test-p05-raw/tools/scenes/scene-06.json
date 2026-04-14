@@ -1,0 +1,32 @@
+{
+  "scene": "scene-06",
+  "title": "TCO Dashboard",
+  "clips": ["s06_tco"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-06" },
+        { "fn": "show", "id": "s6-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_tco", "word": "real-time", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-realtime" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_tco", "word": "vehicle", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-breakdown" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_tco", "word": "daily", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-daily" }
+      ]
+    }
+  ]
+}

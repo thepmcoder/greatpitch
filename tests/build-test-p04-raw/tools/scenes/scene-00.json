@@ -1,0 +1,23 @@
+{
+  "scene": "scene-00",
+  "title": "The Hook",
+  "clips": ["s00_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-0" }, { "fn": "show", "id": "s0-headline" }]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "thirty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-stat-students" }]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "forty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-stat-faster" }]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "no", "n": 1 },
+      "actions": [{ "fn": "fade", "id": "s0-stat-faster" }, { "fn": "show", "id": "s0-impossibility" }]
+    }
+  ]
+}

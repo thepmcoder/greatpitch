@@ -1,0 +1,11 @@
+{
+  "scene": "scene-03",
+  "title": "The Insight",
+  "clips": ["s3_insight"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-02" }, { "fn": "show", "id": "s3-heading" }] },
+    { "anchor": { "clip": "s3_insight", "word": "silos", "n": 1 }, "actions": [{ "fn": "show", "id": "s3-silos" }] },
+    { "anchor": { "clip": "s3_insight", "word": "cross-domain", "n": 1 }, "actions": [{ "fn": "show", "id": "s3-crossdomain" }] },
+    { "anchor": { "clip": "s3_insight", "word": "No", "n": 1 }, "actions": [{ "fn": "show", "id": "s3-gap" }] }
+  ]
+}

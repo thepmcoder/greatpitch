@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBuddy — AI Tutor for K-12</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f1729; color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; overflow: hidden;
+  }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: linear-gradient(135deg, #0f1729 0%, #1a2332 100%);
+    overflow: hidden;
+  }
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px; }
+  .hidden { display: none !important; }
+  .fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+  /* Scene 0 — Hook */
+  #s0-headline { font-size: 44px; font-weight: 700; text-align: center; line-height: 1.4; color: #7c3aed; }
+  #s0-stat-students { font-size: 28px; color: #e6edf3; text-align: center; margin-top: 20px; }
+  #s0-stat-students .num { font-size: 48px; font-weight: 800; color: #f59e0b; display: block; }
+  #s0-stat-faster { font-size: 24px; color: #34d399; text-align: center; margin-top: 16px; font-weight: 600; }
+  #s0-impossibility { font-size: 30px; color: #f87171; text-align: center; margin-top: 20px; font-weight: 600; }
+
+  /* Scene 1 — The Gap */
+  #s1-heading { font-size: 40px; font-weight: 700; color: #f87171; margin-bottom: 32px; }
+  .gap-card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 20px 32px; margin: 8px 0; width: 620px; text-align: center;
+    font-size: 22px; color: #e6edf3;
+  }
+  .gap-card .num { font-size: 30px; font-weight: 700; color: #f87171; display: block; margin-bottom: 4px; }
+  .gap-card.warn { border-color: #f59e0b; }
+  .gap-card.warn .num { color: #f59e0b; }
+  #s1-missing { font-size: 32px; font-weight: 700; color: #7c3aed; text-align: center; margin-bottom: 20px; }
+  #s1-anytime { font-size: 24px; color: #34d399; text-align: center; font-weight: 600; }
+
+  /* Scene 2 — Solution Intro */
+  #s2-logo { font-size: 56px; font-weight: 800; color: #7c3aed; letter-spacing: -1px; }
+  #s2-tagline { font-size: 26px; color: #94a3b8; margin-top: 16px; }
+  #s2-method { font-size: 22px; color: #34d399; margin-top: 20px; font-weight: 600; text-align: center; line-height: 1.5; }
+
+  /* Scene 3 — Features */
+  #s3-heading { font-size: 38px; font-weight: 700; color: #7c3aed; margin-bottom: 24px; }
+  #s3-detect, #s3-guide {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 18px 28px; margin: 8px 0; width: 580px; text-align: center;
+    font-size: 20px; color: #e6edf3;
+  }
+  #s3-detect { border-left: 4px solid #f59e0b; }
+  #s3-guide { border-left: 4px solid #34d399; }
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+  .feat-card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 20px; text-align: center; width: 270px;
+  }
+  .feat-card .icon { font-size: 32px; margin-bottom: 6px; }
+  .feat-card .label { font-size: 18px; font-weight: 600; color: #e6edf3; }
+  .feat-card .desc { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+
+  /* Scene 4 — Traction */
+  #s4-heading { font-size: 38px; font-weight: 700; color: #34d399; margin-bottom: 28px; }
+  .proof-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+  .proof-card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 20px; text-align: center; min-width: 140px;
+  }
+  .proof-card .big { font-size: 32px; font-weight: 800; color: #34d399; }
+  .proof-card .sub { font-size: 13px; color: #94a3b8; margin-top: 6px; }
+
+  /* Scene 5 — Ask */
+  #s5-heading { font-size: 46px; font-weight: 700; color: #7c3aed; margin-bottom: 36px; }
+  #s5-amount { font-size: 36px; font-weight: 800; color: #34d399; margin-bottom: 16px; }
+  #s5-expansion { font-size: 24px; color: #e6edf3; margin-bottom: 20px; }
+  #s5-mission { font-size: 22px; color: #f59e0b; font-weight: 600; text-align: center; line-height: 1.5; }
+
+  /* Player controls */
+  #play-btn {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #7c3aed; color: #fff; border: none; border-radius: 8px;
+    padding: 14px 40px; font-size: 18px; font-weight: 600; cursor: pointer;
+    z-index: 1000;
+  }
+  #play-btn:hover { background: #6d28d9; }
+  #play-btn.playing { background: #334155; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scene 0: Hook -->
+  <div class="scene" id="scene-0">
+    <div id="s0-headline" class="hidden">One Teacher. Thirty Students.<br>Thirty Different Levels.</div>
+    <div id="s0-stat-students" class="hidden"><span class="num">30</span>Personalized lesson plans needed simultaneously</div>
+    <div id="s0-stat-faster" class="hidden">Students learn 40% faster with matched content</div>
+    <div id="s0-impossibility" class="hidden">No teacher can do this alone.</div>
+  </div>
+
+  <!-- Scene 1: The Gap -->
+  <div class="scene" id="scene-1">
+    <div id="s1-heading" class="hidden">The Tutoring Gap</div>
+    <div id="s1-cost" class="gap-card hidden"><span class="num">$40–$80/hr</span>After-school tutoring — out of reach for most families</div>
+    <div id="s1-khan" class="gap-card warn hidden"><span class="num">No Feedback Loop</span>Khan Academy helps, but can't detect confusion</div>
+    <div id="s1-nofeedback" class="gap-card hidden"><span class="num">Blind Spots</span>Doesn't know when students are confused or ready to advance</div>
+    <div id="s1-missing" class="hidden">What's Missing: A Patient Tutor</div>
+    <div id="s1-anytime" class="hidden">Available at 9 PM on a Tuesday ✓</div>
+  </div>
+
+  <!-- Scene 2: Solution Intro -->
+  <div class="scene" id="scene-2">
+    <div id="s2-logo" class="hidden">StudyBuddy</div>
+    <div id="s2-tagline" class="hidden">AI Tutor — Sits Alongside the Student</div>
+    <div id="s2-method" class="hidden">Watches how they solve problems<br>Not just right or wrong — how they think</div>
+  </div>
+
+  <!-- Scene 3: How It Works -->
+  <div class="scene" id="scene-3">
+    <div id="s3-heading" class="hidden">How StudyBuddy Works</div>
+    <div id="s3-detect" class="hidden">🔍 Detects conceptual errors, not typos</div>
+    <div id="s3-guide" class="hidden">💡 Asks guiding questions — never gives the answer</div>
+    <div class="feat-grid">
+      <div id="s3-feat-math" class="feat-card hidden"><div class="icon">📐</div><div class="label">Math Grades 3–8</div><div class="desc">Expanding to science</div></div>
+      <div id="s3-feat-patterns" class="feat-card hidden"><div class="icon">🧠</div><div class="label">Pattern Detection</div><div class="desc">Misconceptions from work patterns</div></div>
+      <div id="s3-feat-explain" class="feat-card hidden"><div class="icon">🎨</div><div class="label">Multiple Explanations</div><div class="desc">Visual, verbal, analogy</div></div>
+      <div id="s3-feat-parents" class="feat-card hidden"><div class="icon">📊</div><div class="label">Parent Reports</div><div class="desc">Weekly conceptual progress</div></div>
+    </div>
+    <div id="s3-feat-teachers" class="feat-card hidden" style="margin-top:14px;width:270px"><div class="icon">👩‍🏫</div><div class="label">Teacher Dashboard</div><div class="desc">Class-wide misconception patterns</div></div>
+  </div>
+
+  <!-- Scene 4: Traction -->
+  <div class="scene" id="scene-4">
+    <div id="s4-heading" class="hidden">The Results</div>
+    <div class="proof-grid">
+      <div id="s4-stat-students" class="proof-card hidden"><div class="big">1,200</div><div class="sub">Students</div></div>
+      <div id="s4-stat-schools" class="proof-card hidden"><div class="big">8</div><div class="sub">Schools</div></div>
+      <div id="s4-stat-improvement" class="proof-card hidden"><div class="big">+0.6</div><div class="sub">Grade-Level in 3 Months</div></div>
+      <div id="s4-stat-remediation" class="proof-card hidden"><div class="big">↓35%</div><div class="sub">Teacher Remediation Time</div></div>
+      <div id="s4-stat-confidence" class="proof-card hidden"><div class="big">+28</div><div class="sub">Percentile Points Confidence</div></div>
+      <div id="s4-stat-nps" class="proof-card hidden"><div class="big">+67</div><div class="sub">Parent NPS</div></div>
+      <div id="s4-stat-cost" class="proof-card hidden"><div class="big">$8/mo</div><div class="sub">Per Student</div></div>
+    </div>
+  </div>
+
+  <!-- Scene 5: The Ask -->
+  <div class="scene" id="scene-5">
+    <div id="s5-heading" class="hidden">The Ask</div>
+    <div id="s5-amount" class="hidden">$3M Seed Round</div>
+    <div id="s5-expansion" class="hidden">8 → 50 Schools + Science Curriculum</div>
+    <div id="s5-mission" class="hidden">World-class tutoring accessible<br>to every student</div>
+  </div>
+</div>
+
+<button id="play-btn" onclick="startVideo()">▶ Play</button>
+
+<script>
+const SCENES = [
+  {
+    scene: "scene-00",
+    title: "The Hook",
+    clips: ["s00_hook"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s0-headline') } },
+    { delay: 1138, run() { show('s0-stat-students') } },
+    { delay: 7788, run() { show('s0-stat-faster') } },
+    { delay: 11463, run() { fade('s0-stat-faster'); show('s0-impossibility') } }
+    ]
+  },
+  {
+    scene: "scene-01",
+    title: "The Gap",
+    clips: ["s01a_gap", "s01b_missing"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s1-heading') } },
+    { delay: 1575, run() { show('s1-cost') } },
+    { delay: 7100, run() { show('s1-khan') } },
+    { delay: 11838, run() { show('s1-nofeedback') } },
+    { delay: 16263, run() { fade('s1-heading'); show('s1-missing') } },
+    { delay: 22113, run() { show('s1-anytime') } }
+    ]
+  },
+  {
+    scene: "scene-02",
+    title: "The Solution",
+    clips: ["s02_intro"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-1'); show('s2-logo') } },
+    { delay: 2438, run() { show('s2-tagline') } },
+    { delay: 6063, run() { show('s2-method') } }
+    ]
+  },
+  {
+    scene: "scene-03",
+    title: "How It Works",
+    clips: ["s03a_detection", "s03b_features"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-2'); show('s3-heading') } },
+    { delay: 963, run() { show('s3-detect') } },
+    { delay: 5900, run() { show('s3-guide') } },
+    { delay: 12750, run() { fade('s3-heading'); show('s3-feat-math') } },
+    { delay: 17313, run() { show('s3-feat-patterns') } },
+    { delay: 20838, run() { show('s3-feat-explain') } },
+    { delay: 25925, run() { show('s3-feat-parents') } },
+    { delay: 30563, run() { show('s3-feat-teachers') } }
+    ]
+  },
+  {
+    scene: "scene-04",
+    title: "Traction & Proof",
+    clips: ["s04a_traction", "s04b_results"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-3'); show('s4-heading') } },
+    { delay: 100, run() { show('s4-stat-students') } },
+    { delay: 1538, run() { show('s4-stat-schools') } },
+    { delay: 11363, run() { show('s4-stat-improvement') } },
+    { delay: 16226, run() { show('s4-stat-remediation') } },
+    { delay: 19638, run() { show('s4-stat-confidence') } },
+    { delay: 23526, run() { show('s4-stat-nps') } },
+    { delay: 25413, run() { show('s4-stat-cost') } }
+    ]
+  },
+  {
+    scene: "scene-05",
+    title: "The Ask",
+    clips: ["s05_ask"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-4'); show('s5-heading') } },
+    { delay: 763, run() { show('s5-amount') } },
+    { delay: 4163, run() { show('s5-expansion') } },
+    { delay: 8888, run() { show('s5-mission') } }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('hidden'); el.classList.remove('fade-out'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('hidden');
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('fade-out');
+    setTimeout(() => el.classList.add('hidden'), 400);
+  }
+}
+function clearAll(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (const child of container.querySelectorAll('[id]')) {
+    child.classList.add('hidden');
+    child.classList.remove('fade-out');
+  }
+}
+
+function playClip(clipId) {
+  return new Promise((resolve) => {
+    const dataUri = AUDIO_DATA[clipId];
+    if (!dataUri) { resolve(); return; }
+    const audio = new Audio(dataUri);
+    audio.onended = resolve;
+    audio.onerror = resolve;
+    audio.play().catch(resolve);
+  });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function playScene(scene) {
+  // Fire fixed-0 triggers immediately
+  for (const t of scene.triggers) {
+    if (t.delay === 0) {
+      t.run();
+    }
+  }
+
+  // Play clips sequentially, firing triggers at computed delays
+  let elapsed = 0;
+  for (const clipId of scene.clips) {
+    if (typeof clipId === 'object' && clipId.pause) {
+      await sleep(clipId.pause);
+      elapsed += clipId.pause;
+      continue;
+    }
+    // Estimate clip duration from word metadata
+    const clipMeta = WORD_META[clipId] || [];
+    const clipDuration = clipMeta.length > 0
+      ? clipMeta[clipMeta.length - 1].t + clipMeta[clipMeta.length - 1].d + 300
+      : 3000;
+
+    for (const t of scene.triggers) {
+      if (t.delay > elapsed && t.delay <= elapsed + clipDuration) {
+        const fireAt = t.delay - elapsed;
+        setTimeout(() => t.run(), fireAt);
+      }
+    }
+
+    await playClip(clipId);
+    elapsed += clipDuration;
+  }
+  await sleep(600);
+}
+
+async function startVideo() {
+  const btn = document.getElementById('play-btn');
+  btn.textContent = '⏸ Playing...';
+  btn.classList.add('playing');
+  btn.disabled = true;
+
+  for (const scene of SCENES) {
+    await playScene(scene);
+  }
+
+  btn.textContent = '✓ Done';
+}
+</script>
+</body>
+</html>

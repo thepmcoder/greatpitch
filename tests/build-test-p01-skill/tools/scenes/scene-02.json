@@ -1,0 +1,38 @@
+{
+  "scene": "scene-02",
+  "title": "The Solution",
+  "clips": ["s03_solution"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_solution", "word": "wristband", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-wristband" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_solution", "word": "automatically", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-no-button" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_solution", "word": "recognizes", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-two-seconds" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_solution", "word": "immediately", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-gps" }
+      ]
+    }
+  ]
+}

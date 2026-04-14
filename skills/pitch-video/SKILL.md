@@ -1,7 +1,7 @@
 ---
 name: pitch-video
 description: Produce a pitch video from a product concept using word-anchored synchronization
-version: 1.0
+version: 1.1
 type: procedural
 ---
 
@@ -115,9 +115,9 @@ For each section, create a scene JSON file.
 - `clearAll` — hide all elements in a scene group
 - Custom functions for domain-specific animations (cards, charts, countdowns)
 
-### Stage 5: Output the Build Artifacts
+### Stage 5: Build and Assemble
 
-Produce these files:
+Produce and build these files:
 
 1. **Narration script** — `generate-audio.js` format:
 ```javascript
@@ -129,14 +129,48 @@ const scenes = [
 
 2. **Scene JSONs** — one per scene (`scene-00.json` through `scene-NN.json`)
 
-3. **Visual spec** — what each element ID looks like (text content, layout, styling notes)
+3. **HTML template** — visual elements with matching IDs, player logic, professional styling
 
-4. **Build checklist** — verify:
-   - [ ] On-screen text uses exact narration keywords
-   - [ ] All anchors are in first 60% of their sentences
-   - [ ] Every clip ID in scene JSONs matches a narration clip
-   - [ ] No orphaned element IDs (referenced in triggers but undefined)
-   - [ ] Narrative arc is complete (problem → insight → solution → proof → ask)
+4. **Run the pipeline** — generate audio → assemble (resolve anchors) → build final HTML
+
+### Stage 6: Review and Fix
+
+After building, review the output. This is not optional — every good video goes through multiple review passes.
+
+**Narration review:**
+- Read every clip's text aloud (or imagine it spoken). Does it flow naturally?
+- Are there tongue-twisters, awkward phrasing, or sentences that need a breath mid-way?
+- Does each sentence land on its own without needing context from 30 seconds ago?
+- Fix any narration that sounds like writing, not speaking.
+
+**Anchor review:**
+- For each word anchor, find the word in the narration text. Count its position in the sentence.
+- If the anchor word is past 60% of the sentence, move the anchor to an earlier word that still makes semantic sense.
+- Check: does the visual appearing at this word ADD information, or is it redundant with what's being said?
+- Remove anchors that trigger visuals the audience doesn't need.
+
+**Visual review:**
+- Does each on-screen text use the EXACT keywords from the narration (subset, not paraphrase)?
+- Are there screens with too much text? Max 2 key phrases per screen.
+- Does the progressive reveal make sense — does each element appear at the right narrative beat?
+
+**Structural review:**
+- Watch/trace the full sequence mentally: scene 0 → scene N. Does the story build?
+- Is there a moment of tension or surprise? (If not, the pitch is a feature tour.)
+- Does the ending have a concrete ask, not just "let's discuss"?
+
+**If review finds issues:** Fix them. Regenerate audio if narration changed. Re-run assemble if anchors changed. Re-build final HTML. Then review again.
+
+**Build checklist (final gate):**
+- [ ] On-screen text uses exact narration keywords
+- [ ] All anchors are in first 60% of their sentences
+- [ ] Every clip ID in scene JSONs matches a narration clip
+- [ ] No orphaned element IDs (referenced in triggers but undefined)
+- [ ] Narrative arc is complete (problem → insight → solution → proof → ask)
+- [ ] Narration sounds natural when spoken aloud
+- [ ] No screen has more than 2 key phrases
+- [ ] There is at least one moment of tension/surprise in the arc
+- [ ] Final output HTML is self-contained and plays correctly
 
 ## What NOT to Do
 

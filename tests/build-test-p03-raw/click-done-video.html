@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshLocal — Farm-to-Door Marketplace</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0b1a0f; color: #e8f0e8; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; }
+  #stage {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .scene-layer {
+    position: absolute; inset: 0;
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 28px;
+  }
+  .scene-layer.active { display: flex; }
+
+  #play-overlay {
+    position: absolute; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(11,26,15,0.88); cursor: pointer;
+  }
+  #play-overlay .play-btn {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 60px rgba(34,197,94,0.4);
+    transition: transform 0.2s;
+  }
+  #play-overlay .play-btn:hover { transform: scale(1.1); }
+  #play-overlay .play-btn::after {
+    content: ''; display: block;
+    width: 0; height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 32px solid white;
+    margin-left: 6px;
+  }
+
+  .big-stat {
+    font-size: 7rem; font-weight: 800; letter-spacing: -3px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .big-stat.vis { opacity: 1; }
+
+  .big-text {
+    font-size: 3rem; font-weight: 700; text-align: center;
+    opacity: 0; transition: opacity 0.5s ease;
+    max-width: 800px; line-height: 1.3;
+  }
+  .big-text.vis { opacity: 1; }
+
+  .subtitle {
+    font-size: 1.5rem; font-weight: 400; color: #86efac;
+    text-align: center; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .subtitle.vis { opacity: 1; }
+
+  .logo-text {
+    font-size: 5rem; font-weight: 800; letter-spacing: -2px;
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .logo-text.vis { opacity: 1; }
+
+  .tagline {
+    font-size: 2rem; font-weight: 600;
+    color: #86efac; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .tagline.vis { opacity: 1; }
+
+  .feature-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 16px; padding: 24px 32px;
+    min-width: 320px; max-width: 500px;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .feature-card.vis { opacity: 1; transform: translateY(0); }
+  .feature-card .fc-icon { font-size: 2rem; margin-bottom: 8px; }
+  .feature-card .fc-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+  .feature-card .fc-desc { font-size: 1rem; color: #94a3b8; }
+
+  .features-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    max-width: 720px; width: 100%;
+  }
+
+  .stat-row {
+    display: flex; align-items: baseline; gap: 16px;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .stat-row.vis { opacity: 1; transform: translateX(0); }
+  .stat-row .sr-num {
+    font-size: 2.4rem; font-weight: 800; min-width: 180px; text-align: right;
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-row .sr-label { font-size: 1.2rem; color: #cbd5e1; }
+
+  .raise-block {
+    text-align: center; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .raise-block.vis { opacity: 1; }
+  .raise-block .rb-amount {
+    font-size: 4rem; font-weight: 800;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .raise-block .rb-sub { font-size: 1.2rem; color: #94a3b8; }
+
+  .expansion-text {
+    font-size: 2.2rem; font-weight: 700; color: #4ade80;
+    opacity: 0; transition: opacity 0.5s ease; text-align: center;
+  }
+  .expansion-text.vis { opacity: 1; }
+
+  .breakeven-text {
+    font-size: 1.6rem; font-weight: 600; color: #86efac;
+    opacity: 0; transition: opacity 0.5s ease; text-align: center;
+  }
+  .breakeven-text.vis { opacity: 1; }
+
+  .cta-text {
+    font-size: 2.5rem; font-weight: 800;
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .cta-text.vis { opacity: 1; }
+
+  .scene-title {
+    position: absolute; top: 32px; left: 40px;
+    font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 3px; color: #4b5563;
+  }
+
+  .pain-card {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 12px; padding: 20px 28px;
+    max-width: 600px; text-align: center;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .pain-card.vis { opacity: 1; }
+  .pain-card .pc-stat { font-size: 3rem; font-weight: 800; color: #ef4444; }
+  .pain-card .pc-desc { font-size: 1.1rem; color: #fca5a5; margin-top: 4px; }
+
+  .solution-pill {
+    background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 40px; padding: 14px 32px;
+    font-size: 1.3rem; font-weight: 600; color: #4ade80;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .solution-pill.vis { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- PLAY OVERLAY -->
+  <div id="play-overlay">
+    <div class="play-btn"></div>
+  </div>
+
+  <!-- SCENE 0: Hook -->
+  <div id="s0-bg" class="scene-layer">
+    <div class="scene-title">THE PROBLEM</div>
+    <div id="s0-miles" class="big-stat">1,500 MILES</div>
+    <div id="s0-week-old" class="big-text" style="color: #fca5a5;">Picked a week ago.</div>
+    <div id="s0-sixty-cents" class="big-text" style="color: #ef4444;">Farmers keep &lt;60¢ on the dollar.</div>
+  </div>
+
+  <!-- SCENE 1: Pain -->
+  <div id="s1-bg" class="scene-layer">
+    <div class="scene-title">WHY IT'S BROKEN</div>
+    <div id="s1-forty-pct" class="pain-card">
+      <div class="pc-stat">40%</div>
+      <div class="pc-desc">of revenue lost to distributors &amp; retailers</div>
+    </div>
+    <div id="s1-limited" class="pain-card">
+      <div class="pc-stat">⏰</div>
+      <div class="pc-desc">Farmers' markets: limited hours, weather-dependent</div>
+    </div>
+    <div id="s1-no-choice" class="pain-card">
+      <div class="pc-stat">📦</div>
+      <div class="pc-desc">CSA boxes: no choice — you get what the farm grows</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: Solution -->
+  <div id="s2-bg" class="scene-layer">
+    <div class="scene-title">THE SOLUTION</div>
+    <div id="s2-logo" class="logo-text">FreshLocal</div>
+    <div id="s2-local" class="solution-pill">🌾 Farms within 50 miles</div>
+    <div id="s2-custom" class="solution-pill">🛒 Custom orders</div>
+    <div id="s2-delivery" class="solution-pill">🚚 Next-day delivery</div>
+  </div>
+
+  <!-- SCENE 3: How It Works -->
+  <div id="s3-bg" class="scene-layer">
+    <div class="scene-title">HOW IT WORKS</div>
+    <div class="features-grid">
+      <div id="s3-harvest" class="feature-card">
+        <div class="fc-icon">🌿</div>
+        <div class="fc-title">Harvested Today</div>
+        <div class="fc-desc">Farms upload what they picked this morning.</div>
+      </div>
+      <div id="s3-logistics" class="feature-card">
+        <div class="fc-icon">🚛</div>
+        <div class="fc-title">Shared Cold-Chain</div>
+        <div class="fc-desc">Milk-run routes. No warehouse. Direct delivery.</div>
+      </div>
+      <div id="s3-no-warehouse" class="feature-card">
+        <div class="fc-icon">⏱️</div>
+        <div class="fc-title">Never Warehoused</div>
+        <div class="fc-desc">Farm → truck → door in under 24 hours.</div>
+      </div>
+      <div id="s3-fourteen-hrs" class="feature-card">
+        <div class="fc-icon">🥬</div>
+        <div class="fc-title">14-Hour Shelf Age</div>
+        <div class="fc-desc">vs 5–7 days at your grocery store.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: Traction -->
+  <div id="s4-bg" class="scene-layer">
+    <div class="scene-title">TRACTION</div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div id="s4-cities" class="stat-row">
+        <span class="sr-num">2 Cities</span><span class="sr-label">Austin &amp; Portland</span>
+      </div>
+      <div id="s4-farms" class="stat-row">
+        <span class="sr-num">340</span><span class="sr-label">partner farms</span>
+      </div>
+      <div id="s4-consumers" class="stat-row">
+        <span class="sr-num">8,200</span><span class="sr-label">active consumers</span>
+      </div>
+      <div id="s4-order" class="stat-row">
+        <span class="sr-num">$47</span><span class="sr-label">average order (vs $32 grocery)</span>
+      </div>
+      <div id="s4-repeat" class="stat-row">
+        <span class="sr-num">64%</span><span class="sr-label">monthly repeat rate</span>
+      </div>
+      <div id="s4-revenue" class="stat-row">
+        <span class="sr-num">+35%</span><span class="sr-label">farm revenue vs wholesale</span>
+      </div>
+      <div id="s4-nps" class="stat-row">
+        <span class="sr-num">NPS +61</span><span class="sr-label">consumer satisfaction</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: The Ask -->
+  <div id="s5-bg" class="scene-layer">
+    <div class="scene-title">THE ASK</div>
+    <div id="s5-raise" class="raise-block">
+      <div class="rb-amount">$6M Series A</div>
+      <div class="rb-sub">Expand &amp; reach logistics breakeven</div>
+    </div>
+    <div id="s5-cities" class="expansion-text">→ 5 more cities</div>
+    <div id="s5-breakeven" class="breakeven-text">15K orders/month/city → unit economics positive</div>
+    <div id="s5-cta" class="cta-text">The future of local food.</div>
+  </div>
+
+</div>
+
+<script>
+// --- DATA PLACEHOLDERS (patched by assemble.js / build-video.js) ---
+const SCENES = [
+  {
+    "scene": "scene-00",
+    "title": "The Hook",
+    "clips": [
+      "clip_hook"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s0-bg')"
+      },
+      {
+        "delay": 1275,
+        "js": "show('s0-miles')"
+      },
+      {
+        "delay": 4350,
+        "js": "show('s0-week-old')"
+      },
+      {
+        "delay": 7325,
+        "js": "fade('s0-miles'); fade('s0-week-old'); show('s0-sixty-cents')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "title": "The Pain",
+    "clips": [
+      "clip_pain"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s1-bg')"
+      },
+      {
+        "delay": 788,
+        "js": "show('s1-forty-pct')"
+      },
+      {
+        "delay": 7950,
+        "js": "show('s1-limited')"
+      },
+      {
+        "delay": 12713,
+        "js": "show('s1-no-choice')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "title": "The Solution",
+    "clips": [
+      "clip_solution"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s2-bg')"
+      },
+      {
+        "delay": 338,
+        "js": "show('s2-logo')"
+      },
+      {
+        "delay": 8650,
+        "js": "show('s2-local')"
+      },
+      {
+        "delay": 10188,
+        "js": "show('s2-custom')"
+      },
+      {
+        "delay": 11475,
+        "js": "show('s2-delivery')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "title": "How It Works",
+    "clips": [
+      "clip_how"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s3-bg')"
+      },
+      {
+        "delay": 1050,
+        "js": "show('s3-harvest')"
+      },
+      {
+        "delay": 4300,
+        "js": "show('s3-logistics')"
+      },
+      {
+        "delay": 8125,
+        "js": "show('s3-no-warehouse')"
+      },
+      {
+        "delay": 14488,
+        "js": "show('s3-fourteen-hrs')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "title": "Traction",
+    "clips": [
+      "clip_traction"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s4-bg')"
+      },
+      {
+        "delay": 600,
+        "js": "show('s4-cities')"
+      },
+      {
+        "delay": 2975,
+        "js": "show('s4-farms')"
+      },
+      {
+        "delay": 4625,
+        "js": "show('s4-consumers')"
+      },
+      {
+        "delay": 7663,
+        "js": "show('s4-order')"
+      },
+      {
+        "delay": 10488,
+        "js": "show('s4-repeat')"
+      },
+      {
+        "delay": 12863,
+        "js": "show('s4-revenue')"
+      },
+      {
+        "delay": 17363,
+        "js": "show('s4-nps')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "title": "The Ask",
+    "clips": [
+      "clip_ask"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s5-bg')"
+      },
+      {
+        "delay": 675,
+        "js": "show('s5-raise')"
+      },
+      {
+        "delay": 3538,
+        "js": "show('s5-cities')"
+      },
+      {
+        "delay": 6913,
+        "js": "show('s5-breakeven')"
+      },
+      {
+        "delay": 12988,
+        "js": "show('s5-cta')"
+      }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+// --- ANIMATION FUNCTIONS ---
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = ''; el.classList.add('vis', 'active'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('vis', 'active'); el.style.display = 'none'; }
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('vis'); }
+}
+function clearAll(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.querySelectorAll('.scene-layer').forEach(l => {
+    l.classList.remove('active');
+    l.style.display = 'none';
+  });
+  container.querySelectorAll('.vis').forEach(el => el.classList.remove('vis'));
+}
+function showChapter(id) { show(id); }
+function hideChapter(id) { hide(id); }
+function showHighlight(id) { show(id); }
+
+// --- PLAYER ---
+let isPlaying = false;
+
+document.getElementById('play-overlay').addEventListener('click', () => {
+  if (isPlaying) return;
+  isPlaying = true;
+  document.getElementById('play-overlay').style.display = 'none';
+  playScenes(0);
+});
+
+function playScenes(idx) {
+  if (idx >= SCENES.length) return;
+  const scene = SCENES[idx];
+  playScene(scene, () => playScenes(idx + 1));
+}
+
+function playScene(scene, onDone) {
+  const timers = [];
+  for (const trig of scene.triggers) {
+    const t = setTimeout(() => {
+      const fn = new Function(trig.js);
+      fn();
+    }, trig.delay);
+    timers.push(t);
+  }
+
+  playClips(scene.clips, 0, () => {
+    setTimeout(() => { if (onDone) onDone(); }, 400);
+  });
+}
+
+function playClips(clips, idx, onDone) {
+  if (idx >= clips.length) { if (onDone) onDone(); return; }
+  const clipId = clips[idx];
+
+  if (typeof clipId === 'object' && clipId.pause) {
+    setTimeout(() => playClips(clips, idx + 1, onDone), clipId.pause);
+    return;
+  }
+
+  const b64 = AUDIO_DATA[clipId];
+  if (!b64) { playClips(clips, idx + 1, onDone); return; }
+
+  const audio = new Audio('data:audio/mp3;base64,' + b64);
+  audio.addEventListener('ended', () => playClips(clips, idx + 1, onDone));
+  audio.addEventListener('error', () => playClips(clips, idx + 1, onDone));
+  audio.play().catch(() => playClips(clips, idx + 1, onDone));
+}
+</script>
+</body>
+</html>

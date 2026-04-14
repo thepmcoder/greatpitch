@@ -1,0 +1,37 @@
+{
+  "scene": "scene-01",
+  "title": "The Real Problem",
+  "clips": ["s02_problem"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s1-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "Managing", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-harder" }]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "temperature", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-harder" },
+        { "fn": "show", "id": "s1-range-loss" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "Charging", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-fragmented" }]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "Most", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-range-loss" },
+        { "fn": "fade", "id": "s1-fragmented" },
+        { "fn": "show", "id": "s1-spreadsheets" }
+      ]
+    }
+  ]
+}

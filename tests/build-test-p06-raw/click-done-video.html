@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elevate — AI-Powered Student Career Navigation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0a0e27; color: #fff; overflow: hidden; width: 1920px; height: 1080px; }
+  .stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+
+  /* Shared element styles */
+  .el { position: absolute; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; }
+  .el.visible { opacity: 1; }
+
+  /* === SCENE 0: Title === */
+  #s0-bg { top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0e27 0%, #1a1f4e 40%, #2d1b69 70%, #0a0e27 100%); z-index: 0; }
+  #s0-logo { top: 280px; left: 0; width: 100%; text-align: center; z-index: 2; transform: translateY(20px); }
+  #s0-logo.visible { transform: translateY(0); }
+  #s0-logo h1 { font-size: 140px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 8px; }
+  #s0-tagline { top: 500px; left: 0; width: 100%; text-align: center; z-index: 2; }
+  #s0-tagline p { font-size: 36px; color: #b8c0e8; letter-spacing: 6px; text-transform: uppercase; }
+
+  /* === SCENE 1: Problem === */
+  #s1-heading { top: 80px; left: 120px; z-index: 2; }
+  #s1-heading h2 { font-size: 64px; color: #ff6b6b; font-weight: 700; }
+  #s1-overwhelmed { top: 250px; left: 120px; width: 1680px; z-index: 2; transform: translateY(15px); }
+  #s1-overwhelmed.visible { transform: translateY(0); }
+  #s1-overwhelmed .card { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; padding: 50px; }
+  #s1-overwhelmed .card h3 { font-size: 44px; color: #ff8787; margin-bottom: 16px; }
+  #s1-overwhelmed .card p { font-size: 30px; color: #c8cce8; line-height: 1.6; }
+  #s1-platforms { top: 560px; left: 120px; width: 1680px; z-index: 2; }
+  #s1-platforms .pills { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+  #s1-platforms .pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 40px; padding: 18px 40px; font-size: 28px; color: #a0a8d0; }
+  #s1-questions { top: 720px; left: 120px; width: 1680px; z-index: 2; }
+  #s1-questions .qlist { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  #s1-questions .q { font-size: 28px; color: #ffcccb; font-style: italic; }
+
+  /* === SCENE 2: Data === */
+  #s2-heading { top: 80px; left: 120px; z-index: 2; }
+  #s2-heading h2 { font-size: 64px; color: #feca57; font-weight: 700; }
+  #s2-stat1, #s2-stat2, #s2-stat3 { left: 120px; width: 1680px; z-index: 2; transform: translateX(-20px); }
+  #s2-stat1.visible, #s2-stat2.visible, #s2-stat3.visible { transform: translateX(0); }
+  #s2-stat1 { top: 280px; }
+  #s2-stat2 { top: 500px; }
+  #s2-stat3 { top: 720px; }
+  .stat-card { display: flex; align-items: center; gap: 40px; background: rgba(254,202,87,0.06); border: 1px solid rgba(254,202,87,0.25); border-radius: 20px; padding: 40px 50px; }
+  .stat-card .num { font-size: 80px; font-weight: 800; min-width: 220px; text-align: center; }
+  .stat-card .desc { font-size: 30px; color: #c8cce8; line-height: 1.4; }
+  #s2-stat1 .num { color: #ff6b6b; }
+  #s2-stat2 .num { color: #feca57; }
+  #s2-stat3 .num { color: #ff6348; }
+
+  /* === SCENE 3: Insight === */
+  #s3-heading { top: 80px; left: 120px; z-index: 2; }
+  #s3-heading h2 { font-size: 64px; color: #48dbfb; font-weight: 700; }
+  #s3-silos { top: 280px; left: 120px; width: 1680px; z-index: 2; }
+  #s3-silos .card { background: rgba(72,219,251,0.06); border: 1px solid rgba(72,219,251,0.25); border-radius: 20px; padding: 50px; }
+  #s3-silos .card p { font-size: 34px; color: #c8cce8; line-height: 1.6; }
+  #s3-silos .card span { color: #48dbfb; font-weight: 600; }
+  #s3-crossdomain { top: 530px; left: 120px; width: 1680px; z-index: 2; }
+  #s3-crossdomain .items { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  #s3-crossdomain .item { background: rgba(72,219,251,0.1); border: 1px solid rgba(72,219,251,0.3); border-radius: 16px; padding: 24px 36px; font-size: 26px; color: #7dd8f0; text-align: center; }
+  #s3-gap { top: 760px; left: 120px; width: 1680px; text-align: center; z-index: 2; }
+  #s3-gap p { font-size: 38px; color: #ff6b6b; font-weight: 600; }
+
+  /* === SCENE 4: Solution — LIFT === */
+  #s4-heading { top: 80px; left: 120px; z-index: 2; }
+  #s4-heading h2 { font-size: 64px; color: #26de81; font-weight: 700; }
+  #s4-elevate { top: 240px; left: 120px; width: 1680px; z-index: 2; }
+  #s4-elevate .card { background: rgba(38,222,129,0.06); border: 1px solid rgba(38,222,129,0.25); border-radius: 20px; padding: 40px 50px; text-align: center; }
+  #s4-elevate .card p { font-size: 32px; color: #c8cce8; line-height: 1.5; }
+  #s4-elevate .card span { color: #26de81; font-weight: 600; }
+  #s4-l, #s4-i, #s4-f, #s4-t { width: 780px; z-index: 2; transform: translateY(10px); }
+  #s4-l.visible, #s4-i.visible, #s4-f.visible, #s4-t.visible { transform: translateY(0); }
+  #s4-l { top: 480px; left: 120px; }
+  #s4-i { top: 480px; left: 1020px; }
+  #s4-f { top: 700px; left: 120px; }
+  #s4-t { top: 700px; left: 1020px; }
+  .lift-card { background: rgba(38,222,129,0.05); border: 1px solid rgba(38,222,129,0.2); border-radius: 16px; padding: 36px; }
+  .lift-card .letter { font-size: 56px; font-weight: 800; color: #26de81; display: inline-block; margin-right: 16px; }
+  .lift-card .label { font-size: 28px; color: #e0e4f0; }
+
+  /* === SCENE 5: Features === */
+  #s5-heading { top: 80px; left: 120px; z-index: 2; }
+  #s5-heading h2 { font-size: 64px; color: #a29bfe; font-weight: 700; }
+  #s5-feat1, #s5-feat2, #s5-feat3 { left: 120px; width: 1680px; z-index: 2; transform: translateY(15px); }
+  #s5-feat1.visible, #s5-feat2.visible, #s5-feat3.visible { transform: translateY(0); }
+  #s5-feat1 { top: 260px; }
+  #s5-feat2 { top: 510px; }
+  #s5-feat3 { top: 760px; }
+  .feat-card { display: flex; align-items: center; gap: 36px; background: rgba(162,155,254,0.06); border: 1px solid rgba(162,155,254,0.25); border-radius: 20px; padding: 36px 44px; }
+  .feat-card .icon { font-size: 52px; min-width: 80px; text-align: center; }
+  .feat-card .text h3 { font-size: 32px; color: #a29bfe; margin-bottom: 8px; }
+  .feat-card .text p { font-size: 26px; color: #b8bce0; line-height: 1.4; }
+
+  /* === SCENE 6: Validation & CTA === */
+  #s6-heading { top: 80px; left: 120px; z-index: 2; }
+  #s6-heading h2 { font-size: 64px; color: #26de81; font-weight: 700; }
+  #s6-stat { top: 270px; left: 120px; width: 1680px; z-index: 2; }
+  #s6-stat .card { background: rgba(38,222,129,0.06); border: 1px solid rgba(38,222,129,0.25); border-radius: 20px; padding: 50px; text-align: center; }
+  #s6-stat .card .big { font-size: 96px; font-weight: 800; color: #26de81; }
+  #s6-stat .card p { font-size: 30px; color: #c8cce8; margin-top: 16px; }
+  #s6-proto { top: 560px; left: 120px; width: 1680px; z-index: 2; }
+  #s6-proto .items { display: flex; gap: 30px; justify-content: center; }
+  #s6-proto .item { background: rgba(162,155,254,0.08); border: 1px solid rgba(162,155,254,0.25); border-radius: 16px; padding: 30px 40px; font-size: 26px; color: #c8cce8; text-align: center; }
+  #s6-proto .item span { display: block; font-size: 36px; margin-bottom: 8px; }
+  #s6-cta { top: 800px; left: 0; width: 100%; text-align: center; z-index: 2; }
+  #s6-cta p { font-size: 44px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* Play overlay */
+  #play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,14,39,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; }
+  #play-overlay .btn { width: 140px; height: 140px; background: rgba(102,126,234,0.3); border: 3px solid #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s; }
+  #play-overlay .btn:hover { transform: scale(1.1); background: rgba(102,126,234,0.5); }
+  #play-overlay .btn::after { content: ''; border-style: solid; border-width: 30px 0 30px 52px; border-color: transparent transparent transparent #fff; margin-left: 8px; }
+  #play-overlay.hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- SCENE 0: Title -->
+  <div id="s0-bg" class="el"></div>
+  <div id="s0-logo" class="el"><h1>ELEVATE</h1></div>
+  <div id="s0-tagline" class="el"><p>Your Choices &bull; Your Preparation &bull; Your Confidence &bull; Your Success</p></div>
+
+  <!-- SCENE 1: Problem -->
+  <div id="s1-heading" class="el"><h2>The Problem</h2></div>
+  <div id="s1-overwhelmed" class="el"><div class="card"><h3>Students Are Overwhelmed</h3><p>Navigating career and research paths across fragmented platforms with no clear direction.</p></div></div>
+  <div id="s1-platforms" class="el"><div class="pills"><span class="pill">LinkedIn</span><span class="pill">Unstop</span><span class="pill">Internshala</span><span class="pill">College Portals</span><span class="pill">Email Chains</span><span class="pill">WhatsApp Groups</span></div></div>
+  <div id="s1-questions" class="el"><div class="qlist"><span class="q">"What should I prepare?"</span><span class="q">"Which professors accept interns?"</span><span class="q">"How do I track deadlines?"</span></div></div>
+
+  <!-- SCENE 2: Data -->
+  <div id="s2-heading" class="el"><h2>The Data Speaks</h2></div>
+  <div id="s2-stat1" class="el"><div class="stat-card"><div class="num">80%+</div><div class="desc">feel least informed about how to prepare for various roles and understand company patterns</div></div></div>
+  <div id="s2-stat2" class="el"><div class="stat-card"><div class="num">60%+</div><div class="desc">need clearer guidance on company expectations and where to begin</div></div></div>
+  <div id="s2-stat3" class="el"><div class="stat-card"><div class="num">14%</div><div class="desc">are satisfied with the current effort and process of finding information</div></div></div>
+
+  <!-- SCENE 3: Insight -->
+  <div id="s3-heading" class="el"><h2>The Core Insight</h2></div>
+  <div id="s3-silos" class="el"><div class="card"><p>Career tools and chatbots <span>operate in silos</span>. They can't connect the dots across domains.</p></div></div>
+  <div id="s3-crossdomain" class="el"><div class="items"><div class="item">Job Posts</div><div class="item">Research Areas</div><div class="item">Hackathon Deadlines</div><div class="item">Academic Stage</div><div class="item">Personal Goals</div></div></div>
+  <div id="s3-gap" class="el"><p>No single tool connects all of these today.</p></div>
+
+  <!-- SCENE 4: Solution — LIFT -->
+  <div id="s4-heading" class="el"><h2>The Solution — Elevate</h2></div>
+  <div id="s4-elevate" class="el"><div class="card"><p><span>Elevate</span> transforms unstructured academic and career data into <span>structured intelligence</span> using our LIFT framework.</p></div></div>
+  <div id="s4-l" class="el"><div class="lift-card"><span class="letter">L</span><span class="label">Locate the right information</span></div></div>
+  <div id="s4-i" class="el"><div class="lift-card"><span class="letter">I</span><span class="label">Interpret what applies to you</span></div></div>
+  <div id="s4-f" class="el"><div class="lift-card"><span class="letter">F</span><span class="label">Follow through with structure</span></div></div>
+  <div id="s4-t" class="el"><div class="lift-card"><span class="letter">T</span><span class="label">Time your actions correctly</span></div></div>
+
+  <!-- SCENE 5: Features -->
+  <div id="s5-heading" class="el"><h2>What Elevate Provides</h2></div>
+  <div id="s5-feat1" class="el"><div class="feat-card"><div class="icon">🎯</div><div class="text"><h3>Unified, Tailored Guidance</h3><p>Career and research info translated to personalized next steps</p></div></div></div>
+  <div id="s5-feat2" class="el"><div class="feat-card"><div class="icon">🔔</div><div class="text"><h3>Opportunity Awareness</h3><p>Hackathons, contests, and opportunities — notified at the right time</p></div></div></div>
+  <div id="s5-feat3" class="el"><div class="feat-card"><div class="icon">🔬</div><div class="text"><h3>Research Engagement</h3><p>Discover professors, understand their research, apply to internships</p></div></div></div>
+
+  <!-- SCENE 6: Validation & CTA -->
+  <div id="s6-heading" class="el"><h2>Validated by Students</h2></div>
+  <div id="s6-stat" class="el"><div class="card"><div class="big">87%</div><p>believe a platform like Elevate would be very useful for their academic, career, and research endeavors</p></div></div>
+  <div id="s6-proto" class="el"><div class="items"><div class="item"><span>📱</span>Mobile &amp; Web App</div><div class="item"><span>🤖</span>AI Chatbot</div><div class="item"><span>🔔</span>Notifications</div><div class="item"><span>👨‍🏫</span>Professor System</div></div></div>
+  <div id="s6-cta" class="el"><p>Let's reduce friction in student career journeys.</p></div>
+
+  <!-- Play overlay -->
+  <div id="play-overlay"><div class="btn"></div></div>
+</div>
+
+<script>
+// --- Data placeholders (patched by pipeline) ---
+const SCENES = [
+  {
+    "scene": "scene-00",
+    "title": "Title",
+    "clips": [
+      "s0_title"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s0-bg"
+          }
+        ]
+      },
+      {
+        "delayMs": 100,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s0-logo"
+          }
+        ]
+      },
+      {
+        "delayMs": 1038,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s0-tagline"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "title": "The Problem",
+    "clips": [
+      "s1_problem"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-00"
+          },
+          {
+            "fn": "show",
+            "id": "s1-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 1175,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s1-overwhelmed"
+          }
+        ]
+      },
+      {
+        "delayMs": 4913,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s1-platforms"
+          }
+        ]
+      },
+      {
+        "delayMs": 13563,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s1-questions"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "title": "The Data",
+    "clips": [
+      "s2_data"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-01"
+          },
+          {
+            "fn": "show",
+            "id": "s2-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s2-stat1"
+          }
+        ]
+      },
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s2-stat2"
+          }
+        ]
+      },
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s2-stat3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "title": "The Insight",
+    "clips": [
+      "s3_insight"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-02"
+          },
+          {
+            "fn": "show",
+            "id": "s3-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 4038,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s3-silos"
+          }
+        ]
+      },
+      {
+        "delayMs": 5875,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s3-crossdomain"
+          }
+        ]
+      },
+      {
+        "delayMs": 14888,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s3-gap"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "title": "The Solution — LIFT",
+    "clips": [
+      "s4_solution"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-03"
+          },
+          {
+            "fn": "show",
+            "id": "s4-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 1750,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-elevate"
+          }
+        ]
+      },
+      {
+        "delayMs": 7813,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-l"
+          }
+        ]
+      },
+      {
+        "delayMs": 9638,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-i"
+          }
+        ]
+      },
+      {
+        "delayMs": 11450,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-f"
+          }
+        ]
+      },
+      {
+        "delayMs": 13063,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s4-t"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "title": "Features",
+    "clips": [
+      "s5_features"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-04"
+          },
+          {
+            "fn": "show",
+            "id": "s5-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 1063,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s5-feat1"
+          }
+        ]
+      },
+      {
+        "delayMs": 8250,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s5-feat2"
+          }
+        ]
+      },
+      {
+        "delayMs": 14988,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s5-feat3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scene": "scene-06",
+    "title": "Validation & CTA",
+    "clips": [
+      "s6_cta"
+    ],
+    "triggers": [
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "clearAll",
+            "id": "scene-05"
+          },
+          {
+            "fn": "show",
+            "id": "s6-heading"
+          }
+        ]
+      },
+      {
+        "delayMs": 0,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s6-stat"
+          }
+        ]
+      },
+      {
+        "delayMs": 6525,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s6-proto"
+          }
+        ]
+      },
+      {
+        "delayMs": 14125,
+        "actions": [
+          {
+            "fn": "show",
+            "id": "s6-cta"
+          }
+        ]
+      }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+// --- Player engine ---
+function show(id) { const el = document.getElementById(id); if (el) el.classList.add('visible'); }
+function hide(id) { const el = document.getElementById(id); if (el) el.classList.remove('visible'); }
+function fade(id) { hide(id); }
+function clearAll(sceneId) {
+  document.querySelectorAll('.el.visible').forEach(el => el.classList.remove('visible'));
+}
+function showChapter(id) { show(id); }
+function hideChapter(id) { hide(id); }
+function showHighlight(id) { show(id); }
+
+let currentSceneIndex = 0;
+let audioElements = {};
+
+function preloadAudio() {
+  for (const [clipId, b64] of Object.entries(AUDIO_DATA)) {
+    const audio = new Audio('data:audio/mp3;base64,' + b64);
+    audio.preload = 'auto';
+    audioElements[clipId] = audio;
+  }
+}
+
+async function playClip(clipId) {
+  return new Promise((resolve, reject) => {
+    const audio = audioElements[clipId];
+    if (!audio) { resolve(); return; }
+    audio.onended = resolve;
+    audio.onerror = reject;
+    audio.play().catch(reject);
+  });
+}
+
+async function playScene(scene) {
+  // Schedule all triggers
+  const timers = [];
+  for (const trigger of scene.triggers) {
+    const delayMs = trigger.delayMs || 0;
+    timers.push(setTimeout(() => {
+      trigger.actions.forEach(a => {
+        if (a.id) window[a.fn](a.id);
+        else if (a.arg) window[a.fn](a.arg);
+        else window[a.fn]();
+      });
+    }, delayMs));
+  }
+
+  // Play clips sequentially
+  for (const clip of scene.clips) {
+    if (typeof clip === 'object' && clip.pause) {
+      await new Promise(r => setTimeout(r, clip.pause));
+    } else {
+      await playClip(clip);
+    }
+  }
+
+  // Wait a beat after scene ends
+  await new Promise(r => setTimeout(r, 400));
+
+  // Clear timers
+  timers.forEach(clearTimeout);
+}
+
+async function playAll() {
+  document.getElementById('play-overlay').classList.add('hidden');
+  preloadAudio();
+  for (let i = 0; i < SCENES.length; i++) {
+    currentSceneIndex = i;
+    await playScene(SCENES[i]);
+  }
+}
+
+document.getElementById('play-overlay').addEventListener('click', playAll);
+</script>
+</body>
+</html>

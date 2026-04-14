@@ -1,0 +1,44 @@
+{
+  "scene": "scene-08",
+  "title": "Traction & Metrics",
+  "clips": ["s08_traction", "s08_growth"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-08" },
+        { "fn": "show", "id": "s8-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_traction", "word": "twenty-four", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-vehicles" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_traction", "word": "fifty-eight", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-fuel-savings" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_traction", "word": "seventy-two", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-downtime" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_growth", "word": "fourteen", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-efficiency" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_growth", "word": "hundred", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-retention" }
+      ]
+    }
+  ]
+}

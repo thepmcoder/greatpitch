@@ -1,0 +1,31 @@
+{
+  "scene": "scene-01",
+  "title": "The Gap",
+  "clips": ["s01a_gap", "s01b_missing"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-0" }, { "fn": "show", "id": "s1-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01a_gap", "word": "forty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-cost" }]
+    },
+    {
+      "anchor": { "clip": "s01a_gap", "word": "Khan", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-khan" }]
+    },
+    {
+      "anchor": { "clip": "s01a_gap", "word": "confused", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-nofeedback" }]
+    },
+    {
+      "anchor": { "clip": "s01b_missing", "word": "patient", "n": 1 },
+      "actions": [{ "fn": "fade", "id": "s1-heading" }, { "fn": "show", "id": "s1-missing" }]
+    },
+    {
+      "anchor": { "clip": "s01b_missing", "word": "nine", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-anytime" }]
+    }
+  ]
+}

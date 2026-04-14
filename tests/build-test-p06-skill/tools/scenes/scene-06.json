@@ -1,0 +1,26 @@
+{
+  "scene": "scene-06",
+  "title": "Working Prototype",
+  "clips": ["s07_prototype"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-05" },
+        { "fn": "show", "id": "s6-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "built", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-stack" }]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "chatbot", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-chatbot" }]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "multiplatform", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-notifications" }]
+    }
+  ]
+}

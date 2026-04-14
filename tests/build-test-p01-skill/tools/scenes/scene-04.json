@@ -1,0 +1,33 @@
+{
+  "scene": "scene-04",
+  "title": "Predictive Power",
+  "clips": ["s05_predict"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_predict", "word": "monitors", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-monitoring" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_predict", "word": "thirty", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4-monitoring" },
+        { "fn": "show", "id": "s4-prediction" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_predict", "word": "respond", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-prevent" }
+      ]
+    }
+  ]
+}

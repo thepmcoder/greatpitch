@@ -1,0 +1,29 @@
+{
+  "scene": "scene-3",
+  "title": "FreshLocal: The Solution",
+  "clips": ["s04_solution"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-2" },
+        { "fn": "show", "id": "s3-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_solution", "word": "marketplace", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-marketplace" }]
+    },
+    {
+      "anchor": { "clip": "s04_solution", "word": "browse", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-browse" }]
+    },
+    {
+      "anchor": { "clip": "s04_solution", "word": "build", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-browse" },
+        { "fn": "show", "id": "s3-custom" }
+      ]
+    }
+  ]
+}

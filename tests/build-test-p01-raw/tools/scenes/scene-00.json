@@ -1,0 +1,22 @@
+{
+  "scene": "scene-00",
+  "title": "Hook",
+  "clips": ["c00_hook"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [
+      { "fn": "clearAll", "id": "scene-00" },
+      { "fn": "show", "id": "s00-bg" }
+    ]},
+    { "anchor": { "clip": "c00_hook", "word": "every", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s00-stat-11s" }
+    ]},
+    { "anchor": { "clip": "c00_hook", "word": "thirty-six", "n": 1 }, "actions": [
+      { "fn": "fade", "id": "s00-stat-11s" },
+      { "fn": "show", "id": "s00-stat-36m" }
+    ]},
+    { "anchor": { "clip": "c00_hook", "word": "number", "n": 1 }, "actions": [
+      { "fn": "fade", "id": "s00-stat-36m" },
+      { "fn": "show", "id": "s00-stat-cause" }
+    ]}
+  ]
+}

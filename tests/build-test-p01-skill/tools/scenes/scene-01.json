@@ -1,0 +1,27 @@
+{
+  "scene": "scene-01",
+  "title": "The Button Problem",
+  "clips": ["s02_problem"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-00" },
+        { "fn": "show", "id": "s1-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "button", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-button-fail" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_problem", "word": "live", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-button-fail" },
+        { "fn": "show", "id": "s1-anxiety" }
+      ]
+    }
+  ]
+}

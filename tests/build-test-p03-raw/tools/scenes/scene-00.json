@@ -1,0 +1,30 @@
+{
+  "scene": "scene-00",
+  "title": "The Hook",
+  "clips": ["clip_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s0-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_hook", "word": "fifteen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-miles" }]
+    },
+    {
+      "anchor": { "clip": "clip_hook", "word": "week", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-week-old" }]
+    },
+    {
+      "anchor": { "clip": "clip_hook", "word": "sixty", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-miles" },
+        { "fn": "fade", "id": "s0-week-old" },
+        { "fn": "show", "id": "s0-sixty-cents" }
+      ]
+    }
+  ]
+}

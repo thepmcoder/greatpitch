@@ -1,0 +1,26 @@
+{
+  "scene": "scene-02",
+  "title": "The Gap",
+  "clips": ["s02_gap"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-1" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_gap", "word": "tutoring", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-cost" }]
+    },
+    {
+      "anchor": { "clip": "s02_gap", "word": "Khan", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-khan" }]
+    },
+    {
+      "anchor": { "clip": "s02_gap", "word": "student", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-noloop" }]
+    }
+  ]
+}

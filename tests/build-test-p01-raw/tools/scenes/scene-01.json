@@ -1,0 +1,22 @@
+{
+  "scene": "scene-01",
+  "title": "The Problem",
+  "clips": ["c01_problem"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [
+      { "fn": "clearAll", "id": "scene-01" },
+      { "fn": "show", "id": "s01-bg" }
+    ]},
+    { "anchor": { "clip": "c01_problem", "word": "button", "n": 1 }, "actions": [
+      { "fn": "show", "id": "s01-button-img" }
+    ]},
+    { "anchor": { "clip": "c01_problem", "word": "forty-seven", "n": 1 }, "actions": [
+      { "fn": "fade", "id": "s01-button-img" },
+      { "fn": "show", "id": "s01-stat-47" }
+    ]},
+    { "anchor": { "clip": "c01_problem", "word": "anxiety", "n": 1 }, "actions": [
+      { "fn": "fade", "id": "s01-stat-47" },
+      { "fn": "show", "id": "s01-anxiety" }
+    ]}
+  ]
+}

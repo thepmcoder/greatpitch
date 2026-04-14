@@ -1,0 +1,37 @@
+{
+  "scene": "scene-7",
+  "title": "The Ask",
+  "clips": ["s08_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-6" },
+        { "fn": "show", "id": "s7-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "raising", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s7-amount" }]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "market", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s7-market" }]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "proven", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s7-market" },
+        { "fn": "show", "id": "s7-proven" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "proven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s7-join" }]
+    },
+    {
+      "anchor": { "clip": "s08_ask", "word": "scale", "n": 1 },
+      "actions": [{ "fn": "fade", "id": "s7-proven" }]
+    }
+  ]
+}

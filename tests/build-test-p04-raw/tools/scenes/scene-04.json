@@ -1,0 +1,39 @@
+{
+  "scene": "scene-04",
+  "title": "Traction & Proof",
+  "clips": ["s04a_traction", "s04b_results"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-3" }, { "fn": "show", "id": "s4-heading" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "Twelve", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-students" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-schools" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "improvement", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-improvement" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "thirty-five", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-remediation" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "twenty-eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-confidence" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "sixty-seven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-nps" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-cost" }]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "scene": "scene-04",
+  "title": "The Proof",
+  "clips": ["s04a_traction", "s04b_results"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-3" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "Twelve", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-students" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "four", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-improvement" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "remediation", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-remediation" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "confidence", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-confidence" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "satisfaction", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-nps" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "Eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-cost" }]
+    }
+  ]
+}

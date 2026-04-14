@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthTrack — Pitch Video</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0e17; color: #e8eaf0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; }
+  #video-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+  #stage { width: 100%; height: 100%; position: relative; overflow: hidden; }
+
+  /* Controls */
+  #controls { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 16px; align-items: center; }
+  #play-btn { width: 56px; height: 56px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: #fff; font-size: 22px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+  #play-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.5); }
+  #progress-bar { width: 400px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; cursor: pointer; position: relative; }
+  #progress-fill { height: 100%; background: linear-gradient(90deg, #00d4aa, #00b4d8); border-radius: 2px; width: 0%; transition: width 0.1s linear; }
+  #time-display { font-size: 13px; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums; min-width: 50px; }
+
+  /* Scene layers */
+  .scene-layer { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; }
+
+  /* Visual elements — all hidden by default */
+  .ve { opacity: 0; transition: opacity 0.6s ease; position: absolute; }
+  .ve.visible { opacity: 1; }
+  .ve.fading { opacity: 0; }
+
+  /* Scene headings */
+  .scene-heading { top: 12%; left: 50%; transform: translateX(-50%); font-size: 16px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 500; }
+
+  /* Stat cards */
+  .stat-card { padding: 32px 48px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px); text-align: center; }
+  .stat-card .number { font-size: 72px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+  .stat-card .label { font-size: 18px; color: rgba(255,255,255,0.6); }
+  .stat-card.accent-teal .number { color: #00d4aa; }
+  .stat-card.accent-red .number { color: #ff6b6b; }
+  .stat-card.accent-blue .number { color: #00b4d8; }
+  .stat-card.accent-gold .number { color: #ffd166; }
+  .stat-card.accent-green .number { color: #06d6a0; }
+
+  /* Center content */
+  .center-text { top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; max-width: 700px; }
+  .center-text .main { font-size: 36px; font-weight: 600; line-height: 1.3; }
+  .center-text .sub { font-size: 18px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+
+  /* Feature row */
+  .feature-row { display: flex; gap: 24px; top: 55%; left: 50%; transform: translateX(-50%); }
+  .feature-pill { padding: 14px 28px; border-radius: 40px; background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.25); font-size: 16px; font-weight: 500; color: #00d4aa; white-space: nowrap; }
+
+  /* Comparison bar */
+  .comparison { top: 58%; left: 50%; transform: translateX(-50%); text-align: center; }
+  .comparison .bar-container { display: flex; align-items: center; gap: 20px; margin-top: 16px; }
+  .comparison .bar { height: 40px; border-radius: 8px; display: flex; align-items: center; padding: 0 16px; font-weight: 600; }
+  .comparison .bar.old { width: 300px; background: rgba(255,107,107,0.2); border: 1px solid rgba(255,107,107,0.3); color: #ff6b6b; }
+  .comparison .bar.new { width: 45px; background: rgba(0,212,170,0.2); border: 1px solid rgba(0,212,170,0.3); color: #00d4aa; }
+  .comparison .vs { font-size: 14px; color: rgba(255,255,255,0.3); }
+
+  /* Results grid */
+  .results-grid { top: 35%; left: 50%; transform: translateX(-50%); display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .results-grid .stat-card { padding: 24px 36px; }
+  .results-grid .stat-card .number { font-size: 48px; }
+
+  /* CTA box */
+  .cta-box { top: 65%; left: 50%; transform: translateX(-50%); padding: 20px 40px; border-radius: 12px; background: linear-gradient(135deg, rgba(0,212,170,0.15), rgba(0,180,216,0.15)); border: 1px solid rgba(0,212,170,0.3); font-size: 22px; font-weight: 600; color: #00d4aa; }
+
+  /* Wristband illustration */
+  .wristband-icon { top: 30%; left: 50%; transform: translateX(-50%); width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00d4aa, #00b4d8); display: flex; align-items: center; justify-content: center; font-size: 48px; box-shadow: 0 0 60px rgba(0,212,170,0.3); }
+
+  /* Logo */
+  #logo { position: fixed; top: 24px; left: 32px; font-size: 20px; font-weight: 700; color: #00d4aa; letter-spacing: 1px; z-index: 50; }
+
+  /* Loading */
+  #loading { position: fixed; inset: 0; background: #0a0e17; display: flex; align-items: center; justify-content: center; z-index: 200; }
+  #loading.hidden { display: none; }
+  #loading span { font-size: 18px; color: rgba(255,255,255,0.4); }
+</style>
+</head>
+<body>
+
+<div id="logo">HealthTrack</div>
+<div id="loading"><span>Loading pitch...</span></div>
+
+<div id="video-container">
+  <div id="stage">
+
+    <!-- Scene 0: The Crisis -->
+    <div class="scene-layer" data-scene="scene-00">
+      <div id="s0-heading" class="ve scene-heading">The Crisis</div>
+      <div id="s0-stat-36m" class="ve stat-card accent-red center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="number">36 Million</div>
+        <div class="label">falls per year in the US</div>
+      </div>
+      <div id="s0-stat-no1" class="ve stat-card accent-red center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="number">#1</div>
+        <div class="label">cause of injury death, age 65+</div>
+      </div>
+      <div id="s0-stat-47pct" class="ve stat-card accent-red center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="number">47%</div>
+        <div class="label">can't press the button</div>
+      </div>
+    </div>
+
+    <!-- Scene 1: The Button Problem -->
+    <div class="scene-layer" data-scene="scene-01">
+      <div id="s1-heading" class="ve scene-heading">The Button Problem</div>
+      <div id="s1-button-fail" class="ve center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main">Press a button — when you can't press anything</div>
+      </div>
+      <div id="s1-anxiety" class="ve center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main">Constant anxiety</div>
+        <div class="sub">Every unanswered call = dread</div>
+      </div>
+    </div>
+
+    <!-- Scene 2: The Solution -->
+    <div class="scene-layer" data-scene="scene-02">
+      <div id="s2-heading" class="ve scene-heading">The Solution</div>
+      <div id="s2-wristband" class="ve wristband-icon">⌚</div>
+      <div id="s2-no-button" class="ve feature-pill" style="top:55%;left:30%;transform:translateX(-50%)">No Button Required</div>
+      <div id="s2-two-seconds" class="ve feature-pill" style="top:55%;left:50%;transform:translateX(-50%)">2-Second Detection</div>
+      <div id="s2-gps" class="ve feature-pill" style="top:55%;left:70%;transform:translateX(-50%)">GPS Location</div>
+    </div>
+
+    <!-- Scene 3: How It Works -->
+    <div class="scene-layer" data-scene="scene-03">
+      <div id="s3-heading" class="ve scene-heading">How It Works</div>
+      <div id="s3-sensors" class="ve feature-row" style="top:38%;left:50%;transform:translateX(-50%)">
+        <span class="feature-pill">Accelerometer</span>
+        <span class="feature-pill">Gyroscope</span>
+        <span class="feature-pill">Heart Rate</span>
+      </div>
+      <div id="s3-on-device" class="ve center-text" style="top:50%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main" style="font-size:28px">On-Device AI</div>
+        <div class="sub">No cloud. No internet needed.</div>
+      </div>
+      <div id="s3-comparison" class="ve comparison">
+        <div style="font-size:20px;font-weight:600;margin-bottom:12px">Response Time</div>
+        <div class="bar-container">
+          <div class="bar old">14 min — Life Alert avg</div>
+          <div class="vs">vs</div>
+          <div class="bar new">2s</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 4: Predictive Power -->
+    <div class="scene-layer" data-scene="scene-04">
+      <div id="s4-heading" class="ve scene-heading">Predictive Power</div>
+      <div id="s4-monitoring" class="ve center-text" style="top:40%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main">Daily Activity Monitoring</div>
+        <div class="sub">Continuous pattern analysis</div>
+      </div>
+      <div id="s4-prediction" class="ve stat-card accent-blue center-text" style="top:42%;left:50%;transform:translate(-50%,-50%)">
+        <div class="number">78%</div>
+        <div class="label">hospitalization prediction accuracy<br><span style="color:rgba(255,255,255,0.35)">30% movement decline over 2 weeks</span></div>
+      </div>
+      <div id="s4-prevent" class="ve center-text" style="top:68%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main" style="font-size:24px;color:#00d4aa">Prevent, not just respond</div>
+      </div>
+    </div>
+
+    <!-- Scene 5: Traction -->
+    <div class="scene-layer" data-scene="scene-05">
+      <div id="s5-heading" class="ve scene-heading">Pilot Results</div>
+      <div id="s5-users" class="ve stat-card accent-teal" style="top:30%;left:30%;transform:translate(-50%,-50%)">
+        <div class="number">500</div>
+        <div class="label">pilot users · 3 facilities</div>
+      </div>
+      <div id="s5-precision" class="ve stat-card accent-green" style="top:30%;right:15%;transform:translateY(-50%)">
+        <div class="number">91%</div>
+        <div class="label">precision · 21/23 detections</div>
+      </div>
+      <div id="s5-zero-missed" class="ve stat-card accent-gold" style="top:58%;left:30%;transform:translate(-50%,-50%)">
+        <div class="number">0</div>
+        <div class="label">missed falls</div>
+      </div>
+      <div id="s5-nps" class="ve stat-card accent-blue" style="top:58%;right:15%;transform:translateY(-50%)">
+        <div class="number">+72</div>
+        <div class="label">family NPS</div>
+      </div>
+    </div>
+
+    <!-- Scene 6: The Ask -->
+    <div class="scene-layer" data-scene="scene-06">
+      <div id="s6-heading" class="ve scene-heading">The Ask</div>
+      <div id="s6-amount" class="ve stat-card accent-teal center-text" style="top:35%;left:50%;transform:translate(-50%,-50%)">
+        <div class="number">$12M</div>
+        <div class="label">Series B</div>
+      </div>
+      <div id="s6-expansion" class="ve center-text" style="top:55%;left:50%;transform:translate(-50%,-50%)">
+        <div class="main" style="font-size:28px">3 → 50 Facilities + Direct-to-Consumer</div>
+      </div>
+      <div id="s6-cta" class="ve cta-box">The technology works. Let's bring it to every family.</div>
+    </div>
+
+  </div>
+</div>
+
+<div id="controls">
+  <button id="play-btn">▶</button>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+  <span id="time-display">0:00</span>
+</div>
+
+<script>
+// === DATA (patched by build pipeline) ===
+const SCENES = [
+  {
+    "scene": "scene-00",
+    "title": "The Crisis",
+    "clips": [
+      "s01_hook"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "show('s0-heading')"
+      },
+      {
+        "delay": 938,
+        "code": "show('s0-stat-36m')"
+      },
+      {
+        "delay": 5138,
+        "code": "fade('s0-stat-36m'); show('s0-stat-no1')"
+      },
+      {
+        "delay": 10113,
+        "code": "fade('s0-stat-no1'); show('s0-stat-47pct')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "title": "The Button Problem",
+    "clips": [
+      "s02_problem"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-00'); show('s1-heading')"
+      },
+      {
+        "delay": 4175,
+        "code": "show('s1-button-fail')"
+      },
+      {
+        "delay": 9688,
+        "code": "fade('s1-button-fail'); show('s1-anxiety')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "title": "The Solution",
+    "clips": [
+      "s03_solution"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-01'); show('s2-heading')"
+      },
+      {
+        "delay": 1650,
+        "code": "show('s2-wristband')"
+      },
+      {
+        "delay": 3313,
+        "code": "show('s2-no-button')"
+      },
+      {
+        "delay": 8788,
+        "code": "show('s2-two-seconds')"
+      },
+      {
+        "delay": 11425,
+        "code": "show('s2-gps')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "title": "How It Works",
+    "clips": [
+      "s04_howworks"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-02'); show('s3-heading')"
+      },
+      {
+        "delay": 1375,
+        "code": "show('s3-sensors')"
+      },
+      {
+        "delay": 6113,
+        "code": "show('s3-on-device')"
+      },
+      {
+        "delay": 11625,
+        "code": "fade('s3-sensors'); show('s3-comparison')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "title": "Predictive Power",
+    "clips": [
+      "s05_predict"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-03'); show('s4-heading')"
+      },
+      {
+        "delay": 3025,
+        "code": "show('s4-monitoring')"
+      },
+      {
+        "delay": 7988,
+        "code": "fade('s4-monitoring'); show('s4-prediction')"
+      },
+      {
+        "delay": 15288,
+        "code": "show('s4-prevent')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "title": "Traction",
+    "clips": [
+      "s06_traction"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-04'); show('s5-heading')"
+      },
+      {
+        "delay": 1913,
+        "code": "show('s5-users')"
+      },
+      {
+        "delay": 9463,
+        "code": "show('s5-precision')"
+      },
+      {
+        "delay": 11450,
+        "code": "show('s5-zero-missed')"
+      },
+      {
+        "delay": 17013,
+        "code": "show('s5-nps')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-06",
+    "title": "The Ask",
+    "clips": [
+      "s07_ask"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "code": "clearAll('scene-05'); show('s6-heading')"
+      },
+      {
+        "delay": 925,
+        "code": "show('s6-amount')"
+      },
+      {
+        "delay": 4600,
+        "code": "show('s6-expansion')"
+      },
+      {
+        "delay": 9100,
+        "code": "show('s6-cta')"
+      }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+// === PLAYER ENGINE ===
+(function() {
+  const playBtn = document.getElementById('play-btn');
+  const progressBar = document.getElementById('progress-bar');
+  const progressFill = document.getElementById('progress-fill');
+  const timeDisplay = document.getElementById('time-display');
+  const loading = document.getElementById('loading');
+
+  let audioElements = [];
+  let sceneDefs = [];
+  let currentSceneIdx = 0;
+  let currentClipIdx = 0;
+  let playing = false;
+  let totalDuration = 0;
+  let globalStartTime = 0;
+  let firedTriggers = new Set();
+
+  function show(id) { const el = document.getElementById(id); if (el) { el.classList.remove('fading'); el.classList.add('visible'); } }
+  function fade(id) { const el = document.getElementById(id); if (el) { el.classList.remove('visible'); el.classList.add('fading'); } }
+  function hide(id) { const el = document.getElementById(id); if (el) { el.classList.remove('visible', 'fading'); } }
+  function clearAll(sceneId) {
+    const layer = document.querySelector(`[data-scene="${sceneId}"]`);
+    if (layer) layer.querySelectorAll('.ve').forEach(el => { el.classList.remove('visible'); el.classList.add('fading'); });
+  }
+  function showChapter(id) { show(id); }
+  function hideChapter(id) { fade(id); }
+
+  // Make functions available globally for eval'd trigger code
+  window.show = show;
+  window.fade = fade;
+  window.hide = hide;
+  window.clearAll = clearAll;
+  window.showChapter = showChapter;
+  window.hideChapter = hideChapter;
+
+  function formatTime(ms) {
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    return m + ':' + String(s % 60).padStart(2, '0');
+  }
+
+  // Build audio playlist from SCENES + AUDIO_DATA
+  function init() {
+    if (SCENES.length === 0) { loading.innerHTML = '<span>No scene data found.</span>'; return; }
+    sceneDefs = SCENES;
+
+    // Pre-create audio elements
+    let offset = 0;
+    for (const scene of sceneDefs) {
+      scene._clipOffsets = {};
+      for (const clip of scene.clips) {
+        if (typeof clip === 'object' && clip.pause) { offset += clip.pause; continue; }
+        if (AUDIO_DATA[clip]) {
+          const audio = new Audio(AUDIO_DATA[clip]);
+          audio._clipName = clip;
+          audio._sceneIdx = sceneDefs.indexOf(scene);
+          audio._globalOffset = offset;
+          audioElements.push(audio);
+          scene._clipOffsets[clip] = offset;
+          // Estimate duration from metadata or audio
+          const meta = WORD_META[clip];
+          if (meta && meta.length > 0) {
+            const last = meta[meta.length - 1];
+            offset += last.t + last.d + 300;
+          }
+        }
+      }
+      scene._endOffset = offset;
+    }
+    totalDuration = offset;
+
+    loading.classList.add('hidden');
+    playBtn.addEventListener('click', togglePlay);
+    progressBar.addEventListener('click', seek);
+  }
+
+  function togglePlay() {
+    if (!playing) { play(); } else { pause(); }
+  }
+
+  function play() {
+    playing = true;
+    playBtn.textContent = '⏸';
+    if (currentSceneIdx === 0 && currentClipIdx === 0) {
+      firedTriggers.clear();
+      document.querySelectorAll('.ve').forEach(el => el.classList.remove('visible', 'fading'));
+    }
+    playCurrentClip();
+    requestAnimationFrame(tick);
+  }
+
+  function pause() {
+    playing = false;
+    playBtn.textContent = '▶';
+    audioElements.forEach(a => { if (!a.paused) a.pause(); });
+  }
+
+  function playCurrentClip() {
+    if (currentClipIdx >= audioElements.length) {
+      // Done
+      playing = false;
+      playBtn.textContent = '▶';
+      currentSceneIdx = 0;
+      currentClipIdx = 0;
+      return;
+    }
+    const audio = audioElements[currentClipIdx];
+    audio.onended = () => {
+      currentClipIdx++;
+      if (playing) playCurrentClip();
+    };
+    audio.play().catch(() => {});
+  }
+
+  function tick() {
+    if (!playing) return;
+    if (currentClipIdx >= audioElements.length) return;
+
+    const audio = audioElements[currentClipIdx];
+    const globalMs = audio._globalOffset + (audio.currentTime * 1000);
+
+    // Update progress
+    if (totalDuration > 0) {
+      progressFill.style.width = (globalMs / totalDuration * 100) + '%';
+      timeDisplay.textContent = formatTime(globalMs);
+    }
+
+    // Fire triggers
+    for (const scene of sceneDefs) {
+      if (!scene.triggers) continue;
+      for (let i = 0; i < scene.triggers.length; i++) {
+        const trig = scene.triggers[i];
+        const key = scene.scene + '-' + i;
+        if (firedTriggers.has(key)) continue;
+        const sceneStart = scene._clipOffsets[scene.clips[0]] || 0;
+        const trigMs = sceneStart + trig.delay;
+        if (globalMs >= trigMs) {
+          firedTriggers.add(key);
+          try { new Function(trig.code)(); } catch(e) { console.warn('Trigger error:', e); }
+        }
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function seek(e) {
+    const rect = progressBar.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    // Simple seek: restart from beginning (full seek is complex)
+    console.log('Seek to', Math.round(pct * 100) + '%');
+  }
+
+  // Boot
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

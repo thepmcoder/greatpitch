@@ -1,0 +1,33 @@
+{
+  "scene": "scene-04",
+  "title": "The Results",
+  "clips": ["s05_proof"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-3" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "twenty-four", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-vehicles" }]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "Fifty-eight", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4-vehicles" },
+        { "fn": "show", "id": "s4-fuel" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "Seventy-two", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-downtime" }]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "Fourteen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-deliveries" }]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "scene": "scene-04",
+  "title": "Traction",
+  "clips": ["clip_traction"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s4-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "two", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-cities" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "Three", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-farms" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "Eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-consumers" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "forty-seven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-order" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "sixty-four", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-repeat" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "thirty-five", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-revenue" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "sixty-one", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-nps" }]
+    }
+  ]
+}

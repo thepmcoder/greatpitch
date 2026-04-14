@@ -1,0 +1,29 @@
+{
+  "scene": "scene-6",
+  "title": "Farm Economics",
+  "clips": ["s07_economics"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-5" },
+        { "fn": "show", "id": "s6-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_economics", "word": "revenue", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-revenue" }]
+    },
+    {
+      "anchor": { "clip": "s07_economics", "word": "prices", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-own-prices" }]
+    },
+    {
+      "anchor": { "clip": "s07_economics", "word": "Unit", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s6-own-prices" },
+        { "fn": "show", "id": "s6-breakeven" }
+      ]
+    }
+  ]
+}

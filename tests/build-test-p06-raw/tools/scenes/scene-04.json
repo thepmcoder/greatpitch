@@ -1,0 +1,13 @@
+{
+  "scene": "scene-04",
+  "title": "The Solution — LIFT",
+  "clips": ["s4_solution"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-03" }, { "fn": "show", "id": "s4-heading" }] },
+    { "anchor": { "clip": "s4_solution", "word": "Elevate", "n": 2 }, "actions": [{ "fn": "show", "id": "s4-elevate" }] },
+    { "anchor": { "clip": "s4_solution", "word": "Locate", "n": 1 }, "actions": [{ "fn": "show", "id": "s4-l" }] },
+    { "anchor": { "clip": "s4_solution", "word": "Interpret", "n": 1 }, "actions": [{ "fn": "show", "id": "s4-i" }] },
+    { "anchor": { "clip": "s4_solution", "word": "Follow", "n": 1 }, "actions": [{ "fn": "show", "id": "s4-f" }] },
+    { "anchor": { "clip": "s4_solution", "word": "time", "n": 1 }, "actions": [{ "fn": "show", "id": "s4-t" }] }
+  ]
+}

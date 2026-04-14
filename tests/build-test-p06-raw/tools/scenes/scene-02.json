@@ -1,0 +1,11 @@
+{
+  "scene": "scene-02",
+  "title": "The Data",
+  "clips": ["s2_data"],
+  "triggers": [
+    { "anchor": { "fixed": 0 }, "actions": [{ "fn": "clearAll", "id": "scene-01" }, { "fn": "show", "id": "s2-heading" }] },
+    { "anchor": { "clip": "s2_data", "word": "80 percent", "n": 1 }, "actions": [{ "fn": "show", "id": "s2-stat1" }] },
+    { "anchor": { "clip": "s2_data", "word": "60 percent", "n": 1 }, "actions": [{ "fn": "show", "id": "s2-stat2" }] },
+    { "anchor": { "clip": "s2_data", "word": "14 percent", "n": 1 }, "actions": [{ "fn": "show", "id": "s2-stat3" }] }
+  ]
+}

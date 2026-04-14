@@ -1,0 +1,30 @@
+{
+  "scene": "scene-04",
+  "title": "The LIFT Framework",
+  "clips": ["s05_lift"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_lift", "word": "Locate", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-locate" }]
+    },
+    {
+      "anchor": { "clip": "s05_lift", "word": "Interpret", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-interpret" }]
+    },
+    {
+      "anchor": { "clip": "s05_lift", "word": "Follow", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-follow" }]
+    },
+    {
+      "anchor": { "clip": "s05_lift", "word": "Time", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-time" }]
+    }
+  ]
+}

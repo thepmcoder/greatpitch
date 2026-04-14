@@ -1,0 +1,29 @@
+{
+  "scene": "scene-1",
+  "title": "A Broken Chain",
+  "clips": ["s02_broken"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s1-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_broken", "word": "chain", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-chain" }]
+    },
+    {
+      "anchor": { "clip": "s02_broken", "word": "Farmers", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-chain" },
+        { "fn": "show", "id": "s1-forty-pct" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_broken", "word": "premium", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-premium" }]
+    }
+  ]
+}
