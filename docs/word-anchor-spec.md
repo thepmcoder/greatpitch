@@ -1,7 +1,7 @@
 # Word-Anchor Scene Specification
 
-> **Version:** 0.1 (draft)
-> **Status:** Design phase
+> **Version:** 0.2 (based on working C2D implementation)
+> **Status:** Proven in production — 4 video versions built with this format
 
 ## Concept
 
@@ -19,39 +19,35 @@ Word anchors are durable:
 - Change voice → same
 - Edit script → only affected scenes need updating
 
-## Schema (Draft)
+## Schema (Proven)
+
+This is the format we actually built and tested across 4 video versions (60+ scenes, 200+ triggers):
 
 ```json
 {
-  "version": "0.1",
-  "metadata": {
-    "title": "Product Pitch",
-    "duration_estimate": "3min",
-    "voice": "alloy",
-    "resolution": "1920x1080"
-  },
-  "scenes": [
+  "scene": "scene-03",
+  "title": "We Know the Problems",
+  "clips": ["s03b_awareness", "s03b_kitchensink", "s03b_companion"],
+  "triggers": [
     {
-      "id": "scene-01",
-      "narration": "Every product manager faces the same challenge: turning ambiguity into clarity.",
-      "visuals": [
-        {
-          "type": "background",
-          "src": "gradient-blue.png",
-          "anchor": { "word": "Every", "index": 0 },
-          "transition": "fade-in",
-          "duration": "until-next"
-        },
-        {
-          "type": "text-overlay",
-          "content": "Ambiguity → Clarity",
-          "anchor": { "word": "ambiguity", "index": 7 },
-          "transition": "slide-up",
-          "position": "center",
-          "style": "heading-large"
-        }
-      ],
-      "layout": "full-screen"
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s3-question" }]
+    },
+    {
+      "anchor": { "clip": "s03b_awareness", "word": "tried", "n": 1 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-3" },
+        { "fn": "show", "id": "s3-tried" },
+        { "fn": "showExperimentCards" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03b_kitchensink", "word": "product", "n": 1 },
+      "delayMs": -200,
+      "actions": [
+        { "fn": "fade", "id": "s3-known-for" },
+        { "fn": "show", "id": "s3-identity-punch" }
+      ]
     }
   ]
 }
@@ -59,66 +55,113 @@ Word anchors are durable:
 
 ## Anchor Object
 
+Two types:
+
+### Fixed Anchor (scene-start events)
+```json
+{ "fixed": 0 }       // At scene start
+{ "fixed": 500 }     // 500ms after scene start
+```
+
+### Word Anchor (the core innovation)
 ```json
 {
-  "word": "revenue",     // The spoken word to anchor to
-  "index": 3,            // 0-based word index in the narration string (disambiguates repeated words)
-  "offset": "0ms"        // Optional: offset from word start (e.g., "-200ms" for anticipation)
+  "clip": "s03b_awareness",  // Which narration clip
+  "word": "tried",           // The spoken word
+  "n": 1                     // 1st occurrence (disambiguates repeats)
 }
 ```
 
-## Visual Types
-
-| Type | Description | Required Fields |
-|------|-------------|----------------|
-| `background` | Full-screen background image/video/color | src, anchor |
-| `text-overlay` | Text displayed over background | content, anchor, position |
-| `image` | Image element (chart, screenshot, photo) | src, anchor, position, size |
-| `video-clip` | Embedded video segment | src, anchor, duration |
-| `animation` | CSS/Lottie animation | animation-id, anchor |
-| `avatar` | Talking head (if using avatar TTS) | avatar-id, anchor |
-
-## Transitions
-
-| Transition | Description |
-|------------|-------------|
-| `fade-in` | Opacity 0→1 over 300ms |
-| `fade-out` | Opacity 1→0 over 300ms |
-| `slide-up` | Slide from below over 400ms |
-| `slide-left` | Slide from right over 400ms |
-| `cut` | Instant appearance |
-| `zoom-in` | Scale 0.8→1.0 over 500ms |
-
-## Duration
-
-| Value | Meaning |
-|-------|---------|
-| `"until-next"` | Visible until the next visual of same type appears |
-| `"until-scene-end"` | Visible until scene ends |
-| `"3s"` | Visible for 3 seconds after anchor |
-| `"word-range"` | Visible from anchor word to specified end word |
-
-## Assembly Pipeline
-
-```
-scene-spec.json + narration.mp3 + word-timestamps.json
-                    ↓
-              [Assembler]
-                    ↓
-              output.mp4
+### Optional: Anticipation Offset
+```json
+{
+  "anchor": { "clip": "s03b_awareness", "word": "tried", "n": 1 },
+  "delayMs": -200    // Visual appears 200ms BEFORE the word (anticipation)
+}
 ```
 
-The assembler:
-1. Reads scene spec
-2. Reads word timestamps (from WhisperX or TTS engine)
-3. Maps each anchor word to its timestamp
-4. Renders visuals at computed times
-5. Composites with narration audio
-6. Outputs final video
+## Action Types (Proven Set)
 
-## Open Questions
+| Action | Description | Example |
+|--------|-------------|---------|
+| `show` | Make element visible | `{ "fn": "show", "id": "s3-question" }` |
+| `fade` | Fade element out | `{ "fn": "fade", "id": "s3-known-for" }` |
+| `clearAll` | Hide all elements in group | `{ "fn": "clearAll", "id": "scene-3" }` |
+| Custom | Domain-specific animations | `{ "fn": "showExperimentCards" }` |
 
-- Should scenes have explicit ordering or rely on narration flow?
-- How to handle word anchors that span scene boundaries?
-- Should the spec support conditional visuals (e.g., "if data available, show chart")?
-- What's the minimum viable assembler? (ffmpeg script vs Remotion component vs custom player)
+Actions are declarative intent — the presentation layer implements them. This separates content from rendering.
+
+## Scene Structure
+
+Each scene file (`scene-NN.json`) contains:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `scene` | string | Scene identifier |
+| `title` | string | Human-readable title |
+| `clips` | string[] | Ordered list of narration clip IDs for this scene |
+| `triggers` | array | Ordered list of anchor → actions mappings |
+
+## Assembly Pipeline (Proven)
+
+```
+Narration clips (.mp3) + Word metadata (.metadata.json)
+         +
+Scene JSONs (tools/scenes/scene-NN.json)
+         |
+         v
+    assemble.js  -->  Resolves word anchors to ms delays
+         |              using T(meta, clips, clip, word, n)
+         v
+    HTML template  <--  Patched with SCENES array
+         |
+         v
+    build-video.js  -->  Bakes audio (base64) + metadata into HTML
+         |
+         v
+    click-done-video-final.html  (self-contained, ~20MB)
+```
+
+### Key Assembly Function: T()
+
+```javascript
+// Resolves a word anchor to a millisecond delay from scene start
+T(metadata, sceneClips, clipId, word, nthOccurrence)
+// Returns: cumulative ms offset (clip start offset + word offset within clip)
+// Includes LEAD_MS anticipation constant
+```
+
+## TTS Integration
+
+```javascript
+// msedge-tts with word boundary metadata
+const tts = new MsEdgeTTS();
+await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3, {
+  wordBoundaryEnabled: true,
+  sentenceBoundaryEnabled: true
+});
+```
+
+Output per clip:
+- `clipname.mp3` — audio file
+- `clipname.metadata.json` — word boundaries: `{ t: offsetMs, d: durationMs, w: "word" }`
+
+## Design Rules (Hard-Won)
+
+1. **Anchor words early in sentences.** Words past 60% of sentence position mean the visual appears too late. The `audit-anchors.js` tool validates this.
+
+2. **Audio-position triggers only.** Never `setTimeout`. Use `requestAnimationFrame` polling `audio.currentTime`. Wall-clock drifts; audio-position cannot.
+
+3. **On-screen text = narration keywords, shortened.** Not paraphrased. Same words, fewer of them.
+
+4. **One scene file per narrative section.** Scenes map to story beats, not arbitrary time chunks.
+
+5. **Clips within scenes play sequentially.** Multiple clips per scene handle natural paragraph breaks without separate scene files.
+
+## Extensibility
+
+The format supports:
+- **Custom actions** — any `fn` name works; the presentation layer defines behavior
+- **Multiple actions per trigger** — a word anchor can fire several visual changes simultaneously
+- **Mixed anchor types** — fixed and word-anchored triggers in the same scene
+- **Anticipation offsets** — `delayMs` on triggers for visuals that should lead the narration
