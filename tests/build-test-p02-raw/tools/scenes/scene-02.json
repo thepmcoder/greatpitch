@@ -1,0 +1,22 @@
+{
+  "scene": "scene-02",
+  "title": "The Solution",
+  "clips": ["clip_solution"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s2-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "DeepReview", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-logo" }]
+    },
+    {
+      "anchor": { "clip": "clip_solution", "word": "force", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-force-multiplier" }]
+    }
+  ]
+}

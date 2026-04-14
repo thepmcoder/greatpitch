@@ -1,0 +1,30 @@
+{
+  "scene": "scene-03",
+  "title": "How It Works",
+  "clips": ["clip_features"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s3-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_features", "word": "bugs", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-bug-detect" }]
+    },
+    {
+      "anchor": { "clip": "clip_features", "word": "architecture", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-architecture" }]
+    },
+    {
+      "anchor": { "clip": "clip_features", "word": "explains", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-knowledge" }]
+    },
+    {
+      "anchor": { "clip": "clip_features", "word": "prioritizes", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-prioritize" }]
+    }
+  ]
+}

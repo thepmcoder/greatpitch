@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepReview — AI Code Review</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117; color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; overflow: hidden;
+  }
+  #stage {
+    width: 1280px; height: 720px; position: relative;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    overflow: hidden;
+  }
+  .scene { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px; }
+  .hidden { display: none !important; }
+  .fade-out { opacity: 0; transition: opacity 0.4s ease-out; }
+
+  /* Scene 0 — Hook */
+  #s0-question, #s0-question2 { font-size: 42px; font-weight: 600; text-align: center; line-height: 1.4; color: #58a6ff; }
+  #s0-answer { font-size: 36px; font-weight: 700; text-align: center; color: #3fb950; }
+
+  /* Scene 1 — Problem */
+  #s1-heading { font-size: 38px; font-weight: 700; color: #f85149; margin-bottom: 40px; }
+  .stat-card {
+    background: #21262d; border: 1px solid #30363d; border-radius: 12px;
+    padding: 20px 32px; margin: 8px 0; width: 600px; text-align: center;
+    font-size: 24px; color: #e6edf3;
+  }
+  .stat-card .num { font-size: 32px; font-weight: 700; color: #f85149; display: block; margin-bottom: 4px; }
+
+  /* Scene 2 — What Doesn't Work */
+  #s2-heading { font-size: 38px; font-weight: 700; color: #d29922; margin-bottom: 40px; }
+  .limit-card {
+    background: #21262d; border: 1px solid #30363d; border-radius: 12px;
+    padding: 18px 32px; margin: 8px 0; width: 560px; text-align: center;
+    font-size: 22px; color: #8b949e;
+  }
+  .limit-card.bad { border-color: #f85149; color: #f85149; }
+
+  /* Scene 3 — Solution */
+  #s3-logo { font-size: 52px; font-weight: 800; color: #58a6ff; letter-spacing: -1px; }
+  #s3-integrations { font-size: 22px; color: #8b949e; margin-top: 12px; }
+  #s3-tagline { font-size: 28px; color: #3fb950; margin-top: 20px; font-weight: 600; }
+  .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .cap-card {
+    background: #21262d; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; text-align: center; width: 260px;
+  }
+  .cap-card .icon { font-size: 36px; margin-bottom: 8px; }
+  .cap-card .label { font-size: 20px; font-weight: 600; color: #e6edf3; }
+  .cap-card .desc { font-size: 14px; color: #8b949e; margin-top: 4px; }
+
+  /* Scene 4 — Proof */
+  #s4-heading { font-size: 38px; font-weight: 700; color: #3fb950; margin-bottom: 32px; }
+  .proof-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .proof-card {
+    background: #21262d; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; text-align: center; min-width: 180px;
+  }
+  .proof-card .big { font-size: 36px; font-weight: 800; color: #3fb950; }
+  .proof-card .sub { font-size: 14px; color: #8b949e; margin-top: 6px; }
+
+  /* Scene 5 — Ask */
+  #s5-heading { font-size: 44px; font-weight: 700; color: #58a6ff; margin-bottom: 40px; }
+  #s5-scale { font-size: 28px; color: #e6edf3; margin-bottom: 16px; }
+  #s5-cost { font-size: 24px; color: #3fb950; font-weight: 600; margin-bottom: 24px; }
+  #s5-value { font-size: 22px; color: #8b949e; line-height: 1.6; text-align: center; }
+
+  /* Player controls */
+  #play-btn {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #238636; color: #fff; border: none; border-radius: 8px;
+    padding: 14px 40px; font-size: 18px; font-weight: 600; cursor: pointer;
+    z-index: 1000;
+  }
+  #play-btn:hover { background: #2ea043; }
+  #play-btn.playing { background: #30363d; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scene 0: Hook -->
+  <div class="scene" id="scene-0">
+    <div id="s0-question" class="hidden">Every PR reviewed in 4 hours<br>instead of 24?</div>
+    <div id="s0-question2" class="hidden">What if senior engineers<br>got back 30% of their time?</div>
+    <div id="s0-answer" class="hidden">200 teams. Already happening.</div>
+  </div>
+
+  <!-- Scene 1: Problem -->
+  <div class="scene" id="scene-1">
+    <div id="s1-heading" class="hidden">The Bottleneck</div>
+    <div id="s1-stat-wait" class="stat-card hidden"><span class="num">24 hours</span>Average PR wait time</div>
+    <div id="s1-stat-blocked" class="stat-card hidden"><span class="num">Blocked</span>Deployments stalled, code goes stale</div>
+    <div id="s1-stat-senior" class="stat-card hidden"><span class="num">30%</span>Of senior engineer time spent reviewing</div>
+    <div id="s1-stat-quality" class="stat-card hidden"><span class="num">Inconsistent</span>Review quality varies by reviewer</div>
+  </div>
+
+  <!-- Scene 2: What Doesn't Work -->
+  <div class="scene" id="scene-2">
+    <div id="s2-heading" class="hidden">What We've Tried</div>
+    <div id="s2-linters" class="limit-card hidden">Linters &amp; Static Analysis</div>
+    <div id="s2-limitation" class="limit-card bad hidden">✗ Only catches syntax &amp; style</div>
+    <div id="s2-gap" class="limit-card bad hidden">✗ Can't understand architecture</div>
+  </div>
+
+  <!-- Scene 3: Solution -->
+  <div class="scene" id="scene-3">
+    <div id="s3-logo" class="hidden">DeepReview</div>
+    <div id="s3-integrations" class="hidden">GitHub · GitLab</div>
+    <div id="s3-tagline" class="hidden">Force Multiplier for Code Review</div>
+    <div class="cap-grid">
+      <div id="s3-cap-bugs" class="cap-card hidden"><div class="icon">🐛</div><div class="label">Bug Detection</div><div class="desc">Null pointers, race conditions, SQL injection</div></div>
+      <div id="s3-cap-arch" class="cap-card hidden"><div class="icon">🏗️</div><div class="label">Architecture Feedback</div><div class="desc">Flags pattern violations</div></div>
+      <div id="s3-cap-learn" class="cap-card hidden"><div class="icon">📚</div><div class="label">Knowledge Transfer</div><div class="desc">Explains why, links to your standards</div></div>
+      <div id="s3-cap-priority" class="cap-card hidden"><div class="icon">🎯</div><div class="label">Review Prioritization</div><div class="desc">Ranks PRs by risk</div></div>
+    </div>
+  </div>
+
+  <!-- Scene 4: Proof -->
+  <div class="scene" id="scene-4">
+    <div id="s4-heading" class="hidden">The Results</div>
+    <div class="proof-grid">
+      <div id="s4-stat-teams" class="proof-card hidden"><div class="big">200</div><div class="sub">Paying Teams</div></div>
+      <div id="s4-stat-arr" class="proof-card hidden"><div class="big">$800K</div><div class="sub">Annual Recurring Revenue</div></div>
+      <div id="s4-stat-prs" class="proof-card hidden"><div class="big">847K</div><div class="sub">PRs Analyzed</div></div>
+      <div id="s4-stat-bugs" class="proof-card hidden"><div class="big">12,400</div><div class="sub">Real Bugs Caught</div></div>
+      <div id="s4-stat-time" class="proof-card hidden"><div class="big">24h → 4h</div><div class="sub">Review Wait Time</div></div>
+      <div id="s4-stat-fp" class="proof-card hidden"><div class="big">8%</div><div class="sub">False Positive Rate</div></div>
+    </div>
+  </div>
+
+  <!-- Scene 5: Ask -->
+  <div class="scene" id="scene-5">
+    <div id="s5-heading" class="hidden">The Ask</div>
+    <div id="s5-scale" class="hidden">2,000 Engineers — Company-Wide</div>
+    <div id="s5-cost" class="hidden">$48K/year · $2/engineer/month</div>
+    <div id="s5-value" class="hidden">Faster Reviews · Fewer Bugs · More Engineering Time</div>
+  </div>
+</div>
+
+<button id="play-btn" onclick="startVideo()">▶ Play</button>
+
+<script>
+const SCENES = [
+  {
+    scene: "scene-00",
+    title: "The Hook",
+    clips: ["s00_hook"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s0-question') } },
+    { delay: 5463, run() { fade('s0-question'); show('s0-question2') } },
+    { delay: 8550, run() { fade('s0-question2'); show('s0-answer') } }
+    ]
+  },
+  {
+    scene: "scene-01",
+    title: "The Problem",
+    clips: ["s01a_bottleneck", "s01b_cost"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-0'); show('s1-heading') } },
+    { delay: 1588, run() { show('s1-stat-wait') } },
+    { delay: 9113, run() { show('s1-stat-blocked') } },
+    { delay: 14201, run() { show('s1-stat-senior') } },
+    { delay: 18651, run() { show('s1-stat-quality') } }
+    ]
+  },
+  {
+    scene: "scene-02",
+    title: "What Doesn't Work",
+    clips: ["s02_linters"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-1'); show('s2-heading') } },
+    { delay: 638, run() { show('s2-linters') } },
+    { delay: 3900, run() { show('s2-limitation') } },
+    { delay: 7738, run() { show('s2-gap') } }
+    ]
+  },
+  {
+    scene: "scene-03",
+    title: "The Solution",
+    clips: ["s03a_intro", "s03b_capabilities"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-2'); show('s3-logo') } },
+    { delay: 3163, run() { show('s3-integrations') } },
+    { delay: 12213, run() { show('s3-tagline') } },
+    { delay: 14488, run() { fade('s3-integrations'); fade('s3-tagline'); show('s3-cap-bugs') } },
+    { delay: 19188, run() { show('s3-cap-arch') } },
+    { delay: 24076, run() { show('s3-cap-learn') } },
+    { delay: 28376, run() { show('s3-cap-priority') } }
+    ]
+  },
+  {
+    scene: "scene-04",
+    title: "The Proof",
+    clips: ["s04a_traction", "s04b_results"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-3'); show('s4-heading') } },
+    { delay: 113, run() { show('s4-stat-teams') } },
+    { delay: 6688, run() { show('s4-stat-arr') } },
+    { delay: 8250, run() { show('s4-stat-prs') } },
+    { delay: 11388, run() { show('s4-stat-bugs') } },
+    { delay: 18276, run() { show('s4-stat-time') } },
+    { delay: 20851, run() { show('s4-stat-fp') } }
+    ]
+  },
+  {
+    scene: "scene-05",
+    title: "The Ask",
+    clips: ["s05_ask"],
+    triggers: [
+    { delay: 0, run() { clearAll('scene-4'); show('s5-heading') } },
+    { delay: 2100, run() { show('s5-scale') } },
+    { delay: 5250, run() { show('s5-cost') } },
+    { delay: 12063, run() { show('s5-value') } }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('hidden'); el.classList.remove('fade-out'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('hidden');
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('fade-out');
+    setTimeout(() => el.classList.add('hidden'), 400);
+  }
+}
+function clearAll(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (const child of container.querySelectorAll('[id]')) {
+    child.classList.add('hidden');
+    child.classList.remove('fade-out');
+  }
+}
+
+function playClip(clipId) {
+  return new Promise((resolve) => {
+    const dataUri = AUDIO_DATA[clipId];
+    if (!dataUri) { resolve(); return; }
+    const audio = new Audio(dataUri);
+    audio.onended = resolve;
+    audio.onerror = resolve;
+    audio.play().catch(resolve);
+  });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function playScene(scene) {
+  // Fire fixed-0 triggers immediately
+  for (const t of scene.triggers) {
+    if (t.delay === 0) {
+      t.run();
+    }
+  }
+
+  // Play clips sequentially, firing triggers at computed delays
+  let elapsed = 0;
+  for (const clipId of scene.clips) {
+    if (typeof clipId === 'object' && clipId.pause) {
+      await sleep(clipId.pause);
+      elapsed += clipId.pause;
+      continue;
+    }
+    // Schedule non-zero triggers that fall within this clip's time range
+    const clipMeta = WORD_META[clipId] || [];
+    const clipDuration = clipMeta.length > 0
+      ? clipMeta[clipMeta.length - 1].t + clipMeta[clipMeta.length - 1].d + 300
+      : 3000;
+
+    for (const t of scene.triggers) {
+      if (t.delay > elapsed && t.delay <= elapsed + clipDuration) {
+        const fireAt = t.delay - elapsed;
+        setTimeout(() => t.run(), fireAt);
+      }
+    }
+
+    await playClip(clipId);
+    elapsed += clipDuration;
+  }
+  // Small pause between scenes
+  await sleep(600);
+}
+
+async function startVideo() {
+  const btn = document.getElementById('play-btn');
+  btn.textContent = '⏸ Playing...';
+  btn.classList.add('playing');
+  btn.disabled = true;
+
+  for (const scene of SCENES) {
+    await playScene(scene);
+  }
+
+  btn.textContent = '✓ Done';
+}
+</script>
+</body>
+</html>

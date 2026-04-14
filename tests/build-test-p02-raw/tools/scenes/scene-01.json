@@ -1,0 +1,26 @@
+{
+  "scene": "scene-01",
+  "title": "The Pain",
+  "clips": ["clip_pain"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s1-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "thirty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-thirty-pct" }]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "inconsistent", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-inconsistent" }]
+    },
+    {
+      "anchor": { "clip": "clip_pain", "word": "backlog", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-backlog" }]
+    }
+  ]
+}

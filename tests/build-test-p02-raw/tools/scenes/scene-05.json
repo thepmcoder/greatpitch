@@ -1,0 +1,30 @@
+{
+  "scene": "scene-05",
+  "title": "The Ask",
+  "clips": ["clip_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s5-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "forty-eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-price" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "two", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-per-eng" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "Faster", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-benefits" }]
+    },
+    {
+      "anchor": { "clip": "clip_ask", "word": "happen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-cta" }]
+    }
+  ]
+}

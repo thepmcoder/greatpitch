@@ -1,0 +1,26 @@
+{
+  "scene": "scene-02",
+  "title": "What Doesn't Work",
+  "clips": ["s02_linters"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-1" },
+        { "fn": "show", "id": "s2-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_linters", "word": "linters", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-linters" }]
+    },
+    {
+      "anchor": { "clip": "s02_linters", "word": "syntax", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-limitation" }]
+    },
+    {
+      "anchor": { "clip": "s02_linters", "word": "architecture", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-gap" }]
+    }
+  ]
+}

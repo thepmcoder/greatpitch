@@ -1,0 +1,34 @@
+{
+  "scene": "scene-04",
+  "title": "Traction",
+  "clips": ["clip_traction"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "stage" },
+        { "fn": "show", "id": "s4-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "Two", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-teams" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "thousand", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-prs" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "Twelve", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-bugs" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "dropped", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-wait-time" }]
+    },
+    {
+      "anchor": { "clip": "clip_traction", "word": "eight", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-false-pos" }]
+    }
+  ]
+}

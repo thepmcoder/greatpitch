@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepReview — AI Code Review</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0f; color: #e8e8f0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; }
+  #stage {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .scene-layer {
+    position: absolute; inset: 0;
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 28px;
+  }
+  .scene-layer.active { display: flex; }
+
+  /* Play button overlay */
+  #play-overlay {
+    position: absolute; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(10,10,15,0.85); cursor: pointer;
+  }
+  #play-overlay .play-btn {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 60px rgba(99,102,241,0.4);
+    transition: transform 0.2s;
+  }
+  #play-overlay .play-btn:hover { transform: scale(1.1); }
+  #play-overlay .play-btn::after {
+    content: ''; display: block;
+    width: 0; height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 32px solid white;
+    margin-left: 6px;
+  }
+
+  /* Shared visual styles */
+  .big-stat {
+    font-size: 7rem; font-weight: 800; letter-spacing: -3px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .big-stat.vis { opacity: 1; }
+
+  .big-text {
+    font-size: 3rem; font-weight: 700; text-align: center;
+    opacity: 0; transition: opacity 0.5s ease;
+    max-width: 800px; line-height: 1.3;
+  }
+  .big-text.vis { opacity: 1; }
+
+  .subtitle {
+    font-size: 1.5rem; font-weight: 400; color: #94a3b8;
+    text-align: center; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .subtitle.vis { opacity: 1; }
+
+  .logo-text {
+    font-size: 5rem; font-weight: 800; letter-spacing: -2px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .logo-text.vis { opacity: 1; }
+
+  .tagline {
+    font-size: 2rem; font-weight: 600;
+    color: #a5b4fc; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .tagline.vis { opacity: 1; }
+
+  .feature-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 24px 32px;
+    min-width: 320px; max-width: 500px;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .feature-card.vis { opacity: 1; transform: translateY(0); }
+  .feature-card .fc-icon { font-size: 2rem; margin-bottom: 8px; }
+  .feature-card .fc-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+  .feature-card .fc-desc { font-size: 1rem; color: #94a3b8; }
+
+  .features-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    max-width: 720px; width: 100%;
+  }
+
+  .stat-row {
+    display: flex; align-items: baseline; gap: 16px;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .stat-row.vis { opacity: 1; transform: translateX(0); }
+  .stat-row .sr-num {
+    font-size: 2.4rem; font-weight: 800; min-width: 180px; text-align: right;
+    background: linear-gradient(135deg, #34d399, #22d3ee);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-row .sr-label { font-size: 1.2rem; color: #cbd5e1; }
+
+  .price-block {
+    text-align: center; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .price-block.vis { opacity: 1; }
+  .price-block .pb-amount {
+    font-size: 4rem; font-weight: 800;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .price-block .pb-sub { font-size: 1.2rem; color: #94a3b8; }
+
+  .per-eng {
+    font-size: 2.4rem; font-weight: 700; color: #34d399;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .per-eng.vis { opacity: 1; }
+
+  .benefits-list {
+    display: flex; gap: 32px; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .benefits-list.vis { opacity: 1; }
+  .benefits-list .bl-item {
+    text-align: center; font-size: 1.1rem; color: #e2e8f0;
+  }
+  .benefits-list .bl-icon { font-size: 2rem; margin-bottom: 8px; }
+
+  .cta-text {
+    font-size: 2.5rem; font-weight: 800;
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .cta-text.vis { opacity: 1; }
+
+  .scene-title {
+    position: absolute; top: 32px; left: 40px;
+    font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 3px; color: #4b5563;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- PLAY OVERLAY -->
+  <div id="play-overlay">
+    <div class="play-btn"></div>
+  </div>
+
+  <!-- SCENE 0: Hook -->
+  <div id="s0-bg" class="scene-layer">
+    <div class="scene-title">THE PROBLEM</div>
+    <div id="s0-24hrs" class="big-stat">24 HOURS</div>
+    <div id="s0-bottleneck" class="big-text" style="color: #ef4444;">BOTTLENECK.</div>
+  </div>
+
+  <!-- SCENE 1: Pain -->
+  <div id="s1-bg" class="scene-layer">
+    <div class="scene-title">THE COST</div>
+    <div id="s1-thirty-pct" class="big-stat">30%</div>
+    <div id="s1-inconsistent" class="big-text">Inconsistent quality.</div>
+    <div id="s1-backlog" class="subtitle">The backlog keeps growing.</div>
+  </div>
+
+  <!-- SCENE 2: Solution -->
+  <div id="s2-bg" class="scene-layer">
+    <div class="scene-title">THE SOLUTION</div>
+    <div id="s2-logo" class="logo-text">DeepReview</div>
+    <div id="s2-force-multiplier" class="tagline">A Force Multiplier for Code Review</div>
+  </div>
+
+  <!-- SCENE 3: Features -->
+  <div id="s3-bg" class="scene-layer">
+    <div class="scene-title">HOW IT WORKS</div>
+    <div class="features-grid">
+      <div id="s3-bug-detect" class="feature-card">
+        <div class="fc-icon">🐛</div>
+        <div class="fc-title">Bug Detection</div>
+        <div class="fc-desc">Null pointers, race conditions, SQL injection — real bugs, not lint.</div>
+      </div>
+      <div id="s3-architecture" class="feature-card">
+        <div class="fc-icon">🏗️</div>
+        <div class="fc-title">Architecture Feedback</div>
+        <div class="fc-desc">Flags PRs that violate established codebase patterns.</div>
+      </div>
+      <div id="s3-knowledge" class="feature-card">
+        <div class="fc-icon">📚</div>
+        <div class="fc-title">Knowledge Transfer</div>
+        <div class="fc-desc">Explains why, linking to your team's own coding standards.</div>
+      </div>
+      <div id="s3-prioritize" class="feature-card">
+        <div class="fc-icon">🎯</div>
+        <div class="fc-title">Review Prioritization</div>
+        <div class="fc-desc">Ranks PRs by risk so humans review the dangerous ones first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: Traction -->
+  <div id="s4-bg" class="scene-layer">
+    <div class="scene-title">TRACTION</div>
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div id="s4-teams" class="stat-row">
+        <span class="sr-num">200</span><span class="sr-label">paying teams</span>
+      </div>
+      <div id="s4-prs" class="stat-row">
+        <span class="sr-num">847,000+</span><span class="sr-label">PRs analyzed</span>
+      </div>
+      <div id="s4-bugs" class="stat-row">
+        <span class="sr-num">12,400</span><span class="sr-label">real bugs caught pre-merge</span>
+      </div>
+      <div id="s4-wait-time" class="stat-row">
+        <span class="sr-num">24h → 4h</span><span class="sr-label">review wait time</span>
+      </div>
+      <div id="s4-false-pos" class="stat-row">
+        <span class="sr-num">8%</span><span class="sr-label">false positive rate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: The Ask -->
+  <div id="s5-bg" class="scene-layer">
+    <div class="scene-title">THE ASK</div>
+    <div id="s5-price" class="price-block">
+      <div class="pb-amount">$48,000/year</div>
+      <div class="pb-sub">Enterprise license · 2,000 engineers</div>
+    </div>
+    <div id="s5-per-eng" class="per-eng">$2 / engineer / month</div>
+    <div id="s5-benefits" class="benefits-list">
+      <div class="bl-item"><div class="bl-icon">⚡</div>Faster Reviews</div>
+      <div class="bl-item"><div class="bl-icon">🛡️</div>Fewer Bugs</div>
+      <div class="bl-item"><div class="bl-icon">🚀</div>Engineers Freed Up</div>
+    </div>
+    <div id="s5-cta" class="cta-text">Let's make it happen.</div>
+  </div>
+
+</div>
+
+<script>
+// --- DATA PLACEHOLDERS (patched by assemble.js / build-video.js) ---
+const SCENES = [
+  {
+    "scene": "scene-00",
+    "title": "The Hook",
+    "clips": [
+      "clip_hook"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s0-bg')"
+      },
+      {
+        "delay": 3188,
+        "js": "show('s0-24hrs')"
+      },
+      {
+        "delay": 6725,
+        "js": "fade('s0-24hrs'); show('s0-bottleneck')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "title": "The Pain",
+    "clips": [
+      "clip_pain"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s1-bg')"
+      },
+      {
+        "delay": 1513,
+        "js": "show('s1-thirty-pct')"
+      },
+      {
+        "delay": 5963,
+        "js": "show('s1-inconsistent')"
+      },
+      {
+        "delay": 12563,
+        "js": "show('s1-backlog')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "title": "The Solution",
+    "clips": [
+      "clip_solution"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s2-bg')"
+      },
+      {
+        "delay": 425,
+        "js": "show('s2-logo')"
+      },
+      {
+        "delay": 9238,
+        "js": "show('s2-force-multiplier')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "title": "How It Works",
+    "clips": [
+      "clip_features"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s3-bg')"
+      },
+      {
+        "delay": 4763,
+        "js": "show('s3-bug-detect')"
+      },
+      {
+        "delay": 11025,
+        "js": "show('s3-architecture')"
+      },
+      {
+        "delay": 12675,
+        "js": "show('s3-knowledge')"
+      },
+      {
+        "delay": 16925,
+        "js": "show('s3-prioritize')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "title": "Traction",
+    "clips": [
+      "clip_traction"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s4-bg')"
+      },
+      {
+        "delay": 113,
+        "js": "show('s4-teams')"
+      },
+      {
+        "delay": 3988,
+        "js": "show('s4-prs')"
+      },
+      {
+        "delay": 5888,
+        "js": "show('s4-bugs')"
+      },
+      {
+        "delay": 12388,
+        "js": "show('s4-wait-time')"
+      },
+      {
+        "delay": 3438,
+        "js": "show('s4-false-pos')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "title": "The Ask",
+    "clips": [
+      "clip_ask"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "js": "clearAll('stage'); show('s5-bg')"
+      },
+      {
+        "delay": 325,
+        "js": "show('s5-price')"
+      },
+      {
+        "delay": 4200,
+        "js": "show('s5-per-eng')"
+      },
+      {
+        "delay": 8325,
+        "js": "show('s5-benefits')"
+      },
+      {
+        "delay": 14000,
+        "js": "show('s5-cta')"
+      }
+    ]
+  }
+];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+// --- ANIMATION FUNCTIONS ---
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = ''; el.classList.add('vis', 'active'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('vis', 'active'); el.style.display = 'none'; }
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('vis'); }
+}
+function clearAll(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.querySelectorAll('.scene-layer').forEach(l => {
+    l.classList.remove('active');
+    l.style.display = 'none';
+  });
+  container.querySelectorAll('.vis').forEach(el => el.classList.remove('vis'));
+}
+function showChapter(id) { show(id); }
+function hideChapter(id) { hide(id); }
+function showHighlight(id) { show(id); }
+
+// --- PLAYER ---
+let isPlaying = false;
+
+document.getElementById('play-overlay').addEventListener('click', () => {
+  if (isPlaying) return;
+  isPlaying = true;
+  document.getElementById('play-overlay').style.display = 'none';
+  playScenes(0);
+});
+
+function playScenes(idx) {
+  if (idx >= SCENES.length) return;
+  const scene = SCENES[idx];
+  playScene(scene, () => playScenes(idx + 1));
+}
+
+function playScene(scene, onDone) {
+  // Schedule all triggers
+  const timers = [];
+  for (const trig of scene.triggers) {
+    const t = setTimeout(() => {
+      const fn = new Function(trig.js);
+      fn();
+    }, trig.delay);
+    timers.push(t);
+  }
+
+  // Play audio clips sequentially
+  playClips(scene.clips, 0, () => {
+    // small pause between scenes
+    setTimeout(() => { if (onDone) onDone(); }, 400);
+  });
+}
+
+function playClips(clips, idx, onDone) {
+  if (idx >= clips.length) { if (onDone) onDone(); return; }
+  const clipId = clips[idx];
+
+  if (typeof clipId === 'object' && clipId.pause) {
+    setTimeout(() => playClips(clips, idx + 1, onDone), clipId.pause);
+    return;
+  }
+
+  const b64 = AUDIO_DATA[clipId];
+  if (!b64) { playClips(clips, idx + 1, onDone); return; }
+
+  const audio = new Audio('data:audio/mp3;base64,' + b64);
+  audio.addEventListener('ended', () => playClips(clips, idx + 1, onDone));
+  audio.addEventListener('error', () => playClips(clips, idx + 1, onDone));
+  audio.play().catch(() => playClips(clips, idx + 1, onDone));
+}
+</script>
+</body>
+</html>

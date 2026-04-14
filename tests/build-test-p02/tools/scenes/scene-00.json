@@ -1,0 +1,28 @@
+{
+  "scene": "scene-00",
+  "title": "The Hook",
+  "clips": ["s00_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s0-question" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "senior", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-question" },
+        { "fn": "show", "id": "s0-question2" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s00_hook", "word": "hypothetical", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-question2" },
+        { "fn": "show", "id": "s0-answer" }
+      ]
+    }
+  ]
+}

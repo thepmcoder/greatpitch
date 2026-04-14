@@ -1,0 +1,26 @@
+{
+  "scene": "scene-05",
+  "title": "The Ask",
+  "clips": ["s05_ask"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-4" },
+        { "fn": "show", "id": "s5-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "adoption", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-scale" }]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "enterprise", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-cost" }]
+    },
+    {
+      "anchor": { "clip": "s05_ask", "word": "faster", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-value" }]
+    }
+  ]
+}

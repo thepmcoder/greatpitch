@@ -1,0 +1,38 @@
+{
+  "scene": "scene-04",
+  "title": "The Proof",
+  "clips": ["s04a_traction", "s04b_results"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-3" },
+        { "fn": "show", "id": "s4-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "Two", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-teams" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "revenue", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-arr" }]
+    },
+    {
+      "anchor": { "clip": "s04a_traction", "word": "analyzed", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-prs" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "Twelve", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-bugs" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "dropped", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-time" }]
+    },
+    {
+      "anchor": { "clip": "s04b_results", "word": "false", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-fp" }]
+    }
+  ]
+}

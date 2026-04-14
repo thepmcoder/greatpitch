@@ -1,0 +1,42 @@
+{
+  "scene": "scene-03",
+  "title": "The Solution",
+  "clips": ["s03a_intro", "s03b_capabilities"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-2" },
+        { "fn": "show", "id": "s3-logo" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03a_intro", "word": "integrates", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-integrations" }]
+    },
+    {
+      "anchor": { "clip": "s03a_intro", "word": "force", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-tagline" }]
+    },
+    {
+      "anchor": { "clip": "s03b_capabilities", "word": "bugs", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-integrations" },
+        { "fn": "fade", "id": "s3-tagline" },
+        { "fn": "show", "id": "s3-cap-bugs" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03b_capabilities", "word": "flags", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-cap-arch" }]
+    },
+    {
+      "anchor": { "clip": "s03b_capabilities", "word": "explains", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-cap-learn" }]
+    },
+    {
+      "anchor": { "clip": "s03b_capabilities", "word": "prioritizes", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-cap-priority" }]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scene": "scene-01",
+  "title": "The Problem",
+  "clips": ["s01a_bottleneck", "s01b_cost"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-0" },
+        { "fn": "show", "id": "s1-heading" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01a_bottleneck", "word": "bottleneck", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-wait" }]
+    },
+    {
+      "anchor": { "clip": "s01a_bottleneck", "word": "context", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-blocked" }]
+    },
+    {
+      "anchor": { "clip": "s01b_cost", "word": "thirty", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-senior" }]
+    },
+    {
+      "anchor": { "clip": "s01b_cost", "word": "inconsistent", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-stat-quality" }]
+    }
+  ]
+}
