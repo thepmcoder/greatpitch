@@ -1,0 +1,18 @@
+{
+  "scene": "scene-05",
+  "title": "CTA — Scan and Try",
+  "clips": ["s06_cta"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s6-qr" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06_cta", "word": "live", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s6-tagline" }]
+    }
+  ]
+}

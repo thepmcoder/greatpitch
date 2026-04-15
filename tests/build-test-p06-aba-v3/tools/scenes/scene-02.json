@@ -1,0 +1,14 @@
+{
+  "scene": "scene-02",
+  "title": "What If — The Turn",
+  "clips": ["s03_whatif"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s3-whatif" }
+      ]
+    }
+  ]
+}

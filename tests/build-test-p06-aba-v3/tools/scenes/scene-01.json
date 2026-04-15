@@ -1,0 +1,19 @@
+{
+  "scene": "scene-01",
+  "title": "Pain — The Stat That Stings",
+  "clips": ["s02_pain"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-00" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "fourteen", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-stat-14" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "guessing", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-tabs" }]
+    }
+  ]
+}

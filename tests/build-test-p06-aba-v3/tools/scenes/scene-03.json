@@ -1,0 +1,37 @@
+{
+  "scene": "scene-03",
+  "title": "Show — The Demo",
+  "clips": ["s04a_demo_guidance", "s04b_demo_research", "s04c_demo_opportunities"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s4a-app" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04a_demo_guidance", "word": "roadmap", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4a-roadmap" }]
+    },
+    {
+      "anchor": { "clip": "s04b_demo_research", "word": "connects", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4a-app" },
+        { "fn": "fade", "id": "s4a-roadmap" },
+        { "fn": "show", "id": "s4b-professors" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04c_demo_opportunities", "word": "Hackathons", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4b-professors" },
+        { "fn": "show", "id": "s4c-notifications" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04c_demo_opportunities", "word": "notifies", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4c-deadlines" }]
+    }
+  ]
+}

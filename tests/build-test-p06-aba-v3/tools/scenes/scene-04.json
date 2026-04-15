@@ -1,0 +1,19 @@
+{
+  "scene": "scene-04",
+  "title": "Killer Stat — Validation",
+  "clips": ["s05_stat"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "clearAll", "id": "scene-03" }]
+    },
+    {
+      "anchor": { "clip": "s05_stat", "word": "Eighty-seven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-number" }]
+    },
+    {
+      "anchor": { "clip": "s05_stat", "word": "need", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s5-caption" }]
+    }
+  ]
+}

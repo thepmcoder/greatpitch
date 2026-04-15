@@ -1,0 +1,11 @@
+{
+  "scene": "scene-00",
+  "title": "Hook — Platform Overload",
+  "clips": ["s01_hook"],
+  "triggers": [
+    {
+      "anchor": { "clip": "s01_hook", "word": "LinkedIn", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-platforms" }]
+    }
+  ]
+}
