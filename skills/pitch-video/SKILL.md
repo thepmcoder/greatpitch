@@ -1,7 +1,7 @@
 ---
 name: pitch-video
 description: Produce a pitch video from a product concept using word-anchored synchronization
-version: 1.2
+version: 1.3
 type: procedural
 ---
 
@@ -36,6 +36,17 @@ If any of these are unclear, ask. Don't invent.
 | Conference / general | 2-5 min | Clear, visual, one big idea | Accessible, memorable |
 
 **If the slot is 90 seconds or less**, you cannot use The Reframe or The Classic. Use The Lightning (see Stage 2).
+
+**Multi-audience versioning:**
+If the product could be pitched to multiple audiences, identify ALL relevant audiences and produce a separate version for each. Same product, different cuts:
+
+| Example product | Audience 1 | Audience 2 | Audience 3 |
+|----------------|------------|------------|------------|
+| Student platform | Demo day (Lightning, 60s) | Investor (Classic, 5min) | University admin (Why-Now, 3min) |
+| Dev tool | Engineering team (Lightning, 90s) | VP Eng (Classic, 5min) | CFO (Why-Now, 3min) |
+| Consumer app | Social media (Lightning, 30s) | Investor (Classic, 10min) | Press (Why-Now, 2min) |
+
+Each version gets its own narrative structure, pacing, and CTA — but shares the same core product facts. Don't just shorten the long version. Redesign from scratch for each audience.
 
 ### Stage 2: Structure the Narrative
 
@@ -131,6 +142,16 @@ For each section, create a scene JSON file.
 - Progressive reveal: content appears beat by beat, never all at once.
 - Each visual element needs an ID that maps to HTML/CSS in the template.
 
+**HTML/CSS execution rules (prevent visual bugs):**
+- **Player controls bar** must have `z-index: 9999` and a solid background — nothing renders underneath or on top of it.
+- **Every element uses `position: absolute`** within the stage container. Use explicit `top`, `left`, `width`, `height` to prevent overlap.
+- **Content areas stay within safe zone:** keep all text and visuals within `top: 60px` to `bottom: 100px` to avoid clipping behind controls.
+- **Every `show` must have a matching `clearAll` or `fade`** at the next scene transition. Trace through ALL scenes: if an element appears in scene 2, when does it disappear? If the answer is "never," that's a stuck-text bug.
+- **Z-index layering order:** backgrounds (1) → content cards (10) → stat numbers (20) → headings (30) → controls bar (9999). Never put content above the controls bar.
+- **Test overlap mentally:** for each scene, list every visible element and its position. Do any occupy the same screen region? If yes, one must `fade` before the other `show`s.
+- **Font sizes must be readable at 1920×1080:** minimum 24px for body text, 48px+ for headings, 96px+ for hero stat numbers.
+- **Maximum 3 elements visible simultaneously** (excluding background). More than 3 = visual clutter. If you need more, sequence them.
+
 **Actions:**
 - `show` — make element visible
 - `fade` — fade element out
@@ -151,9 +172,35 @@ const scenes = [
 
 2. **Scene JSONs** — one per scene (`scene-00.json` through `scene-NN.json`)
 
-3. **HTML template** — visual elements with matching IDs, player logic, professional styling
+3. **HTML template** — visual elements with matching IDs, player logic, professional styling. Follow the HTML/CSS execution rules from Stage 4 strictly.
 
 4. **Run the pipeline** — generate audio → assemble (resolve anchors) → build final HTML
+
+5. **Export MP4** — after the self-contained HTML is built, create an MP4 video:
+```javascript
+// export-mp4.js — uses Playwright to record the HTML playing
+const { chromium } = require('playwright');
+const path = require('path');
+
+(async () => {
+  const browser = await chromium.launch();
+  const context = await browser.newContext({
+    viewport: { width: 1920, height: 1080 },
+    recordVideo: { dir: './', size: { width: 1920, height: 1080 } }
+  });
+  const page = await context.newPage();
+  await page.goto('file://' + path.resolve('click-done-video-final.html'));
+  // Auto-play: click the play button
+  await page.click('#play-btn', { timeout: 5000 }).catch(() => {});
+  // Wait for video to finish (estimate from narration length + buffer)
+  await page.waitForTimeout(DURATION_MS + 3000);
+  await context.close();
+  await browser.close();
+  // Playwright saves as .webm — rename to match
+  console.log('MP4/WebM exported');
+})();
+```
+If Playwright is not available, the self-contained HTML is the primary deliverable. MP4 is a nice-to-have.
 
 ### Stage 6: Review and Fix
 
@@ -175,6 +222,13 @@ After building, review the output. This is not optional — every good video goe
 - Does each on-screen text use the EXACT keywords from the narration (subset, not paraphrase)?
 - Are there screens with too much text? Max 2 key phrases per screen.
 - Does the progressive reveal make sense — does each element appear at the right narrative beat?
+
+**CSS/HTML bug review (critical — these are the most common bugs):**
+- **Stuck text check:** For EVERY element that gets `show`ed, trace forward through all subsequent scenes. When does it get `clearAll`ed or `fade`d? If the answer is "never" or "not until 3 scenes later," that's a bug. Fix it.
+- **Overlap check:** For each scene, list every element that's visible at that moment (including elements from previous scenes that weren't cleared). Do any overlap? If yes, one must be cleared.
+- **Controls bar check:** Is the player controls bar (play/pause, progress) at `z-index: 9999` with a solid background? Can any content element appear on top of or behind it?
+- **Safe zone check:** Is all content within `top: 60px` to `bottom: 100px`? Content outside this range will be clipped or hidden behind controls.
+- **Font readability:** Any text below 24px? Any hero numbers below 72px? Fix sizing.
 
 **Structural review:**
 - Watch/trace the full sequence mentally: scene 0 → scene N. Does the story build?

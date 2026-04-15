@@ -1,0 +1,196 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1125000,
+        "Duration": 2375000,
+        "text": {
+          "Text": "Scan",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 3625000,
+        "Duration": 750000,
+        "text": {
+          "Text": "the",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 4500000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "QR",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 8250000,
+        "Duration": 3500000,
+        "text": {
+          "Text": "code",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 13750000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 14875000,
+        "Duration": 3000000,
+        "text": {
+          "Text": "try",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 18000000,
+        "Duration": 3875000,
+        "text": {
+          "Text": "Elevate",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 31500000,
+        "text": {
+          "Text": "Scan the QR code and try Elevate for yourself.",
+          "Length": 46,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 22000000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 23375000,
+        "Duration": 5500000,
+        "text": {
+          "Text": "yourself",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 33000000,
+        "Duration": 875000,
+        "text": {
+          "Text": "Your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 34000000,
+        "Duration": 2625000,
+        "text": {
+          "Text": "next",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 36750000,
+        "Duration": 6625000,
+        "text": {
+          "Text": "opportunity",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 32000000,
+        "Duration": 21125000,
+        "text": {
+          "Text": "Your next opportunity is waiting.",
+          "Length": 33,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 44500000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "is",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 45750000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "waiting",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

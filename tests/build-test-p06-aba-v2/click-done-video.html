@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920,height=1080">
+<title>Elevate — Demo Day Pitch</title>
+<style>
+/* ═══ RESET & CANVAS ═══ */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0a0f;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#fff}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden}
+
+/* ═══ GLOBAL ELEMENT RULES ═══ */
+.el{position:absolute;opacity:0;transform:scale(0.85);transition:opacity 180ms ease-out,transform 180ms ease-out;pointer-events:none}
+.el.visible{opacity:1;transform:scale(1)}
+.el.fade-out{opacity:0;transform:scale(1.02);transition:opacity 150ms ease-in,transform 150ms ease-in}
+
+/* ═══ COLOR PALETTE ═══ */
+:root{
+  --blue:#00b4ff;--green:#39ff14;--orange:#ff6b2b;--pink:#ff2d7b;
+  --dark1:#0a0a0f;--dark2:#12121a;--dark3:#1a1a2e;
+  --glow-blue:0 0 40px rgba(0,180,255,0.4);
+  --glow-green:0 0 40px rgba(57,255,20,0.3);
+  --glow-orange:0 0 40px rgba(255,107,43,0.4);
+}
+
+/* ═══ KEYFRAMES ═══ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+@keyframes slideUp{from{transform:translateY(60px) scale(0.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes slideIn{from{transform:translateX(-80px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideInRight{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes scaleIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}10%{transform:translateX(-8px)}20%{transform:translateX(8px)}30%{transform:translateX(-6px)}40%{transform:translateX(6px)}50%{transform:translateX(-3px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(0,180,255,0.3)}50%{box-shadow:0 0 60px rgba(0,180,255,0.6)}}
+@keyframes countUp{from{--num:0}to{--num:87}}
+@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-12px)}}
+@keyframes tabExplode{0%{transform:scale(1) rotate(0deg);opacity:1}100%{transform:scale(0.3) rotate(var(--rot)) translate(var(--tx),var(--ty));opacity:0.6}}
+@keyframes iconDrop{from{transform:translateY(-100px) rotate(-20deg);opacity:0}to{transform:translateY(0) rotate(0deg);opacity:1}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes borderGlow{0%,100%{border-color:var(--blue)}33%{border-color:var(--green)}66%{border-color:var(--orange)}}
+@keyframes typeIn{from{width:0}to{width:100%}}
+
+/* ═══ SCENE 0 — HOOK ═══ */
+#s0-bg-tabs{left:0;top:0;width:1920px;height:1080px;background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0f 70%)}
+#s0-bg-tabs .hook-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:72px;font-weight:800;letter-spacing:-2px;text-align:center;line-height:1.2;background:linear-gradient(135deg,#fff 0%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;max-width:1200px}
+#s0-bg-tabs .tab-bar{position:absolute;top:80px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+#s0-bg-tabs .tab{background:#1e1e2e;border:1px solid #333;border-radius:8px 8px 0 0;padding:10px 20px;font-size:13px;color:#888;white-space:nowrap;animation:float 3s ease-in-out infinite;border-bottom:2px solid var(--blue)}
+#s0-bg-tabs .tab:nth-child(2n){animation-delay:0.5s;border-bottom-color:var(--orange)}
+#s0-bg-tabs .tab:nth-child(3n){animation-delay:1s;border-bottom-color:var(--green)}
+
+#s0-tab-icons{left:0;top:0;width:1920px;height:1080px}
+#s0-tab-icons .icon-scatter{position:absolute;font-size:48px;animation:scaleIn 200ms ease-out forwards}
+#s0-tab-icons .icon-scatter:nth-child(1){top:200px;left:300px;animation-delay:0ms}
+#s0-tab-icons .icon-scatter:nth-child(2){top:350px;left:1400px;animation-delay:60ms}
+#s0-tab-icons .icon-scatter:nth-child(3){top:150px;left:900px;animation-delay:120ms}
+#s0-tab-icons .icon-scatter:nth-child(4){top:500px;left:500px;animation-delay:180ms}
+#s0-tab-icons .icon-scatter:nth-child(5){top:400px;left:1100px;animation-delay:240ms}
+#s0-tab-icons .icon-scatter:nth-child(6){top:600px;left:700px;animation-delay:300ms}
+#s0-tab-icons .icon-scatter:nth-child(7){top:300px;left:1600px;animation-delay:360ms}
+
+/* ═══ SCENE 1 — PAIN ═══ */
+#s1-bg{left:0;top:0;width:1920px;height:1080px;background:linear-gradient(180deg,#0d0d15 0%,#1a0a0a 100%)}
+#s1-bg .pain-subtitle{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);font-size:28px;color:#666;letter-spacing:2px;text-transform:uppercase}
+
+.platform-icon{width:200px;height:200px;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700;letter-spacing:1px;border:2px solid;animation:iconDrop 300ms ease-out forwards}
+
+#s1-icon-linkedin{top:300px;left:200px}
+#s1-icon-linkedin .platform-icon{background:#0a1628;border-color:#0077b5;color:#0077b5;box-shadow:0 0 30px rgba(0,119,181,0.3)}
+#s1-icon-linkedin .platform-icon::before{content:"in";font-size:72px;font-weight:900;margin-bottom:8px}
+
+#s1-icon-unstop{top:280px;left:550px}
+#s1-icon-unstop .platform-icon{background:#1a0a28;border-color:#8b5cf6;color:#8b5cf6;box-shadow:0 0 30px rgba(139,92,246,0.3)}
+#s1-icon-unstop .platform-icon::before{content:"U";font-size:72px;font-weight:900;margin-bottom:8px}
+
+#s1-icon-portal{top:320px;left:900px}
+#s1-icon-portal .platform-icon{background:#0a1a0a;border-color:var(--green);color:var(--green);box-shadow:var(--glow-green)}
+#s1-icon-portal .platform-icon::before{content:"🏫";font-size:64px;margin-bottom:8px}
+
+#s1-icon-pdf{top:290px;left:1250px}
+#s1-icon-pdf .platform-icon{background:#1a1408;border-color:var(--orange);color:var(--orange);box-shadow:var(--glow-orange)}
+#s1-icon-pdf .platform-icon::before{content:"PDF";font-size:56px;font-weight:900;margin-bottom:8px}
+
+#s1-question-mark{top:180px;left:50%;transform:translateX(-50%);font-size:200px;font-weight:900;color:var(--pink);text-shadow:0 0 80px rgba(255,45,123,0.6);animation:shake 400ms ease-out}
+
+/* ═══ SCENE 2 — WHAT IF ═══ */
+#s2-bg{left:0;top:0;width:1920px;height:1080px;background:radial-gradient(ellipse at center,#0a1a2e 0%,#0a0a0f 70%)}
+
+#s2-elevate-logo{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+#s2-elevate-logo .logo-main{font-size:140px;font-weight:900;letter-spacing:-4px;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(0,180,255,0.4))}
+
+#s2-tagline{top:62%;left:50%;transform:translateX(-50%);text-align:center;font-size:36px;color:#aaa;letter-spacing:4px;text-transform:uppercase;font-weight:300}
+
+/* ═══ SCENE 3 — DEMO ═══ */
+#s3-phone-frame{top:50%;left:50%;transform:translate(-50%,-50%);width:380px;height:780px;border:3px solid #333;border-radius:40px;background:#111;box-shadow:0 0 80px rgba(0,180,255,0.15);animation:glowPulse 3s ease-in-out infinite}
+#s3-phone-frame .phone-notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#000;border-radius:0 0 14px 14px;z-index:10}
+#s3-phone-frame .phone-label{position:absolute;top:-50px;left:50%;transform:translateX(-50%);font-size:18px;color:#555;letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
+
+.demo-screen{position:absolute;top:110px;left:660px;width:340px;height:620px;border-radius:20px;overflow:hidden}
+
+#s3-screen-feed{top:110px;left:660px;width:340px;height:620px}
+#s3-screen-feed .feed-card{background:#1a1a2e;border-radius:12px;padding:16px;margin:8px;border-left:3px solid var(--blue)}
+#s3-screen-feed .feed-card .card-title{font-size:15px;font-weight:700;margin-bottom:4px}
+#s3-screen-feed .feed-card .card-sub{font-size:12px;color:#666}
+#s3-screen-feed .feed-card .card-tag{display:inline-block;background:rgba(0,180,255,0.15);color:var(--blue);font-size:11px;padding:3px 8px;border-radius:4px;margin-top:6px}
+#s3-screen-feed .feed-header{padding:12px 16px;font-size:18px;font-weight:800;border-bottom:1px solid #222;color:var(--blue)}
+
+#s3-filter-animation{top:60px;left:1120px;width:300px;text-align:left}
+#s3-filter-animation .filter-chip{display:inline-block;margin:6px;padding:10px 20px;border-radius:20px;font-size:16px;font-weight:600;border:2px solid;animation:slideInRight 200ms ease-out forwards}
+#s3-filter-animation .filter-chip:nth-child(1){border-color:var(--blue);color:var(--blue);background:rgba(0,180,255,0.1);animation-delay:0ms}
+#s3-filter-animation .filter-chip:nth-child(2){border-color:var(--green);color:var(--green);background:rgba(57,255,20,0.1);animation-delay:100ms}
+#s3-filter-animation .filter-chip:nth-child(3){border-color:var(--orange);color:var(--orange);background:rgba(255,107,43,0.1);animation-delay:200ms}
+
+#s3-screen-research{top:110px;left:660px;width:340px;height:620px}
+#s3-screen-research .research-header{padding:12px 16px;font-size:18px;font-weight:800;border-bottom:1px solid #222;color:var(--green)}
+#s3-screen-research .prof-item{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #1a1a2e}
+#s3-screen-research .prof-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));margin-right:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+#s3-screen-research .prof-name{font-size:15px;font-weight:700}
+#s3-screen-research .prof-field{font-size:12px;color:#666}
+
+#s3-prof-cards{top:200px;left:1120px;width:320px}
+#s3-prof-cards .prof-detail{background:#1a1a2e;border-radius:16px;padding:20px;border:1px solid #2a2a3e;margin-bottom:12px;animation:slideInRight 200ms ease-out forwards}
+#s3-prof-cards .prof-detail:nth-child(2){animation-delay:100ms}
+#s3-prof-cards .detail-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+#s3-prof-cards .detail-value{font-size:16px;font-weight:600;color:var(--green)}
+
+#s3-screen-chat{top:110px;left:660px;width:340px;height:620px}
+#s3-screen-chat .chat-header{padding:12px 16px;font-size:18px;font-weight:800;border-bottom:1px solid #222;color:var(--orange)}
+#s3-screen-chat .chat-bubble{margin:10px 16px;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.4;max-width:80%}
+#s3-screen-chat .chat-user{background:#1a1a2e;border-radius:16px 16px 4px 16px;margin-left:auto;text-align:right;color:#ccc}
+#s3-screen-chat .chat-ai{background:linear-gradient(135deg,rgba(255,107,43,0.15),rgba(0,180,255,0.1));border:1px solid rgba(255,107,43,0.2);border-radius:16px 16px 16px 4px;color:#eee}
+
+#s3-roadmap-preview{top:200px;left:1120px;width:320px}
+#s3-roadmap-preview .roadmap-step{display:flex;align-items:flex-start;margin-bottom:16px;animation:slideInRight 200ms ease-out forwards}
+#s3-roadmap-preview .roadmap-step:nth-child(2){animation-delay:100ms}
+#s3-roadmap-preview .roadmap-step:nth-child(3){animation-delay:200ms}
+#s3-roadmap-preview .step-num{width:32px;height:32px;border-radius:50%;background:var(--orange);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-right:12px;flex-shrink:0}
+#s3-roadmap-preview .step-text{font-size:15px;color:#ccc;line-height:1.4}
+
+/* ═══ SCENE 4 — PROOF ═══ */
+#s4-bg{left:0;top:0;width:1920px;height:1080px;background:radial-gradient(ellipse at center,#0a1a0a 0%,#0a0a0f 70%)}
+
+#s4-stat-87{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+#s4-stat-87 .stat-number{font-size:280px;font-weight:900;letter-spacing:-10px;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:0.9;filter:drop-shadow(0 0 60px rgba(57,255,20,0.4))}
+#s4-stat-87 .stat-label{font-size:36px;color:#888;margin-top:12px;letter-spacing:6px;text-transform:uppercase;font-weight:300}
+
+#s4-live-badge{top:72%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:24px}
+#s4-live-badge .badge{display:flex;align-items:center;gap:10px;background:#1a2e1a;border:2px solid var(--green);border-radius:12px;padding:14px 28px;font-size:22px;font-weight:800;color:var(--green);letter-spacing:3px;box-shadow:var(--glow-green)}
+#s4-live-badge .badge-dot{width:12px;height:12px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite}
+#s4-live-badge .platform-tag{background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:10px 20px;font-size:16px;color:#999;font-weight:600}
+
+/* ═══ SCENE 5 — CTA ═══ */
+#s5-bg{left:0;top:0;width:1920px;height:1080px;background:linear-gradient(135deg,#0a0a1e 0%,#0a1a2e 50%,#0a0a1e 100%);background-size:200% 200%;animation:gradientShift 6s ease infinite}
+
+#s5-qr-code{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+#s5-qr-code .qr-box{width:240px;height:240px;border:4px solid var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:48px;font-weight:900;color:var(--blue);background:rgba(0,180,255,0.05);animation:borderGlow 3s ease-in-out infinite;box-shadow:var(--glow-blue);letter-spacing:2px}
+#s5-qr-code .qr-label{font-size:28px;color:#888;letter-spacing:3px;text-transform:uppercase}
+
+#s5-elevate-logo-final{bottom:100px;left:50%;transform:translateX(-50%);text-align:center}
+#s5-elevate-logo-final .logo-final{font-size:64px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#s5-elevate-logo-final .final-tagline{font-size:22px;color:#666;margin-top:8px;letter-spacing:4px;text-transform:uppercase;font-weight:300}
+
+/* ═══ CONTROLS ═══ */
+#controls{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:9999}
+#controls button{background:#1a1a2e;border:1px solid #333;color:#fff;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;transition:all 150ms}
+#controls button:hover{background:var(--blue);border-color:var(--blue);color:#000}
+#progress-bar{position:fixed;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--green));transition:width 100ms linear;z-index:9999}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ═══ SCENE 0 — HOOK ═══ -->
+  <div id="s0-bg-tabs" class="el" data-scene="scene-00">
+    <div class="tab-bar">
+      <div class="tab">LinkedIn — Jobs</div>
+      <div class="tab">Unstop — Hackathons</div>
+      <div class="tab">College Portal</div>
+      <div class="tab">Gmail — Prof Email</div>
+      <div class="tab">Resume.pdf</div>
+      <div class="tab">Internshala</div>
+      <div class="tab">Google — "how to..."</div>
+      <div class="tab">Calendar</div>
+      <div class="tab">Notion — Plans</div>
+      <div class="tab">Reddit — Advice</div>
+    </div>
+    <div class="hook-text">How many tabs do you have open<br>trying to figure out your career?</div>
+  </div>
+  <div id="s0-tab-icons" class="el" data-scene="scene-00">
+    <div class="icon-scatter">💼</div>
+    <div class="icon-scatter">🏆</div>
+    <div class="icon-scatter">📧</div>
+    <div class="icon-scatter">📄</div>
+    <div class="icon-scatter">📅</div>
+    <div class="icon-scatter">🔍</div>
+    <div class="icon-scatter">😰</div>
+  </div>
+
+  <!-- ═══ SCENE 1 — PAIN ═══ -->
+  <div id="s1-bg" class="el" data-scene="scene-01">
+    <div class="pain-subtitle">Sound familiar?</div>
+  </div>
+  <div id="s1-icon-linkedin" class="el" data-scene="scene-01">
+    <div class="platform-icon">LinkedIn</div>
+  </div>
+  <div id="s1-icon-unstop" class="el" data-scene="scene-01">
+    <div class="platform-icon">Unstop</div>
+  </div>
+  <div id="s1-icon-portal" class="el" data-scene="scene-01">
+    <div class="platform-icon">Portal</div>
+  </div>
+  <div id="s1-icon-pdf" class="el" data-scene="scene-01">
+    <div class="platform-icon">PDF</div>
+  </div>
+  <div id="s1-question-mark" class="el" data-scene="scene-01">?</div>
+
+  <!-- ═══ SCENE 2 — WHAT IF ═══ -->
+  <div id="s2-bg" class="el" data-scene="scene-02"></div>
+  <div id="s2-elevate-logo" class="el" data-scene="scene-02">
+    <div class="logo-main">Elevate</div>
+  </div>
+  <div id="s2-tagline" class="el" data-scene="scene-02">Your next step, clear.</div>
+
+  <!-- ═══ SCENE 3 — DEMO ═══ -->
+  <div id="s3-phone-frame" class="el" data-scene="scene-03">
+    <div class="phone-notch"></div>
+    <div class="phone-label">Live Prototype</div>
+  </div>
+
+  <div id="s3-screen-feed" class="el demo-screen" data-scene="scene-03">
+    <div class="feed-header">📋 Your Feed</div>
+    <div class="feed-card"><div class="card-title">Google SWE Intern 2025</div><div class="card-sub">Deadline: Jan 15</div><div class="card-tag">Matches your skills</div></div>
+    <div class="feed-card" style="border-left-color:var(--green)"><div class="card-title">ML Research — IIT Delhi</div><div class="card-sub">Prof. Sharma • Open Now</div><div class="card-tag" style="background:rgba(57,255,20,0.15);color:var(--green)">Research</div></div>
+    <div class="feed-card" style="border-left-color:var(--orange)"><div class="card-title">HackMIT 2025</div><div class="card-sub">Registration Open</div><div class="card-tag" style="background:rgba(255,107,43,0.15);color:var(--orange)">Hackathon</div></div>
+    <div class="feed-card"><div class="card-title">Amazon SDE Intern</div><div class="card-sub">Deadline: Feb 1</div><div class="card-tag">High Match</div></div>
+  </div>
+
+  <div id="s3-filter-animation" class="el" data-scene="scene-03">
+    <div class="filter-chip">🎯 Your Goals</div>
+    <div class="filter-chip">📊 Your Stage</div>
+    <div class="filter-chip">⚡ Deadline Soon</div>
+  </div>
+
+  <div id="s3-screen-research" class="el demo-screen" data-scene="scene-03">
+    <div class="research-header">🔬 Research</div>
+    <div class="prof-item"><div class="prof-avatar">S</div><div><div class="prof-name">Prof. Sharma</div><div class="prof-field">Machine Learning • NLP</div></div></div>
+    <div class="prof-item"><div class="prof-avatar" style="background:linear-gradient(135deg,var(--orange),var(--pink))">R</div><div><div class="prof-name">Prof. Rao</div><div class="prof-field">Computer Vision • Robotics</div></div></div>
+    <div class="prof-item"><div class="prof-avatar" style="background:linear-gradient(135deg,var(--blue),var(--green))">K</div><div><div class="prof-name">Prof. Kumar</div><div class="prof-field">Systems • Cloud Computing</div></div></div>
+  </div>
+
+  <div id="s3-prof-cards" class="el" data-scene="scene-03">
+    <div class="prof-detail">
+      <div class="detail-label">Active Project</div>
+      <div class="detail-value">LLM-based Code Analysis</div>
+    </div>
+    <div class="prof-detail">
+      <div class="detail-label">How to reach out</div>
+      <div class="detail-value">Email template ready →</div>
+    </div>
+  </div>
+
+  <div id="s3-screen-chat" class="el demo-screen" data-scene="scene-03">
+    <div class="chat-header">💬 AI Assistant</div>
+    <div class="chat-bubble chat-user">How do I prep for Google SWE?</div>
+    <div class="chat-bubble chat-ai">Based on your profile, here's your 4-week roadmap:<br><br>✅ Week 1: DS &amp; Algorithms<br>✅ Week 2: System Design basics<br>✅ Week 3: Mock interviews<br>✅ Week 4: Behavioral prep</div>
+  </div>
+
+  <div id="s3-roadmap-preview" class="el" data-scene="scene-03">
+    <div class="roadmap-step"><div class="step-num">1</div><div class="step-text">Personalized skill gaps identified</div></div>
+    <div class="roadmap-step"><div class="step-num">2</div><div class="step-text">Week-by-week prep plan</div></div>
+    <div class="roadmap-step"><div class="step-num">3</div><div class="step-text">Resources matched to your level</div></div>
+  </div>
+
+  <!-- ═══ SCENE 4 — PROOF ═══ -->
+  <div id="s4-bg" class="el" data-scene="scene-04"></div>
+  <div id="s4-stat-87" class="el" data-scene="scene-04">
+    <div class="stat-number">87%</div>
+    <div class="stat-label">would use this app</div>
+  </div>
+  <div id="s4-live-badge" class="el" data-scene="scene-04">
+    <div class="badge"><div class="badge-dot"></div>LIVE</div>
+    <div class="platform-tag">📱 Mobile</div>
+    <div class="platform-tag">💻 Web</div>
+  </div>
+
+  <!-- ═══ SCENE 5 — CTA ═══ -->
+  <div id="s5-bg" class="el" data-scene="scene-05"></div>
+  <div id="s5-qr-code" class="el" data-scene="scene-05">
+    <div class="qr-box">QR</div>
+    <div class="qr-label">Scan to try Elevate</div>
+  </div>
+  <div id="s5-elevate-logo-final" class="el" data-scene="scene-05">
+    <div class="logo-final">Elevate</div>
+    <div class="final-tagline">Your next opportunity is waiting</div>
+  </div>
+
+</div>
+
+<div id="controls">
+  <button onclick="playVideo()">▶ Play</button>
+  <button onclick="pauseVideo()">⏸ Pause</button>
+  <button onclick="resetVideo()">↻ Reset</button>
+</div>
+<div id="progress-bar" style="width:0%"></div>
+
+<script>
+const SCENES = [];
+const AUDIO_DATA = {};
+const WORD_META = {};
+
+/* ═══ CORE FUNCTIONS ═══ */
+function show(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('fade-out');
+  el.classList.add('visible');
+}
+
+function hide(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('visible');
+  el.classList.add('fade-out');
+  setTimeout(() => { el.classList.remove('fade-out'); }, 200);
+}
+
+function fade(id) {
+  hide(id);
+}
+
+function clearAll(sceneId) {
+  document.querySelectorAll(`[data-scene="${sceneId}"]`).forEach(el => {
+    el.classList.remove('visible');
+    el.classList.add('fade-out');
+    setTimeout(() => { el.classList.remove('fade-out'); }, 200);
+  });
+}
+
+/* ═══ PLAYER ENGINE ═══ */
+let timers = [];
+let audioElements = [];
+let playing = false;
+let totalDuration = 0;
+let startTime = 0;
+let progressInterval = null;
+
+function playVideo() {
+  if (playing) return;
+  resetVideo();
+  playing = true;
+  startTime = Date.now();
+
+  let sceneOffset = 0;
+  for (const scene of SCENES) {
+    const so = sceneOffset;
+    for (const trigger of scene.triggers) {
+      const delay = so + trigger.delay;
+      const t = setTimeout(() => {
+        trigger.run();
+      }, delay);
+      timers.push(t);
+    }
+    sceneOffset += scene.duration;
+  }
+  totalDuration = sceneOffset;
+
+  // Play audio clips
+  let audioOffset = 0;
+  for (const scene of SCENES) {
+    for (const clipName of scene.clips) {
+      if (AUDIO_DATA[clipName]) {
+        const ao = audioOffset;
+        const t = setTimeout(() => {
+          const audio = new Audio(AUDIO_DATA[clipName]);
+          audioElements.push(audio);
+          audio.play().catch(() => {});
+        }, ao);
+        timers.push(t);
+        const meta = WORD_META[clipName];
+        if (meta && meta.length > 0) {
+          const last = meta[meta.length - 1];
+          audioOffset += last.t + last.d + 300;
+        }
+      } else {
+        const meta = WORD_META[clipName];
+        if (meta && meta.length > 0) {
+          const last = meta[meta.length - 1];
+          audioOffset += last.t + last.d + 300;
+        }
+      }
+    }
+  }
+
+  progressInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(100, (elapsed / totalDuration) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    if (elapsed >= totalDuration) {
+      clearInterval(progressInterval);
+      playing = false;
+    }
+  }, 50);
+}
+
+function pauseVideo() {
+  playing = false;
+  timers.forEach(t => clearTimeout(t));
+  timers = [];
+  audioElements.forEach(a => a.pause());
+  if (progressInterval) clearInterval(progressInterval);
+}
+
+function resetVideo() {
+  pauseVideo();
+  document.querySelectorAll('.el').forEach(el => {
+    el.classList.remove('visible', 'fade-out');
+  });
+  document.getElementById('progress-bar').style.width = '0%';
+  audioElements.forEach(a => { a.pause(); a.src = ''; });
+  audioElements = [];
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 875000,
+        "Duration": 3250000,
+        "text": {
+          "Text": "LinkedIn",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 13500000,
+        "text": {
+          "Text": "LinkedIn for jobs.",
+          "Length": 18,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 4250000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 5500000,
+        "Duration": 5375000,
+        "text": {
+          "Text": "jobs",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 15000000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "Unstop",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 14000000,
+        "Duration": 16500000,
+        "text": {
+          "Text": "Unstop for hackathons.",
+          "Length": 22,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 18750000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 20125000,
+        "Duration": 7250000,
+        "text": {
+          "Text": "hackathons",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 31500000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "College",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 34500000,
+        "Duration": 3250000,
+        "text": {
+          "Text": "portal",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 30500000,
+        "Duration": 18875000,
+        "text": {
+          "Text": "College portal for deadlines.",
+          "Length": 29,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 37875000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 39250000,
+        "Duration": 7000000,
+        "text": {
+          "Text": "deadlines",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 50375000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "Some",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 52500000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "random",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 55500000,
+        "Duration": 6000000,
+        "text": {
+          "Text": "PDF",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 62250000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 49375000,
+        "Duration": 28750000,
+        "text": {
+          "Text": "Some random PDF for professor contacts.",
+          "Length": 39,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 63375000,
+        "Duration": 4500000,
+        "text": {
+          "Text": "professor",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 68000000,
+        "Duration": 7000000,
+        "text": {
+          "Text": "contacts",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 79125000,
+        "Duration": 750000,
+        "text": {
+          "Text": "And",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 80000000,
+        "Duration": 3125000,
+        "text": {
+          "Text": "after",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 78125000,
+        "Duration": 12625000,
+        "text": {
+          "Text": "And after all that?",
+          "Length": 19,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 83250000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "all",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 84750000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "that",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 91750000,
+        "Duration": 625000,
+        "text": {
+          "Text": "You",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 92500000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "still",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 94875000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "don't",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 97000000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "know",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 98375000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "what",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 90750000,
+        "Duration": 18125000,
+        "text": {
+          "Text": "You still don't know what to prepare.",
+          "Length": 37,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 99750000,
+        "Duration": 750000,
+        "text": {
+          "Text": "to",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 100625000,
+        "Duration": 5125000,
+        "text": {
+          "Text": "prepare",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

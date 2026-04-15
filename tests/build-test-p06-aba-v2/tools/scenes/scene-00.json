@@ -1,0 +1,15 @@
+{
+  "scene": "scene-00",
+  "title": "Hook",
+  "clips": ["s01_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-bg-tabs" }]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "tabs", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s0-tab-icons" }]
+    }
+  ]
+}

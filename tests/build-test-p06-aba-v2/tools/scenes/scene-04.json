@@ -1,0 +1,22 @@
+{
+  "scene": "scene-04",
+  "title": "Proof",
+  "clips": ["s05_proof"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s4-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "Eighty-seven", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-stat-87" }]
+    },
+    {
+      "anchor": { "clip": "s05_proof", "word": "built", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s4-live-badge" }]
+    }
+  ]
+}

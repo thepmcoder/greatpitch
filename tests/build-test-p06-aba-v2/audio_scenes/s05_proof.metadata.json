@@ -1,0 +1,328 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "We",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 2125000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "surveyed",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 6500000,
+        "Duration": 4000000,
+        "text": {
+          "Text": "students",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 17375000,
+        "text": {
+          "Text": "We surveyed students like you.",
+          "Length": 30,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 10625000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "like",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 12750000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "you",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 18875000,
+        "Duration": 4750000,
+        "text": {
+          "Text": "Eighty-seven",
+          "Length": 12,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 23750000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "percent",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 29375000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "said",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 32000000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "they'd",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 17875000,
+        "Duration": 25625000,
+        "text": {
+          "Text": "Eighty-seven percent said they'd use this.",
+          "Length": 42,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 34000000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "use",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 36625000,
+        "Duration": 3750000,
+        "text": {
+          "Text": "this",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 44500000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "So",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 45750000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "we",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 43500000,
+        "Duration": 10875000,
+        "text": {
+          "Text": "So we built it.",
+          "Length": 15,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 47125000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "built",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 49750000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "it",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 55375000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "It's",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 56875000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "live",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 63625000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "on",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 65250000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "mobile",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 69000000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 70250000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "web",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 54375000,
+        "Duration": 29750000,
+        "text": {
+          "Text": "It's live, on mobile and web, right now.",
+          "Length": 40,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 76250000,
+        "Duration": 1750000,
+        "text": {
+          "Text": "right",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 78125000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "now",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

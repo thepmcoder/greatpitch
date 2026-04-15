@@ -1,0 +1,22 @@
+{
+  "scene": "scene-02",
+  "title": "What If",
+  "clips": ["s03_whatif"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s2-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_whatif", "word": "one", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-elevate-logo" }]
+    },
+    {
+      "anchor": { "clip": "s03_whatif", "word": "next", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s2-tagline" }]
+    }
+  ]
+}

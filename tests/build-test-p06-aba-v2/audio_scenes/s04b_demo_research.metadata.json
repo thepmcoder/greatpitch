@@ -1,0 +1,232 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 1750000,
+        "text": {
+          "Text": "Want",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 16000000,
+        "text": {
+          "Text": "Want research experience?",
+          "Length": 25,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 2875000,
+        "Duration": 3250000,
+        "text": {
+          "Text": "research",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 6250000,
+        "Duration": 7125000,
+        "text": {
+          "Text": "experience",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 17500000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "Elevate",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 21875000,
+        "Duration": 4000000,
+        "text": {
+          "Text": "maps",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 26000000,
+        "Duration": 6750000,
+        "text": {
+          "Text": "professors",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 32875000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "to",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 34125000,
+        "Duration": 2125000,
+        "text": {
+          "Text": "their",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 36375000,
+        "Duration": 3000000,
+        "text": {
+          "Text": "active",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 39500000,
+        "Duration": 6750000,
+        "text": {
+          "Text": "projects",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 49250000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 50375000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "shows",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 53375000,
+        "Duration": 875000,
+        "text": {
+          "Text": "you",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 54375000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "how",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 55625000,
+        "Duration": 875000,
+        "text": {
+          "Text": "to",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 16500000,
+        "Duration": 48875000,
+        "text": {
+          "Text": "Elevate maps professors to their active projects — and shows you how to reach out.",
+          "Length": 82,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 56625000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "reach",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 59500000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "out",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

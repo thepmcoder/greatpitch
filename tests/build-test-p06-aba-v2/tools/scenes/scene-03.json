@@ -1,0 +1,44 @@
+{
+  "scene": "scene-03",
+  "title": "Show It",
+  "clips": ["s04a_demo_feed", "s04b_demo_research", "s04c_demo_chat"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s3-phone-frame" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04a_demo_feed", "word": "Elevate", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-screen-feed" }]
+    },
+    {
+      "anchor": { "clip": "s04a_demo_feed", "word": "filters", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-filter-animation" }]
+    },
+    {
+      "anchor": { "clip": "s04b_demo_research", "word": "research", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-screen-feed" },
+        { "fn": "show", "id": "s3-screen-research" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04b_demo_research", "word": "professors", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-prof-cards" }]
+    },
+    {
+      "anchor": { "clip": "s04c_demo_chat", "word": "chatbot", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-screen-research" },
+        { "fn": "show", "id": "s3-screen-chat" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04c_demo_chat", "word": "roadmap", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s3-roadmap-preview" }]
+    }
+  ]
+}

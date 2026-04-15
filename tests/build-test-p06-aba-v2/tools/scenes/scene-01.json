@@ -1,0 +1,36 @@
+{
+  "scene": "scene-01",
+  "title": "The Mess",
+  "clips": ["s02_pain"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-00" },
+        { "fn": "show", "id": "s1-bg" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "LinkedIn", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-icon-linkedin" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "Unstop", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-icon-unstop" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "portal", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-icon-portal" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "professor", "n": 1 },
+      "actions": [{ "fn": "show", "id": "s1-icon-pdf" }]
+    },
+    {
+      "anchor": { "clip": "s02_pain", "word": "prepare", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-question-mark" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "Metadata": [
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 6875000,
+        "text": {
+          "Text": "Stuck?",
+          "Length": 6,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 3250000,
+        "text": {
+          "Text": "Stuck",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 8375000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "Ask",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 10500000,
+        "Duration": 875000,
+        "text": {
+          "Text": "the",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 7375000,
+        "Duration": 16250000,
+        "text": {
+          "Text": "Ask the AI chatbot.",
+          "Length": 19,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 11500000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "AI",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 14375000,
+        "Duration": 6125000,
+        "text": {
+          "Text": "chatbot",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 24625000,
+        "Duration": 750000,
+        "text": {
+          "Text": "It",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 25500000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "gives",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 27500000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "you",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 28750000,
+        "Duration": 625000,
+        "text": {
+          "Text": "a",
+          "Length": 1,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 29500000,
+        "Duration": 7375000,
+        "text": {
+          "Text": "personalized",
+          "Length": 12,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 37000000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "prep",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 39875000,
+        "Duration": 5250000,
+        "text": {
+          "Text": "roadmap",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 48125000,
+        "Duration": 2125000,
+        "text": {
+          "Text": "not",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 23625000,
+        "Duration": 39500000,
+        "text": {
+          "Text": "It gives you a personalized prep roadmap, not generic advice.",
+          "Length": 61,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 50375000,
+        "Duration": 3750000,
+        "text": {
+          "Text": "generic",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 54250000,
+        "Duration": 5750000,
+        "text": {
+          "Text": "advice",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}
