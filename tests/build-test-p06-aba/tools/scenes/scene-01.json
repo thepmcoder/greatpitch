@@ -1,0 +1,43 @@
+{
+  "scene": "scene-01",
+  "title": "What Students Told Us",
+  "clips": ["s01a_data_satisfaction", "s01b_data_gaps"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s1-heading" }]
+    },
+    {
+      "anchor": { "clip": "s01a_data_satisfaction", "word": "fourteen", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-heading" },
+        { "fn": "show", "id": "s1-stat-14pct" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01a_data_satisfaction", "word": "fifteen", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-stat-15pct" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01b_data_gaps", "word": "eighty", "n": 1 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s1-bar-preparation" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01b_data_gaps", "word": "eighty", "n": 2 },
+      "actions": [
+        { "fn": "show", "id": "s1-bar-profile" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01b_data_gaps", "word": "sixty", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-bar-expectations" }
+      ]
+    }
+  ]
+}

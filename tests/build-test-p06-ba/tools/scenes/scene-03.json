@@ -1,0 +1,34 @@
+{
+  "scene": "scene-03",
+  "title": "The Reframe",
+  "clips": ["s03_insight"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s3-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_insight", "word": "career", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-silos" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_insight", "word": "separate", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-silos" },
+        { "fn": "show", "id": "s3-reframe" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_insight", "word": "connected", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-reframe" },
+        { "fn": "show", "id": "s3-question" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "scene": "scene-04",
+  "title": "Cross-Domain Intelligence",
+  "clips": ["s04_reframe"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s4-heading" }]
+    },
+    {
+      "anchor": { "clip": "s04_reframe", "word": "reasons", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s4-heading" },
+        { "fn": "show", "id": "s4-connections" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_reframe", "word": "professor's", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-example-professor" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_reframe", "word": "hackathon", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-example-hackathon" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_reframe", "word": "Cross-domain", "n": 1 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s4-punchline" }
+      ]
+    }
+  ]
+}

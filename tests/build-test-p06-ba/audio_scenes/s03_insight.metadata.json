@@ -1,0 +1,544 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "So",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 2250000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "the",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 3500000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "obvious",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 8000000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "answer",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 11500000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "is",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 12875000,
+        "Duration": 2625000,
+        "text": {
+          "Text": "better",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 26625000,
+        "text": {
+          "Text": "So the obvious answer is better tools, right?",
+          "Length": 45,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 15625000,
+        "Duration": 4500000,
+        "text": {
+          "Text": "tools",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 21250000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "right",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 28250000,
+        "Duration": 875000,
+        "text": {
+          "Text": "But",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 29250000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "career",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 32750000,
+        "Duration": 6250000,
+        "text": {
+          "Text": "platforms",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 39875000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 41500000,
+        "Duration": 6375000,
+        "text": {
+          "Text": "chatbots",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 49250000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "each",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 51250000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "live",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 54750000,
+        "Duration": 750000,
+        "text": {
+          "Text": "in",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 55625000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "their",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 27125000,
+        "Duration": 39125000,
+        "text": {
+          "Text": "But career platforms and chatbots each live in their own world.",
+          "Length": 63,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 57250000,
+        "Duration": 1625000,
+        "text": {
+          "Text": "own",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 59000000,
+        "Duration": 4125000,
+        "text": {
+          "Text": "world",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 67250000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "Even",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 69625000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "if",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 72500000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "every",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 74875000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "one",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 76875000,
+        "Duration": 750000,
+        "text": {
+          "Text": "of",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 77750000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "them",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 79250000,
+        "Duration": 5875000,
+        "text": {
+          "Text": "improved",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 88125000,
+        "Duration": 1750000,
+        "text": {
+          "Text": "they'd",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 90000000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "still",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 66250000,
+        "Duration": 35500000,
+        "text": {
+          "Text": "Even if every one of them improved, they'd still be separate.",
+          "Length": 61,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 92375000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "be",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 93500000,
+        "Duration": 5125000,
+        "text": {
+          "Text": "separate",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 102750000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "What",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 103875000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "if",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 105000000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "there",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 106125000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "was",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 107625000,
+        "Duration": 2750000,
+        "text": {
+          "Text": "one",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 110500000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "place",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 114250000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "that",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 115750000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "connected",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 120250000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "all",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 101750000,
+        "Duration": 26625000,
+        "text": {
+          "Text": "What if there was one place that connected all of it?",
+          "Length": 53,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 122250000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "of",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 123375000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "it",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

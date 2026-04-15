@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elevate — Pitch Video</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #000; color: #fff; overflow: hidden; }
+
+/* ===== PLAYER CONTAINER ===== */
+#player { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+/* ===== SCENE LAYERS ===== */
+.scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.6s ease; }
+.scene.active { opacity: 1; pointer-events: auto; }
+
+/* ===== ANIMATED ELEMENTS ===== */
+.anim { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.anim.visible { opacity: 1; transform: translateY(0); }
+.anim.fade-out { opacity: 0; transform: translateY(-12px); }
+
+/* ===== SCENE 1: THE PROBLEM ===== */
+#scene-01 { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+#scene-01 .content { text-align: center; max-width: 900px; padding: 40px; }
+#s1-title { font-size: 3.2rem; font-weight: 900; letter-spacing: -1px; line-height: 1.15; background: linear-gradient(90deg, #ff6b6b, #ffa07a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+#s1-platforms { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+#s1-platforms .platform-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 24px; font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,0.7); backdrop-filter: blur(10px); }
+#s1-question { margin-top: 48px; font-size: 2.4rem; font-weight: 700; color: #fff; text-align: center; }
+#s1-question em { font-style: italic; color: #ffa07a; }
+
+/* ===== SCENE 2: THE DATA ===== */
+#scene-02 { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+#scene-02 .content { text-align: center; max-width: 1000px; padding: 40px; }
+#s2-title { font-size: 2rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 48px; }
+.stat-row { display: flex; gap: 40px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+.stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px 36px; min-width: 240px; flex: 1; max-width: 280px; }
+.stat-card .number { font-size: 4.5rem; font-weight: 900; line-height: 1; margin-bottom: 12px; }
+.stat-card .label { font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.6); line-height: 1.4; }
+.stat-card.red .number { background: linear-gradient(135deg, #ff4444, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-card.amber .number { background: linear-gradient(135deg, #ff8c00, #ffb347); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-card.amber2 .number { background: linear-gradient(135deg, #ff6347, #ff7f50); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ===== SCENE 3: THE INSIGHT ===== */
+#scene-03 { background: linear-gradient(135deg, #141e30, #243b55); }
+#scene-03 .content { text-align: center; max-width: 850px; padding: 40px; }
+#s3-title { font-size: 2rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; }
+#s3-silos { margin-top: 24px; }
+.silo-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.silo-box { width: 140px; height: 140px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; text-align: center; padding: 12px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.6); }
+.silo-box::after { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 16px; }
+#s3-crossdomain { margin-top: 36px; }
+#s3-crossdomain .insight-text { font-size: 2.2rem; font-weight: 800; line-height: 1.3; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+#s3-crossdomain .insight-sub { margin-top: 16px; font-size: 1.15rem; color: rgba(255,255,255,0.5); }
+
+/* ===== SCENE 4: THE SOLUTION ===== */
+#scene-04 { background: linear-gradient(135deg, #0a0a23, #1a1a4e, #2d1b69); }
+#scene-04 .content { text-align: center; max-width: 800px; padding: 40px; }
+#s4-logo { margin-bottom: 16px; }
+#s4-logo .logo-text { font-size: 5rem; font-weight: 900; letter-spacing: -2px; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+#s4-logo .logo-sub { font-size: 1.1rem; color: rgba(255,255,255,0.4); font-weight: 400; letter-spacing: 6px; text-transform: uppercase; margin-top: 8px; }
+#s4-tagline { margin-top: 40px; font-size: 1.6rem; font-weight: 400; color: rgba(255,255,255,0.7); line-height: 1.6; }
+#s4-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, rgba(102,126,234,0.15) 0%, transparent 70%); animation: pulseGlow 3s ease-in-out infinite; }
+@keyframes pulseGlow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* ===== SCENE 5: LIFT FRAMEWORK ===== */
+#scene-05 { background: linear-gradient(135deg, #0c0c1d, #1a1a3e, #2a1a4e); }
+#scene-05 .content { text-align: center; max-width: 900px; padding: 40px; }
+#s5-title { font-size: 1.6rem; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 48px; }
+.lift-grid { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+.lift-card { width: 190px; border-radius: 20px; padding: 32px 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); }
+.lift-card .letter { font-size: 3.2rem; font-weight: 900; margin-bottom: 12px; line-height: 1; }
+.lift-card .word { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+.lift-card .desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.lift-card.l-card .letter { color: #4facfe; }
+.lift-card.i-card .letter { color: #43e97b; }
+.lift-card.f-card .letter { color: #fa709a; }
+.lift-card.t-card .letter { color: #fee140; }
+
+/* ===== SCENE 6: WHAT IT DELIVERS ===== */
+#scene-06 { background: linear-gradient(135deg, #0d1117, #161b22, #21262d); }
+#scene-06 .content { text-align: center; max-width: 1000px; padding: 40px; }
+#s6-title { font-size: 1.6rem; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 48px; }
+.pillar-row { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+.pillar-card { flex: 1; min-width: 250px; max-width: 300px; border-radius: 20px; padding: 36px 28px; text-align: left; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
+.pillar-card .pillar-icon { font-size: 2.4rem; margin-bottom: 16px; }
+.pillar-card .pillar-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
+.pillar-card .pillar-desc { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.pillar-card:nth-child(1) .pillar-title { color: #4facfe; }
+.pillar-card:nth-child(2) .pillar-title { color: #43e97b; }
+.pillar-card:nth-child(3) .pillar-title { color: #fa709a; }
+
+/* ===== SCENE 7: VALIDATION ===== */
+#scene-07 { background: linear-gradient(135deg, #0a2e1a, #134e2a, #1a6e3e); }
+#scene-07 .content { text-align: center; max-width: 800px; padding: 40px; }
+#s7-title { font-size: 1.6rem; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 48px; }
+#s7-stat .big-number { font-size: 8rem; font-weight: 900; line-height: 1; background: linear-gradient(135deg, #43e97b, #38f9d7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+#s7-stat .big-label { font-size: 1.3rem; color: rgba(255,255,255,0.6); margin-top: 12px; }
+#s7-quote { margin-top: 40px; font-size: 1.4rem; font-style: italic; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
+#s7-quote::before { content: '"'; font-size: 3rem; color: #43e97b; vertical-align: -0.3em; margin-right: 4px; }
+
+/* ===== SCENE 8: CTA ===== */
+#scene-08 { background: linear-gradient(135deg, #0a0a23, #1a1a4e, #2d1b69); }
+#scene-08 .content { text-align: center; max-width: 800px; padding: 40px; }
+#s8-join { font-size: 2.4rem; font-weight: 300; color: rgba(255,255,255,0.7); }
+#s8-logo-final { margin-top: 48px; }
+#s8-logo-final .logo-text { font-size: 6rem; font-weight: 900; letter-spacing: -3px; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s ease-in-out infinite; }
+@keyframes shimmer { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
+#s8-tagline { margin-top: 32px; }
+#s8-tagline .tag-items { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+#s8-tagline .tag-item { font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,0.6); padding: 8px 20px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); }
+#s8-tagline .tag-item span { color: #f093fb; }
+
+/* ===== CONTROLS ===== */
+#controls { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); padding: 12px 24px; display: flex; align-items: center; gap: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+#play-btn { background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: #fff; font-size: 1rem; font-weight: 700; padding: 10px 28px; border-radius: 8px; cursor: pointer; font-family: inherit; }
+#play-btn:hover { filter: brightness(1.15); }
+#progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; position: relative; }
+#progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 4px; width: 0%; transition: width 0.1s linear; }
+#time-display { font-size: 0.85rem; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums; min-width: 90px; text-align: right; }
+#scene-label { font-size: 0.85rem; color: rgba(255,255,255,0.35); min-width: 160px; }
+</style>
+</head>
+<body>
+<div id="player">
+
+  <!-- SCENE 1: THE PROBLEM -->
+  <div class="scene active" id="scene-01">
+    <div class="content">
+      <div id="s1-title" class="anim">
+        <div>You're juggling <span style="color:#ff6b6b;-webkit-text-fill-color:#ff6b6b">everything</span></div>
+      </div>
+      <div id="s1-platforms" class="anim">
+        <div class="platform-tag">LinkedIn</div>
+        <div class="platform-tag">Unstop</div>
+        <div class="platform-tag">Internshala</div>
+        <div class="platform-tag">College Portals</div>
+      </div>
+      <div id="s1-stat-planted" class="anim" style="margin-top:36px;">
+        <div style="font-size:3.2rem;font-weight:900;background:linear-gradient(135deg,#ff8c00,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Only 14%</div>
+        <div style="font-size:1.1rem;color:rgba(255,255,255,0.55);margin-top:8px;">are satisfied with this process</div>
+      </div>
+      <div id="s1-question" class="anim">
+        <em>"What should I actually do next?"</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: THE DATA -->
+  <div class="scene" id="scene-02">
+    <div class="content">
+      <div id="s2-title" class="anim">What Students Told Us</div>
+      <div class="stat-row">
+        <div id="s2-stat-80" class="stat-card red anim">
+          <div class="number">80%+</div>
+          <div class="label">feel uninformed about how to prepare for roles</div>
+        </div>
+        <div id="s2-stat-15" class="stat-card amber2 anim">
+          <div class="number">15%</div>
+          <div class="label">trust the information they find</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3: THE REFRAME -->
+  <div class="scene" id="scene-03">
+    <div class="content">
+      <div id="s3-title" class="anim">The Obvious Answer?</div>
+      <div id="s3-silos" class="anim">
+        <div class="silo-grid">
+          <div class="silo-box">Career<br>Platforms</div>
+          <div class="silo-box">AI<br>Chatbots</div>
+          <div class="silo-box">College<br>Portals</div>
+          <div class="silo-box">Research<br>Databases</div>
+        </div>
+      </div>
+      <div id="s3-reframe" class="anim">
+        <div class="insight-text">Better tools won't fix this</div>
+        <div class="insight-sub">Even if every platform improved, they'd still be separate silos</div>
+      </div>
+      <div id="s3-question" class="anim">
+        <div class="insight-text" style="font-size:2rem;">What if one place connected all of it?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: THE SOLUTION -->
+  <div class="scene" id="scene-04">
+    <div class="content">
+      <div id="s4-logo" class="anim">
+        <div class="logo-text">Elevate</div>
+        <div class="logo-sub">AI-Powered Student Navigation</div>
+      </div>
+      <div id="s4-tagline" class="anim">
+        Scattered information becomes<br><strong>clear, personal guidance</strong>
+      </div>
+      <div id="s4-glow" class="anim"></div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: HOW IT WORKS -->
+  <div class="scene" id="scene-05">
+    <div class="content">
+      <div id="s5-title" class="anim">How It Works</div>
+      <div class="lift-grid">
+        <div id="s5-L" class="lift-card l-card anim">
+          <div class="letter">L</div>
+          <div class="word">Find</div>
+          <div class="desc">Find the right information — all in one place</div>
+        </div>
+        <div id="s5-I" class="lift-card i-card anim">
+          <div class="letter">I</div>
+          <div class="word">Interpret</div>
+          <div class="desc">Figure out what applies to you personally</div>
+        </div>
+        <div id="s5-F" class="lift-card f-card anim">
+          <div class="letter">F</div>
+          <div class="word">Follow</div>
+          <div class="desc">Follow through with a clear plan</div>
+        </div>
+        <div id="s5-T" class="lift-card t-card anim">
+          <div class="letter">T</div>
+          <div class="word">Time</div>
+          <div class="desc">Act at the right time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: WHAT IT DELIVERS -->
+  <div class="scene" id="scene-06">
+    <div class="content">
+      <div id="s6-title" class="anim">What Elevate Delivers</div>
+      <div class="pillar-row">
+        <div id="s6-pillar1" class="pillar-card anim">
+          <div class="pillar-icon">🎯</div>
+          <div class="pillar-title">Unified Guidance</div>
+          <div class="pillar-desc">Career data translated into personalized, actionable next steps</div>
+        </div>
+        <div id="s6-pillar2" class="pillar-card anim">
+          <div class="pillar-icon">🔔</div>
+          <div class="pillar-title">Opportunity Awareness</div>
+          <div class="pillar-desc">Timely notifications for hackathons, contests, and deadlines</div>
+        </div>
+        <div id="s6-pillar3" class="pillar-card anim">
+          <div class="pillar-icon">🔬</div>
+          <div class="pillar-title">Research Engagement</div>
+          <div class="pillar-desc">Connect with professors and discover open internship opportunities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: VALIDATION -->
+  <div class="scene" id="scene-07">
+    <div class="content">
+      <div id="s7-title" class="anim">Student Validation</div>
+      <div id="s7-callback" class="anim" style="margin-bottom:32px;">
+        <div style="font-size:2rem;font-weight:700;background:linear-gradient(135deg,#ff8c00,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Only 14% were satisfied before</div>
+      </div>
+      <div id="s7-stat" class="anim">
+        <div class="big-number">87%</div>
+        <div class="big-label">believe Elevate changes that</div>
+      </div>
+      <div id="s7-quote" class="anim">
+        From 14% satisfied to 87% who believe — that's the shift
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 8: CTA -->
+  <div class="scene" id="scene-08">
+    <div class="content">
+      <div id="s8-join" class="anim">We're looking for 10 students to pilot Elevate this semester.<br>Find us after the talk, or scan the code on screen.</div>
+      <div id="s8-logo-final" class="anim">
+        <div class="logo-text">Elevate</div>
+      </div>
+      <div id="s8-tagline" class="anim">
+        <div class="tag-items">
+          <div class="tag-item">Your <span>Choices</span></div>
+          <div class="tag-item">Your <span>Preparation</span></div>
+          <div class="tag-item">Your <span>Confidence</span></div>
+          <div class="tag-item">Your <span>Success</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONTROLS -->
+<div id="controls">
+  <button id="play-btn">▶ Play</button>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+  <div id="time-display">0:00 / 0:00</div>
+  <div id="scene-label"></div>
+</div>
+
+<script>
+/* __AUDIO_DATA_PLACEHOLDER__ */
+/* __WORD_META_PLACEHOLDER__ */
+const SCENES = [
+  { scene: "scene-01", title: "The Problem", clips: ["s01_hook"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-01'); show('s1-title') } },
+    { delay: 1613, run: function(){ show('s1-platforms') } },
+    { delay: 6438, run: function(){ fade('s1-platforms'); show('s1-stat-planted') } },
+    { delay: 11063, run: function(){ fade('s1-stat-planted'); show('s1-question') } },
+  ]},
+  { scene: "scene-02", title: "The Data", clips: ["s02_data"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-02'); show('s2-title') } },
+    { delay: 3988, run: function(){ fade('s2-title'); show('s2-stat-80') } },
+    { delay: 7800, run: function(){ show('s2-stat-15') } },
+  ]},
+  { scene: "scene-03", title: "The Reframe", clips: ["s03_insight"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-03'); show('s3-title') } },
+    { delay: 2925, run: function(){ show('s3-silos') } },
+    { delay: 9350, run: function(){ fade('s3-silos'); show('s3-reframe') } },
+    { delay: 11575, run: function(){ fade('s3-reframe'); show('s3-question') } },
+  ]},
+  { scene: "scene-04", title: "The Solution", clips: ["s04_solution"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-04'); show('s4-logo') } },
+    { delay: 5525, run: function(){ show('s4-tagline'); show('s4-glow') } },
+  ]},
+  { scene: "scene-05", title: "How It Works", clips: ["s05_lift"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-05'); fade('s4-glow'); show('s5-title') } },
+    { delay: 925, run: function(){ show('s5-L') } },
+    { delay: 2550, run: function(){ show('s5-I') } },
+    { delay: 4275, run: function(){ show('s5-F') } },
+    { delay: 6325, run: function(){ show('s5-T') } },
+  ]},
+  { scene: "scene-06", title: "What Elevate Delivers", clips: ["s06a_delivers","s06b_delivers"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-06'); show('s6-title') } },
+    { delay: 713, run: function(){ show('s6-pillar1') } },
+    { delay: 8964, run: function(){ show('s6-pillar2') } },
+    { delay: 14276, run: function(){ show('s6-pillar3') } },
+  ]},
+  { scene: "scene-07", title: "Validation", clips: ["s07_validation"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-07'); show('s7-title') } },
+    { delay: 1175, run: function(){ show('s7-callback') } },
+    { delay: 4188, run: function(){ fade('s7-callback'); show('s7-stat') } },
+    { delay: 7363, run: function(){ show('s7-quote') } },
+  ]},
+  { scene: "scene-08", title: "Call to Action", clips: ["s08_cta"], triggers: [
+    { delay: 0, run: function(){ clearAll('scene-08'); show('s8-join') } },
+    { delay: 8038, run: function(){ fade('s8-join'); show('s8-logo-final') } },
+    { delay: 8888, run: function(){ show('s8-tagline') } },
+  ]},
+];
+
+
+
+
+// ===== ANIMATION HELPERS =====
+function show(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('visible'); el.classList.remove('fade-out'); }
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('fade-out'); el.classList.remove('visible'); }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.remove('visible', 'fade-out'); }
+}
+function clearAll(sceneId) {
+  const scene = document.getElementById(sceneId);
+  if (scene) {
+    scene.querySelectorAll('.anim').forEach(el => {
+      el.classList.remove('visible', 'fade-out');
+    });
+  }
+}
+
+// ===== PLAYER ENGINE =====
+const playBtn = document.getElementById('play-btn');
+const progressFill = document.getElementById('progress-fill');
+const progressBar = document.getElementById('progress-bar');
+const timeDisplay = document.getElementById('time-display');
+const sceneLabel = document.getElementById('scene-label');
+
+let audioQueue = [];
+let currentSceneIndex = 0;
+let isPlaying = false;
+let totalDuration = 0;
+let globalStartTime = 0;
+let sceneTimes = [];
+let firedTriggers = new Set();
+
+function formatTime(ms) {
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60);
+  return `${m}:${String(s % 60).padStart(2, '0')}`;
+}
+
+function buildAudioQueue() {
+  audioQueue = [];
+  totalDuration = 0;
+  sceneTimes = [];
+  if (typeof SCENES === 'undefined') return;
+  for (const scene of SCENES) {
+    const sceneStart = totalDuration;
+    let sceneDur = 0;
+    for (const clipName of scene.clips) {
+      if (typeof AUDIO_DATA !== 'undefined' && AUDIO_DATA[clipName]) {
+        const words = (typeof WORD_META !== 'undefined' && WORD_META[clipName]) || [];
+        let clipDur = 0;
+        if (words.length > 0) {
+          const last = words[words.length - 1];
+          clipDur = last.t + last.d + 400;
+        } else {
+          clipDur = 3000;
+        }
+        audioQueue.push({
+          clipName,
+          sceneIndex: SCENES.indexOf(scene),
+          offset: totalDuration,
+          duration: clipDur
+        });
+        sceneDur += clipDur;
+        totalDuration += clipDur;
+      }
+    }
+    sceneTimes.push({ start: sceneStart, duration: sceneDur, scene: scene.scene, title: scene.title });
+  }
+  timeDisplay.textContent = `0:00 / ${formatTime(totalDuration)}`;
+}
+
+function activateScene(index) {
+  document.querySelectorAll('.scene').forEach((s, i) => {
+    s.classList.toggle('active', i === index);
+  });
+  currentSceneIndex = index;
+  if (sceneTimes[index]) {
+    sceneLabel.textContent = sceneTimes[index].title;
+  }
+}
+
+let currentAudio = null;
+let currentQueueIndex = -1;
+let pausedAt = 0;
+
+function playFromQueue(queueIndex) {
+  if (queueIndex >= audioQueue.length) {
+    isPlaying = false;
+    playBtn.textContent = '▶ Play';
+    return;
+  }
+  currentQueueIndex = queueIndex;
+  const item = audioQueue[queueIndex];
+
+  // Activate the right scene
+  activateScene(item.sceneIndex);
+
+  // Fire scene triggers
+  const scene = SCENES[item.sceneIndex];
+  const sceneStart = sceneTimes[item.sceneIndex].start;
+
+  // Create audio element
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  const audio = new Audio('data:audio/mp3;base64,' + AUDIO_DATA[item.clipName]);
+  currentAudio = audio;
+
+  // Animation polling
+  let animFrame;
+  function pollTriggers() {
+    if (!isPlaying) return;
+    const now = Date.now();
+    const elapsed = now - globalStartTime;
+
+    // Update progress
+    const pct = Math.min(100, (elapsed / totalDuration) * 100);
+    progressFill.style.width = pct + '%';
+    timeDisplay.textContent = `${formatTime(elapsed)} / ${formatTime(totalDuration)}`;
+
+    // Check triggers for current scene
+    const sceneElapsed = elapsed - sceneStart;
+    for (let i = 0; i < scene.triggers.length; i++) {
+      const trig = scene.triggers[i];
+      const key = `${item.sceneIndex}-${i}`;
+      if (!firedTriggers.has(key) && sceneElapsed >= trig.delay) {
+        firedTriggers.add(key);
+        trig.run();
+      }
+    }
+
+    animFrame = requestAnimationFrame(pollTriggers);
+  }
+
+  audio.addEventListener('ended', () => {
+    cancelAnimationFrame(animFrame);
+    playFromQueue(queueIndex + 1);
+  });
+
+  audio.play().then(() => {
+    animFrame = requestAnimationFrame(pollTriggers);
+  }).catch(e => console.error('Audio play error:', e));
+}
+
+function startPlayback() {
+  if (isPlaying) {
+    // Pause
+    isPlaying = false;
+    playBtn.textContent = '▶ Play';
+    if (currentAudio) {
+      pausedAt = Date.now() - globalStartTime;
+      currentAudio.pause();
+    }
+    return;
+  }
+
+  isPlaying = true;
+  playBtn.textContent = '⏸ Pause';
+
+  if (pausedAt > 0) {
+    // Resume
+    globalStartTime = Date.now() - pausedAt;
+    if (currentAudio) {
+      currentAudio.play();
+      function pollResume() {
+        if (!isPlaying) return;
+        const elapsed = Date.now() - globalStartTime;
+        const pct = Math.min(100, (elapsed / totalDuration) * 100);
+        progressFill.style.width = pct + '%';
+        timeDisplay.textContent = `${formatTime(elapsed)} / ${formatTime(totalDuration)}`;
+        // Check triggers
+        const scene = SCENES[currentSceneIndex];
+        const sceneStart = sceneTimes[currentSceneIndex].start;
+        const sceneElapsed = elapsed - sceneStart;
+        for (let i = 0; i < scene.triggers.length; i++) {
+          const trig = scene.triggers[i];
+          const key = `${currentSceneIndex}-${i}`;
+          if (!firedTriggers.has(key) && sceneElapsed >= trig.delay) {
+            firedTriggers.add(key);
+            trig.run();
+          }
+        }
+        requestAnimationFrame(pollResume);
+      }
+      requestAnimationFrame(pollResume);
+    }
+    return;
+  }
+
+  // Fresh start
+  firedTriggers.clear();
+  globalStartTime = Date.now();
+  pausedAt = 0;
+  playFromQueue(0);
+}
+
+playBtn.addEventListener('click', startPlayback);
+
+// Progress bar click-to-seek (simplified: restart)
+progressBar.addEventListener('click', (e) => {
+  // Simple restart for now
+  isPlaying = false;
+  pausedAt = 0;
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  firedTriggers.clear();
+  activateScene(0);
+  clearAll('scene-01'); clearAll('scene-02'); clearAll('scene-03'); clearAll('scene-04');
+  clearAll('scene-05'); clearAll('scene-06'); clearAll('scene-07'); clearAll('scene-08');
+  progressFill.style.width = '0%';
+  timeDisplay.textContent = `0:00 / ${formatTime(totalDuration)}`;
+  playBtn.textContent = '▶ Play';
+  sceneLabel.textContent = '';
+});
+
+// Init
+buildAudioQueue();
+</script>
+</body>
+</html>

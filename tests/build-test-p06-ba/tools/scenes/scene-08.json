@@ -1,0 +1,27 @@
+{
+  "scene": "scene-08",
+  "title": "Call to Action",
+  "clips": ["s08_cta"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-08" },
+        { "fn": "show", "id": "s8-join" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_cta", "word": "Elevate", "n": 2 },
+      "actions": [
+        { "fn": "fade", "id": "s8-join" },
+        { "fn": "show", "id": "s8-logo-final" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_cta", "word": "Your", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-tagline" }
+      ]
+    }
+  ]
+}

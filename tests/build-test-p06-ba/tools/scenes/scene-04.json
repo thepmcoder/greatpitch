@@ -1,0 +1,21 @@
+{
+  "scene": "scene-04",
+  "title": "The Solution",
+  "clips": ["s04_solution"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-04" },
+        { "fn": "show", "id": "s4-logo" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s04_solution", "word": "clear", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s4-tagline" },
+        { "fn": "show", "id": "s4-glow" }
+      ]
+    }
+  ]
+}

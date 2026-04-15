@@ -1,0 +1,37 @@
+{
+  "scene": "scene-06",
+  "title": "Signals → Intelligence → Guidance",
+  "clips": ["s06a_signals", "s06b_outputs"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s6-heading" }]
+    },
+    {
+      "anchor": { "clip": "s06a_signals", "word": "six", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s6-heading" },
+        { "fn": "show", "id": "s6-signal-sources" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06a_signals", "word": "reasoned", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-ai-layer" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06b_outputs", "word": "actionable", "n": 1 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-06" },
+        { "fn": "show", "id": "s6-outputs" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06b_outputs", "word": "structured", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-path-forward" }
+      ]
+    }
+  ]
+}

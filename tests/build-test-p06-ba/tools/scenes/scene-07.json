@@ -1,0 +1,33 @@
+{
+  "scene": "scene-07",
+  "title": "Validation",
+  "clips": ["s07_validation"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-07" },
+        { "fn": "show", "id": "s7-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_validation", "word": "fourteen", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-callback" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_validation", "word": "eighty-seven", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s7-callback" },
+        { "fn": "show", "id": "s7-stat" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_validation", "word": "changes", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-quote" }
+      ]
+    }
+  ]
+}

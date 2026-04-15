@@ -1,0 +1,484 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "Elevate",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 5500000,
+        "Duration": 5750000,
+        "text": {
+          "Text": "delivers",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 23250000,
+        "text": {
+          "Text": "Elevate delivers three things.",
+          "Length": 30,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 12375000,
+        "Duration": 2375000,
+        "text": {
+          "Text": "three",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 14875000,
+        "Duration": 5750000,
+        "text": {
+          "Text": "things",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 24750000,
+        "Duration": 5625000,
+        "text": {
+          "Text": "Unified",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 30500000,
+        "Duration": 4125000,
+        "text": {
+          "Text": "tailored",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 34750000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "guidance",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 39125000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "that",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 40625000,
+        "Duration": 6375000,
+        "text": {
+          "Text": "translates",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 47125000,
+        "Duration": 4500000,
+        "text": {
+          "Text": "career",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 51750000,
+        "Duration": 4625000,
+        "text": {
+          "Text": "data",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 56500000,
+        "Duration": 1750000,
+        "text": {
+          "Text": "into",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 58375000,
+        "Duration": 8500000,
+        "text": {
+          "Text": "personalized",
+          "Length": 12,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 23750000,
+        "Duration": 54750000,
+        "text": {
+          "Text": "Unified tailored guidance that translates career data into personalized next steps.",
+          "Length": 83,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 67000000,
+        "Duration": 3125000,
+        "text": {
+          "Text": "next",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 70250000,
+        "Duration": 5125000,
+        "text": {
+          "Text": "steps",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 79375000,
+        "Duration": 6375000,
+        "text": {
+          "Text": "Opportunity",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 85875000,
+        "Duration": 5375000,
+        "text": {
+          "Text": "awareness",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 91375000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "with",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 93375000,
+        "Duration": 4125000,
+        "text": {
+          "Text": "timely",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 97625000,
+        "Duration": 7750000,
+        "text": {
+          "Text": "notifications",
+          "Length": 13,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 105500000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "for",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 107000000,
+        "Duration": 8000000,
+        "text": {
+          "Text": "hackathons",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 117000000,
+        "Duration": 7000000,
+        "text": {
+          "Text": "contests",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 78500000,
+        "Duration": 58750000,
+        "text": {
+          "Text": "Opportunity awareness with timely notifications for hackathons, contests, and deadlines.",
+          "Length": 88,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 125750000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 127125000,
+        "Duration": 7000000,
+        "text": {
+          "Text": "deadlines",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 138250000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "And",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 139750000,
+        "Duration": 4625000,
+        "text": {
+          "Text": "research",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 144500000,
+        "Duration": 5750000,
+        "text": {
+          "Text": "engagement",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 150875000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "that",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 152250000,
+        "Duration": 4000000,
+        "text": {
+          "Text": "connects",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 156375000,
+        "Duration": 4625000,
+        "text": {
+          "Text": "students",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 161125000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "with",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 162625000,
+        "Duration": 8000000,
+        "text": {
+          "Text": "professors",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 173125000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 137250000,
+        "Duration": 50875000,
+        "text": {
+          "Text": "And research engagement that connects students with professors and open internships.",
+          "Length": 84,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 175250000,
+        "Duration": 2500000,
+        "text": {
+          "Text": "open",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 177875000,
+        "Duration": 7125000,
+        "text": {
+          "Text": "internships",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

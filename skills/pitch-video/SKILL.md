@@ -1,7 +1,7 @@
 ---
 name: pitch-video
 description: Produce a pitch video from a product concept using word-anchored synchronization
-version: 1.1
+version: 1.2
 type: procedural
 ---
 
@@ -21,8 +21,21 @@ Read the product concept, pitch deck, or brief. Extract:
 - **The solution** — what this product does differently
 - **The proof** — data, traction, or demonstrations that it works
 - **The ask** — what you want from the audience
+- **The audience** — who is watching? What's their attention span?
+- **The slot** — how long do you have? This determines EVERYTHING about pacing.
 
 If any of these are unclear, ask. Don't invent.
+
+**Audience shapes every decision:**
+
+| Audience | Slot | Pacing | Tone |
+|----------|------|--------|------|
+| VCs / investors | 10-20 min | Measured, data-driven, build the case | Confident, precise |
+| Internal leadership | 5-15 min | Strategic, reframe-driven, earn the conclusion | Honest, collaborative |
+| Demo day / students | 60-90 sec | Fast, punchy, hook in 5 seconds | Energetic, direct |
+| Conference / general | 2-5 min | Clear, visual, one big idea | Accessible, memorable |
+
+**If the slot is 90 seconds or less**, you cannot use The Reframe or The Classic. Use The Lightning (see Stage 2).
 
 ### Stage 2: Structure the Narrative
 
@@ -30,7 +43,16 @@ Build the story arc. A pitch is NOT a feature list — it's a journey the audien
 
 **Proven structures:**
 
-**The Reframe** (used in C2D pitch — most effective for internal strategy):
+**The Lightning** (demo day, student audience, ≤90 seconds):
+1. Hook — one sentence that makes them look up (5 sec)
+2. Pain — the problem in one vivid example, not statistics (10 sec)
+3. "What if" — the product idea in one line (5 sec)
+4. Show, don't tell — fastest demo/example you have (20-30 sec)
+5. One killer stat — the single most impressive number (10 sec)
+6. CTA — exactly what to do next: "scan this," "find us at booth 3" (5 sec)
+Total: ~60-75 seconds. No framework tours. No market sizing. No team slides.
+
+**The Reframe** (internal strategy, 5-15 min — most effective when the audience holds the wrong conclusion):
 1. Open with the current state (honest, data-backed)
 2. Show what's been tried and why it hasn't worked
 3. Stress-test: even if everything works, is the ceiling high enough?
@@ -41,13 +63,13 @@ Build the story arc. A pitch is NOT a feature list — it's a journey the audien
 8. Circle back: does this new approach solve the original problems?
 9. Close with a concrete ask
 
-**The Classic** (standard investor pitch):
+**The Classic** (standard investor pitch, 10-20 min):
 1. Problem → 2. Market size → 3. Solution → 4. Demo → 5. Traction → 6. Team → 7. Ask
 
-**The Why-Now** (timing-driven):
+**The Why-Now** (timing-driven, 3-10 min):
 1. What changed in the world → 2. What this enables → 3. Why we're positioned → 4. Evidence → 5. Ask
 
-Pick the structure that fits the content. Don't force it.
+Pick the structure that fits the AUDIENCE and SLOT, not just the content. A 4-minute Reframe at a demo day will lose the room.
 
 **Rules:**
 - Every section must earn its place. If you can cut it without losing the argument, cut it.

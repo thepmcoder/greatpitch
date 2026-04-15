@@ -1,0 +1,24 @@
+{
+  "scene": "scene-08",
+  "title": "Students Agree",
+  "clips": ["s08_validation"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s8-heading" }]
+    },
+    {
+      "anchor": { "clip": "s08_validation", "word": "eighty-seven", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s8-heading" },
+        { "fn": "show", "id": "s8-stat-87pct" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s08_validation", "word": "simpler", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s8-student-quote" }
+      ]
+    }
+  ]
+}

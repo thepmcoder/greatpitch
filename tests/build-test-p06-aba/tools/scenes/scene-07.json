@@ -1,0 +1,36 @@
+{
+  "scene": "scene-07",
+  "title": "What We've Built",
+  "clips": ["s07_prototype"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s7-heading" }]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "prototype", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s7-heading" },
+        { "fn": "show", "id": "s7-app-mockup" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "chatbot", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-feature-chatbot" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "notification", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-feature-notifications" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s07_prototype", "word": "professor", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s7-feature-professors" }
+      ]
+    }
+  ]
+}

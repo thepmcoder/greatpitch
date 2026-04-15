@@ -1,0 +1,688 @@
+{
+  "Metadata": [
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 1000000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "You're",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 2375000,
+        "Duration": 500000,
+        "text": {
+          "Text": "a",
+          "Length": 1,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 500000,
+        "Duration": 15125000,
+        "text": {
+          "Text": "You're a second-year student.",
+          "Length": 29,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 3000000,
+        "Duration": 5000000,
+        "text": {
+          "Text": "second-year",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 8125000,
+        "Duration": 4375000,
+        "text": {
+          "Text": "student",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 15625000,
+        "Duration": 11000000,
+        "text": {
+          "Text": "It's September.",
+          "Length": 15,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 16625000,
+        "Duration": 1125000,
+        "text": {
+          "Text": "It's",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 17875000,
+        "Duration": 5625000,
+        "text": {
+          "Text": "September",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 28125000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "Placement",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 31625000,
+        "Duration": 4125000,
+        "text": {
+          "Text": "season",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 36500000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "is",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 38125000,
+        "Duration": 3000000,
+        "text": {
+          "Text": "three",
+          "Length": 5,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 26625000,
+        "Duration": 24250000,
+        "text": {
+          "Text": "Placement season is three months away.",
+          "Length": 38,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 41250000,
+        "Duration": 2875000,
+        "text": {
+          "Text": "months",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 44250000,
+        "Duration": 3500000,
+        "text": {
+          "Text": "away",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 52000000,
+        "Duration": 1250000,
+        "text": {
+          "Text": "You",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 53375000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "have",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 55375000,
+        "Duration": 6125000,
+        "text": {
+          "Text": "seventeen",
+          "Length": 9,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 61625000,
+        "Duration": 4000000,
+        "text": {
+          "Text": "tabs",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 65750000,
+        "Duration": 3375000,
+        "text": {
+          "Text": "open",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 72125000,
+        "Duration": 4875000,
+        "text": {
+          "Text": "LinkedIn",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 81000000,
+        "Duration": 6000000,
+        "text": {
+          "Text": "Unstop",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 89625000,
+        "Duration": 7000000,
+        "text": {
+          "Text": "Internshala",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 99500000,
+        "Duration": 750000,
+        "text": {
+          "Text": "your",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 100375000,
+        "Duration": 3750000,
+        "text": {
+          "Text": "college",
+          "Length": 7,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 104250000,
+        "Duration": 3875000,
+        "text": {
+          "Text": "portal",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 110750000,
+        "Duration": 1750000,
+        "text": {
+          "Text": "two",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 112625000,
+        "Duration": 4250000,
+        "text": {
+          "Text": "WhatsApp",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 117000000,
+        "Duration": 4125000,
+        "text": {
+          "Text": "groups",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 123375000,
+        "Duration": 1000000,
+        "text": {
+          "Text": "and",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 124500000,
+        "Duration": 625000,
+        "text": {
+          "Text": "a",
+          "Length": 1,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 125250000,
+        "Duration": 3500000,
+        "text": {
+          "Text": "Google",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 128875000,
+        "Duration": 2250000,
+        "text": {
+          "Text": "Doc",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 131250000,
+        "Duration": 375000,
+        "text": {
+          "Text": "a",
+          "Length": 1,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 131750000,
+        "Duration": 3750000,
+        "text": {
+          "Text": "senior",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 135625000,
+        "Duration": 3250000,
+        "text": {
+          "Text": "shared",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 139000000,
+        "Duration": 3000000,
+        "text": {
+          "Text": "last",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 142125000,
+        "Duration": 2000000,
+        "text": {
+          "Text": "year",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 144250000,
+        "Duration": 1625000,
+        "text": {
+          "Text": "that",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 146000000,
+        "Duration": 4000000,
+        "text": {
+          "Text": "may",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 150125000,
+        "Duration": 875000,
+        "text": {
+          "Text": "or",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 151125000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "may",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 153125000,
+        "Duration": 2125000,
+        "text": {
+          "Text": "not",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 50875000,
+        "Duration": 114125000,
+        "text": {
+          "Text": "You have seventeen tabs open — LinkedIn, Unstop, Internshala, your college portal, two WhatsApp groups, and a Google Doc a senior shared last year that may or may not be outdated.",
+          "Length": 179,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 155375000,
+        "Duration": 1375000,
+        "text": {
+          "Text": "be",
+          "Length": 2,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 156875000,
+        "Duration": 5000000,
+        "text": {
+          "Text": "outdated",
+          "Length": 8,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 166000000,
+        "Duration": 625000,
+        "text": {
+          "Text": "You're",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 165000000,
+        "Duration": 10500000,
+        "text": {
+          "Text": "You're not lazy.",
+          "Length": 16,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 166750000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "not",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 168750000,
+        "Duration": 3625000,
+        "text": {
+          "Text": "lazy",
+          "Length": 4,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 176500000,
+        "Duration": 750000,
+        "text": {
+          "Text": "You're",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 175500000,
+        "Duration": 13250000,
+        "text": {
+          "Text": "You're not uninformed.",
+          "Length": 22,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 177375000,
+        "Duration": 1875000,
+        "text": {
+          "Text": "not",
+          "Length": 3,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 179375000,
+        "Duration": 6250000,
+        "text": {
+          "Text": "uninformed",
+          "Length": 10,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "SentenceBoundary",
+      "Data": {
+        "Offset": 188750000,
+        "Duration": 12000000,
+        "text": {
+          "Text": "You're overwhelmed.",
+          "Length": 19,
+          "BoundaryType": "SentenceBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 189750000,
+        "Duration": 1500000,
+        "text": {
+          "Text": "You're",
+          "Length": 6,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    },
+    {
+      "Type": "WordBoundary",
+      "Data": {
+        "Offset": 191375000,
+        "Duration": 6250000,
+        "text": {
+          "Text": "overwhelmed",
+          "Length": 11,
+          "BoundaryType": "WordBoundary"
+        }
+      }
+    }
+  ]
+}

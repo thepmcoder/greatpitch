@@ -1,0 +1,25 @@
+{
+  "scene": "scene-02",
+  "title": "The Current Approach",
+  "clips": ["s02_tried"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s2-heading" }]
+    },
+    {
+      "anchor": { "clip": "s02_tried", "word": "piece", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-heading" },
+        { "fn": "show", "id": "s2-fragments" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_tried", "word": "full", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-fragments" },
+        { "fn": "show", "id": "s2-no-full-picture" }
+      ]
+    }
+  ]
+}

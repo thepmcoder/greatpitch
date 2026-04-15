@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>Elevate — AI-Powered Student Career Navigation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a1a;
+  --primary: #4f8fff;
+  --warm: #f5a623;
+  --success: #2ecc71;
+  --text: #ffffff;
+  --text-dim: rgba(255,255,255,0.7);
+  --danger: #ff4444;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: #000;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* === VIEWPORT === */
+#viewport {
+  width: 1920px; height: 1080px;
+  background: var(--bg);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform-origin: center center;
+  overflow: hidden;
+}
+
+/* === SCENES === */
+.scene {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.scene.active { opacity: 1; pointer-events: auto; }
+
+/* === ANIM ELEMENTS === */
+.anim {
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.anim.visible { opacity: 1; pointer-events: auto; }
+.anim.fade-out { opacity: 0; }
+.anim.hidden { opacity: 0; pointer-events: none; }
+
+/* === PLAY BUTTON === */
+#play-overlay {
+  position: absolute; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10,10,26,0.92);
+  cursor: pointer;
+}
+#play-overlay.hidden { display: none; }
+#play-btn {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), #2a5cbf);
+  border: 4px solid rgba(79,143,255,0.4);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(79,143,255,0.4), 0 0 120px rgba(79,143,255,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 80px rgba(79,143,255,0.6), 0 0 160px rgba(79,143,255,0.25);
+}
+#play-btn svg { margin-left: 8px; }
+#play-label {
+  position: absolute; bottom: calc(50% - 110px);
+  color: var(--text-dim); font-size: 18px; letter-spacing: 3px; text-transform: uppercase;
+}
+
+/* === COMMON STYLES === */
+.scene-inner { width: 1600px; text-align: center; position: relative; }
+.heading {
+  font-size: 3rem; font-weight: 700; letter-spacing: -1px;
+  margin-bottom: 60px;
+}
+.subheading { font-size: 1.5rem; color: var(--text-dim); margin-top: 12px; }
+
+/* === SCENE 00 === */
+#s0-heading { font-size: 3.5rem; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 1px; line-height: 1.4; }
+
+.tabs-container {
+  position: relative; width: 900px; height: 350px; margin: 0 auto;
+}
+.tab-card {
+  position: absolute;
+  padding: 18px 32px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  font-size: 1rem; font-weight: 600;
+  color: var(--text-dim);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.tab-card:nth-child(1) { top: 20px; left: 60px; transform: rotate(-4deg); }
+.tab-card:nth-child(2) { top: 10px; left: 360px; transform: rotate(2deg); }
+.tab-card:nth-child(3) { top: 30px; right: 100px; transform: rotate(-2deg); }
+.tab-card:nth-child(4) { top: 140px; left: 120px; transform: rotate(3deg); }
+.tab-card:nth-child(5) { top: 160px; left: 450px; transform: rotate(-5deg); }
+.tab-card:nth-child(6) { top: 150px; right: 150px; transform: rotate(1deg); }
+.tab-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px; border-radius: 10px 10px 0 0;
+  background: linear-gradient(90deg, var(--primary), transparent);
+}
+
+#s0-overwhelmed {
+  font-size: 6rem; font-weight: 900; letter-spacing: 8px;
+  background: linear-gradient(180deg, #ff6b6b, #ff4444);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: none; filter: drop-shadow(0 0 40px rgba(255,68,68,0.35));
+}
+
+/* === SCENE 01 === */
+.stats-row { display: flex; justify-content: center; gap: 120px; margin-bottom: 60px; }
+.stat-block { text-align: center; }
+.stat-number {
+  font-size: 8rem; font-weight: 900; line-height: 1;
+  color: var(--danger);
+}
+.stat-label { font-size: 1.2rem; color: var(--text-dim); margin-top: 10px; max-width: 280px; }
+
+.bar-row {
+  display: flex; align-items: center; gap: 24px;
+  margin-bottom: 28px; width: 900px; margin-left: auto; margin-right: auto;
+}
+.bar-label { width: 220px; text-align: right; font-size: 1.1rem; font-weight: 600; color: var(--text-dim); flex-shrink: 0; }
+.bar-track {
+  flex: 1; height: 36px; background: rgba(255,255,255,0.06);
+  border-radius: 18px; overflow: hidden; position: relative;
+}
+.bar-fill {
+  height: 100%; border-radius: 18px;
+  background: linear-gradient(90deg, var(--warm), #f7c948);
+  width: 0; transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+.bar-fill.animate { width: var(--target-width); }
+.bar-value {
+  font-size: 1rem; font-weight: 700; color: var(--warm);
+  flex-shrink: 0; width: 60px;
+}
+
+/* === SCENE 02 === */
+.fragments-container {
+  position: relative; width: 1100px; height: 400px; margin: 0 auto;
+}
+.fragment-card {
+  position: absolute;
+  padding: 20px 36px;
+  background: rgba(79,143,255,0.08);
+  border: 1px solid rgba(79,143,255,0.2);
+  border-radius: 14px;
+  font-size: 1.1rem; font-weight: 600; color: var(--text);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+.fragment-card:nth-child(1) { top: 20px; left: 50px; transform: rotate(-3deg); }
+.fragment-card:nth-child(2) { top: 0; left: 380px; transform: rotate(2deg); }
+.fragment-card:nth-child(3) { top: 30px; right: 80px; transform: rotate(-1deg); }
+.fragment-card:nth-child(4) { top: 180px; left: 100px; transform: rotate(4deg); }
+.fragment-card:nth-child(5) { top: 200px; left: 480px; transform: rotate(-4deg); }
+.fragment-card:nth-child(6) { top: 190px; right: 120px; transform: rotate(2deg); }
+
+#s2-no-full-picture {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+#s2-no-full-picture .overlay-dim {
+  position: absolute; inset: 0;
+  background: rgba(10,10,26,0.7);
+}
+#s2-no-full-picture .overlay-text {
+  position: relative; z-index: 2;
+  font-size: 4rem; font-weight: 900; letter-spacing: 4px;
+  color: var(--text);
+  text-shadow: 0 0 60px rgba(79,143,255,0.3);
+}
+
+/* === SCENE 03 === */
+.platforms-row {
+  display: flex; justify-content: center; gap: 48px; margin-bottom: 60px;
+}
+.platform-card {
+  padding: 28px 44px;
+  background: rgba(46,204,113,0.08);
+  border: 1px solid rgba(46,204,113,0.25);
+  border-radius: 16px;
+  font-size: 1.3rem; font-weight: 600;
+  display: flex; align-items: center; gap: 14px;
+}
+.platform-card .check { color: var(--success); font-size: 1.6rem; }
+
+#s3-question-mark {
+  font-size: 14rem; font-weight: 900; line-height: 1;
+  color: rgba(79,143,255,0.15);
+  text-shadow: 0 0 80px rgba(79,143,255,0.2);
+}
+
+#s3-dots-disconnect { margin-top: 40px; }
+.dots-cluster {
+  display: flex; justify-content: center; gap: 80px; margin-bottom: 30px;
+}
+.dot-group { display: flex; gap: 12px; }
+.dot {
+  width: 18px; height: 18px; border-radius: 50%;
+}
+.dot.blue { background: var(--primary); box-shadow: 0 0 12px rgba(79,143,255,0.5); }
+.dot.gold { background: var(--warm); box-shadow: 0 0 12px rgba(245,166,35,0.5); }
+.dot.green { background: var(--success); box-shadow: 0 0 12px rgba(46,204,113,0.5); }
+.dot.pink { background: #e84393; box-shadow: 0 0 12px rgba(232,67,147,0.5); }
+.dots-text { font-size: 1.6rem; color: var(--text-dim); font-weight: 600; }
+
+/* === SCENE 04 === */
+#scene-04 .heading { color: var(--warm); }
+
+.network-container {
+  position: relative; width: 500px; height: 500px; margin: 0 auto 40px;
+}
+.network-dot {
+  position: absolute; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--warm); box-shadow: 0 0 16px rgba(245,166,35,0.5);
+}
+.network-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.network-dot:nth-child(2) { top: 25%; right: 0; }
+.network-dot:nth-child(3) { bottom: 25%; right: 0; }
+.network-dot:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); }
+.network-dot:nth-child(5) { bottom: 25%; left: 0; }
+.network-dot:nth-child(6) { top: 25%; left: 0; }
+
+.network-lines {
+  position: absolute; inset: 0;
+}
+.network-lines svg { width: 100%; height: 100%; }
+.network-lines line {
+  stroke: var(--warm); stroke-width: 1.5;
+  opacity: 0.4;
+  stroke-dasharray: 300; stroke-dashoffset: 300;
+  animation: drawLine 1.5s ease forwards;
+}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+.connection-card {
+  display: inline-block;
+  padding: 20px 36px; margin: 10px 16px;
+  background: rgba(245,166,35,0.08);
+  border: 1px solid rgba(245,166,35,0.3);
+  border-radius: 14px;
+  font-size: 1.2rem; font-weight: 600;
+  color: var(--warm);
+  box-shadow: 0 0 30px rgba(245,166,35,0.1);
+}
+.connection-card .link-line {
+  display: inline-block; margin: 0 8px;
+  color: rgba(245,166,35,0.7);
+}
+
+#s4-punchline { margin-top: 50px; }
+#s4-punchline .line1 { font-size: 2.5rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+#s4-punchline .line2 { font-size: 3rem; font-weight: 900; color: var(--warm); }
+
+/* === SCENE 05 === */
+.logo-block { margin-bottom: 60px; }
+.logo-text {
+  font-size: 5rem; font-weight: 900; letter-spacing: 12px;
+  background: linear-gradient(135deg, var(--warm), #f7c948);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(245,166,35,0.3));
+}
+.logo-tagline {
+  font-size: 1.2rem; color: var(--text-dim); margin-top: 16px;
+  letter-spacing: 2px;
+}
+
+.lift-framework { width: 800px; margin: 0 auto; text-align: left; }
+.lift-row {
+  display: flex; align-items: center; gap: 28px;
+  padding: 22px 0;
+  border-left: 4px solid var(--primary);
+  padding-left: 28px;
+  margin-bottom: 12px;
+}
+.lift-letter {
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(79,143,255,0.12);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-size: 2rem; font-weight: 900; color: var(--primary);
+  flex-shrink: 0;
+}
+.lift-desc { font-size: 1.3rem; font-weight: 600; color: var(--text); }
+
+/* === SCENE 06 === */
+.flow-container {
+  display: flex; align-items: center; justify-content: center; gap: 40px;
+  width: 100%; position: relative;
+}
+.source-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  width: 340px;
+}
+.source-card {
+  padding: 14px 18px;
+  background: rgba(79,143,255,0.06);
+  border: 1px solid rgba(79,143,255,0.15);
+  border-radius: 10px;
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.ai-node {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,143,255,0.2), rgba(79,143,255,0.05));
+  border: 2px solid rgba(79,143,255,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; color: var(--primary);
+  text-align: center;
+  box-shadow: 0 0 60px rgba(79,143,255,0.15), 0 0 120px rgba(79,143,255,0.05);
+  flex-shrink: 0;
+  position: relative;
+}
+.ai-node::before {
+  content: ''; position: absolute; inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(79,143,255,0.15);
+  animation: pulseRing 2s ease-in-out infinite;
+}
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.08); opacity: 0.2; }
+}
+
+.flow-arrow {
+  font-size: 2rem; color: rgba(79,143,255,0.3);
+  flex-shrink: 0;
+}
+
+.output-cards { display: flex; flex-direction: column; gap: 14px; width: 280px; }
+.output-card {
+  padding: 16px 24px;
+  background: rgba(46,204,113,0.06);
+  border: 1px solid rgba(46,204,113,0.2);
+  border-radius: 10px;
+  font-size: 1rem; font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+#s6-path-forward {
+  margin-top: 50px;
+  font-size: 1.8rem; font-weight: 700; color: var(--primary);
+  text-shadow: 0 0 40px rgba(79,143,255,0.2);
+}
+
+/* === SCENE 07 === */
+.mockup-area {
+  display: flex; justify-content: center; align-items: flex-end; gap: 60px;
+  margin-bottom: 50px; position: relative;
+}
+.phone-frame {
+  width: 200px; height: 380px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-radius: 28px;
+  position: relative; overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+.phone-frame .notch {
+  width: 80px; height: 6px; background: rgba(255,255,255,0.15);
+  border-radius: 3px; margin: 12px auto 0;
+}
+.phone-frame .wire-line {
+  width: 70%; height: 4px; margin: 20px auto 0;
+  background: rgba(255,255,255,0.06); border-radius: 2px;
+}
+.phone-frame .wire-line.short { width: 45%; }
+.phone-frame .wire-block {
+  width: 80%; height: 40px; margin: 14px auto 0;
+  background: rgba(79,143,255,0.08); border-radius: 8px;
+  border: 1px solid rgba(79,143,255,0.12);
+}
+
+.laptop-frame {
+  width: 480px; height: 300px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  position: relative; overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+.laptop-frame .title-bar {
+  height: 28px; background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; padding: 0 12px; gap: 6px;
+}
+.laptop-frame .title-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.laptop-frame .content-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  padding: 16px;
+}
+.laptop-frame .content-block {
+  height: 50px; background: rgba(79,143,255,0.06);
+  border: 1px solid rgba(79,143,255,0.1); border-radius: 6px;
+}
+.laptop-frame .content-block.tall { grid-row: span 2; height: auto; }
+.laptop-stand {
+  width: 540px; height: 8px; margin-top: -1px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 0 0 4px 4px;
+  margin-left: auto; margin-right: auto;
+}
+
+.feature-callouts {
+  display: flex; justify-content: center; gap: 40px;
+}
+.feature-card {
+  padding: 18px 32px;
+  background: rgba(79,143,255,0.06);
+  border: 1px solid rgba(79,143,255,0.2);
+  border-radius: 12px;
+  font-size: 1.15rem; font-weight: 600;
+}
+
+/* === SCENE 08 === */
+#s8-stat-87pct .big-stat {
+  font-size: 12rem; font-weight: 900; line-height: 1;
+  color: var(--success);
+  position: relative; display: inline-block;
+}
+#s8-stat-87pct .big-stat::after {
+  content: ''; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 120%; height: 120%;
+  background: radial-gradient(circle, rgba(46,204,113,0.15), transparent 60%);
+  z-index: -1;
+}
+#s8-stat-87pct .stat-label {
+  font-size: 1.4rem; color: var(--text-dim); margin-top: 10px;
+}
+
+.quote-block {
+  max-width: 900px; margin: 40px auto 0;
+  padding: 36px 48px;
+  background: rgba(255,255,255,0.03);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 14px 14px 0;
+  text-align: left; position: relative;
+}
+.quote-mark {
+  font-size: 5rem; line-height: 1; color: rgba(79,143,255,0.2);
+  position: absolute; top: 10px; left: 20px;
+  font-family: Georgia, serif;
+}
+.quote-text {
+  font-size: 1.4rem; font-style: italic; color: var(--text);
+  line-height: 1.7; padding-left: 40px;
+}
+.quote-attr {
+  font-size: 1rem; color: var(--text-dim); margin-top: 16px;
+  padding-left: 40px; font-style: normal;
+}
+
+/* === SCENE 09 === */
+#s9-team {
+  font-size: 2.4rem; font-weight: 700; letter-spacing: 1px;
+  margin-bottom: 50px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 22px 64px;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(79,143,255,0.15), rgba(79,143,255,0.05));
+  border: 2px solid var(--primary);
+  border-radius: 60px;
+  letter-spacing: 1px;
+  box-shadow: 0 0 40px rgba(79,143,255,0.15);
+  transition: all 0.3s ease;
+}
+.cta-btn:hover {
+  background: linear-gradient(135deg, rgba(79,143,255,0.25), rgba(79,143,255,0.1));
+  box-shadow: 0 0 60px rgba(79,143,255,0.25);
+}
+
+#s9-tagline {
+  font-size: 1.8rem; font-weight: 600; color: var(--text-dim);
+  margin-top: 50px;
+}
+#s9-tagline .elevate-word {
+  color: var(--warm); font-weight: 900;
+}
+
+/* === AMBIENT GLOW === */
+.scene::before {
+  content: ''; position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,143,255,0.06), transparent 70%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+.scene::after {
+  content: ''; position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.04), transparent 70%);
+  bottom: -100px; left: -50px;
+  pointer-events: none;
+}
+
+/* === GRAIN OVERLAY === */
+#grain {
+  position: absolute; inset: 0; z-index: 100; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+  <div id="grain"></div>
+
+  <!-- PLAY OVERLAY -->
+  <div id="play-overlay">
+    <div style="text-align:center">
+      <div id="play-btn">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div id="play-label">Click to Play</div>
+    </div>
+  </div>
+
+  <!-- SCENE 00 — The Student Experience -->
+  <div id="scene-00" class="scene">
+    <div class="scene-inner">
+      <div id="s0-heading" class="anim hidden">
+        September. Second Year.<br>Placement Season.
+      </div>
+      <div id="s0-tabs-visual" class="anim hidden">
+        <div class="tabs-container">
+          <div class="tab-card">LinkedIn</div>
+          <div class="tab-card">Unstop</div>
+          <div class="tab-card">Internshala</div>
+          <div class="tab-card">WhatsApp</div>
+          <div class="tab-card">College Portal</div>
+          <div class="tab-card">Google Docs</div>
+        </div>
+      </div>
+      <div id="s0-overwhelmed" class="anim hidden">OVERWHELMED</div>
+    </div>
+  </div>
+
+  <!-- SCENE 01 — What Students Told Us -->
+  <div id="scene-01" class="scene">
+    <div class="scene-inner">
+      <div id="s1-heading" class="anim hidden heading">What Students Told Us</div>
+      <div class="stats-row">
+        <div id="s1-stat-14pct" class="anim hidden stat-block">
+          <div class="stat-number">14%</div>
+          <div class="stat-label">satisfied with current process</div>
+        </div>
+        <div id="s1-stat-15pct" class="anim hidden stat-block">
+          <div class="stat-number">15%</div>
+          <div class="stat-label">trust accuracy of info</div>
+        </div>
+      </div>
+      <div id="s1-bar-preparation" class="anim hidden">
+        <div class="bar-row">
+          <div class="bar-label">Role Preparation</div>
+          <div class="bar-track"><div class="bar-fill" style="--target-width:80%"></div></div>
+          <div class="bar-value">80%+</div>
+        </div>
+      </div>
+      <div id="s1-bar-profile" class="anim hidden">
+        <div class="bar-row">
+          <div class="bar-label">Profile Building</div>
+          <div class="bar-track"><div class="bar-fill" style="--target-width:80%"></div></div>
+          <div class="bar-value">80%+</div>
+        </div>
+      </div>
+      <div id="s1-bar-expectations" class="anim hidden">
+        <div class="bar-row">
+          <div class="bar-label">Company Expectations</div>
+          <div class="bar-track"><div class="bar-fill" style="--target-width:60%"></div></div>
+          <div class="bar-value">60%+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 02 — What's Been Tried -->
+  <div id="scene-02" class="scene">
+    <div class="scene-inner" style="position:relative">
+      <div id="s2-heading" class="anim hidden heading">What Students Do Today</div>
+      <div id="s2-fragments" class="anim hidden">
+        <div class="fragments-container">
+          <div class="fragment-card">Seniors</div>
+          <div class="fragment-card">AI Chatbots</div>
+          <div class="fragment-card">Job Boards</div>
+          <div class="fragment-card">College Portal</div>
+          <div class="fragment-card">WhatsApp Groups</div>
+          <div class="fragment-card">Google Docs</div>
+        </div>
+      </div>
+      <div id="s2-no-full-picture" class="anim hidden">
+        <div class="overlay-dim"></div>
+        <div class="overlay-text">No Full Picture</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 03 — The Ceiling Test -->
+  <div id="scene-03" class="scene">
+    <div class="scene-inner">
+      <div id="s3-heading" class="anim hidden heading">Even if everything worked perfectly...</div>
+      <div id="s3-perfect-platforms" class="anim hidden">
+        <div class="platforms-row">
+          <div class="platform-card"><span class="check">✓</span> LinkedIn</div>
+          <div class="platform-card"><span class="check">✓</span> Internshala</div>
+          <div class="platform-card"><span class="check">✓</span> College Portal</div>
+        </div>
+      </div>
+      <div id="s3-question-mark" class="anim hidden">?</div>
+      <div id="s3-dots-disconnect" class="anim hidden">
+        <div class="dots-cluster">
+          <div class="dot-group"><div class="dot blue"></div><div class="dot blue"></div></div>
+          <div class="dot-group"><div class="dot gold"></div><div class="dot gold"></div></div>
+          <div class="dot-group"><div class="dot green"></div><div class="dot pink"></div></div>
+          <div class="dot-group"><div class="dot pink"></div><div class="dot blue"></div></div>
+        </div>
+        <div class="dots-text">No one is connecting the dots.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 04 — The Reframe -->
+  <div id="scene-04" class="scene">
+    <div class="scene-inner">
+      <div id="s4-heading" class="anim hidden heading" style="color:var(--warm)">The Shift</div>
+      <div id="s4-connections" class="anim hidden">
+        <div class="network-container">
+          <div class="network-lines">
+            <svg viewBox="0 0 500 500">
+              <line x1="250" y1="11" x2="489" y2="125" style="animation-delay:0s"/>
+              <line x1="489" y1="125" x2="489" y2="375" style="animation-delay:0.2s"/>
+              <line x1="489" y1="375" x2="250" y2="489" style="animation-delay:0.4s"/>
+              <line x1="250" y1="489" x2="11" y2="375" style="animation-delay:0.6s"/>
+              <line x1="11" y1="375" x2="11" y2="125" style="animation-delay:0.8s"/>
+              <line x1="11" y1="125" x2="250" y2="11" style="animation-delay:1s"/>
+              <line x1="250" y1="11" x2="489" y2="375" style="animation-delay:0.3s" opacity="0.2"/>
+              <line x1="489" y1="125" x2="11" y2="375" style="animation-delay:0.5s" opacity="0.2"/>
+              <line x1="11" y1="125" x2="489" y2="375" style="animation-delay:0.7s" opacity="0.2"/>
+              <line x1="250" y1="11" x2="250" y2="489" style="animation-delay:0.9s" opacity="0.2"/>
+            </svg>
+          </div>
+          <div class="network-dot"></div>
+          <div class="network-dot"></div>
+          <div class="network-dot"></div>
+          <div class="network-dot"></div>
+          <div class="network-dot"></div>
+          <div class="network-dot"></div>
+        </div>
+      </div>
+      <div id="s4-example-professor" class="anim hidden">
+        <div class="connection-card">Professor's Research <span class="link-line">↔</span> Open Internship</div>
+      </div>
+      <div id="s4-example-hackathon" class="anim hidden">
+        <div class="connection-card">Hackathon Deadline <span class="link-line">↔</span> Skill Building</div>
+      </div>
+      <div id="s4-punchline" class="anim hidden">
+        <div class="line1">Not more data.</div>
+        <div class="line2">Cross-domain intelligence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 05 — Elevate & LIFT -->
+  <div id="scene-05" class="scene">
+    <div class="scene-inner">
+      <div id="s5-logo" class="anim hidden">
+        <div class="logo-block">
+          <div class="logo-text">ELEVATE</div>
+          <div class="logo-tagline">Your Choices • Your Preparation • Your Confidence • Your Success</div>
+        </div>
+      </div>
+      <div class="lift-framework">
+        <div id="s5-lift-L" class="anim hidden">
+          <div class="lift-row">
+            <div class="lift-letter">L</div>
+            <div class="lift-desc">Locate the right information</div>
+          </div>
+        </div>
+        <div id="s5-lift-I" class="anim hidden">
+          <div class="lift-row">
+            <div class="lift-letter">I</div>
+            <div class="lift-desc">Interpret what applies to you</div>
+          </div>
+        </div>
+        <div id="s5-lift-F" class="anim hidden">
+          <div class="lift-row">
+            <div class="lift-letter">F</div>
+            <div class="lift-desc">Follow through with structure</div>
+          </div>
+        </div>
+        <div id="s5-lift-T" class="anim hidden">
+          <div class="lift-row">
+            <div class="lift-letter">T</div>
+            <div class="lift-desc">Time actions correctly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 06 — How It Works -->
+  <div id="scene-06" class="scene">
+    <div class="scene-inner">
+      <div id="s6-heading" class="anim hidden heading">How Elevate Works</div>
+      <div id="s6-signal-sources" class="anim hidden">
+        <div style="display:flex;align-items:center;justify-content:center;gap:40px">
+          <div class="source-cards">
+            <div class="source-card">Job Posts</div>
+            <div class="source-card">Professor Pages</div>
+            <div class="source-card">Research Papers</div>
+            <div class="source-card">Hackathons</div>
+            <div class="source-card">Competitions</div>
+            <div class="source-card">Hiring Updates</div>
+          </div>
+        </div>
+      </div>
+      <div id="s6-ai-layer" class="anim hidden">
+        <div style="display:flex;align-items:center;justify-content:center;gap:40px">
+          <div class="flow-arrow">→</div>
+          <div class="ai-node">AI<br>Reasoning</div>
+          <div class="flow-arrow">→</div>
+        </div>
+      </div>
+      <div id="s6-outputs" class="anim hidden">
+        <div class="output-cards" style="margin:0 auto;width:fit-content">
+          <div class="output-card">✦ What to pursue</div>
+          <div class="output-card">✦ When to act</div>
+          <div class="output-card">✦ How to prepare</div>
+          <div class="output-card">✦ How to apply</div>
+        </div>
+      </div>
+      <div id="s6-path-forward" class="anim hidden">A structured path forward.</div>
+    </div>
+  </div>
+
+  <!-- SCENE 07 — The Prototype -->
+  <div id="scene-07" class="scene">
+    <div class="scene-inner">
+      <div id="s7-heading" class="anim hidden heading">Not a Concept. A Working Prototype.</div>
+      <div id="s7-app-mockup" class="anim hidden">
+        <div class="mockup-area">
+          <div class="phone-frame">
+            <div class="notch"></div>
+            <div class="wire-line"></div>
+            <div class="wire-line short"></div>
+            <div class="wire-block"></div>
+            <div class="wire-line"></div>
+            <div class="wire-block"></div>
+            <div class="wire-line short"></div>
+            <div class="wire-line"></div>
+            <div class="wire-block"></div>
+          </div>
+          <div>
+            <div class="laptop-frame">
+              <div class="title-bar">
+                <div class="title-dot"></div><div class="title-dot"></div><div class="title-dot"></div>
+              </div>
+              <div class="content-grid">
+                <div class="content-block tall"></div>
+                <div class="content-block"></div>
+                <div class="content-block"></div>
+                <div class="content-block"></div>
+                <div class="content-block"></div>
+              </div>
+            </div>
+            <div class="laptop-stand"></div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-callouts">
+        <div id="s7-feature-chatbot" class="anim hidden"><div class="feature-card">💬 AI Chatbot</div></div>
+        <div id="s7-feature-notifications" class="anim hidden"><div class="feature-card">🔔 Smart Notifications</div></div>
+        <div id="s7-feature-professors" class="anim hidden"><div class="feature-card">🎓 Professor Discovery</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 08 — Validation -->
+  <div id="scene-08" class="scene">
+    <div class="scene-inner">
+      <div id="s8-heading" class="anim hidden heading">Does It Work?</div>
+      <div id="s8-stat-87pct" class="anim hidden">
+        <div class="big-stat">87%+</div>
+        <div class="stat-label">said Elevate would be very useful</div>
+      </div>
+      <div id="s8-student-quote" class="anim hidden">
+        <div class="quote-block">
+          <div class="quote-mark">"</div>
+          <div class="quote-text">A simpler, more structured way to connect with professors for projects and internships.</div>
+          <div class="quote-attr">— Student survey respondents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 09 — Close -->
+  <div id="scene-09" class="scene">
+    <div class="scene-inner">
+      <div id="s9-team" class="anim hidden">Krishna Prabu &amp; Tanmai Raghava</div>
+      <div id="s9-ask" class="anim hidden">
+        <div class="cta-btn">See the Full Demo</div>
+      </div>
+      <div id="s9-tagline" class="anim hidden">
+        Reduce friction. <span class="elevate-word">Elevate</span> your journey.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /viewport -->
+
+<script>
+// === BUILD PIPELINE PLACEHOLDERS ===
+const SCENES = [
+  {
+    "scene": "scene-00",
+    "clips": [
+      "s00_opening"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s0-heading')"
+      },
+      {
+        "delay": 5538,
+        "fn": "fade('s0-heading'); show('s0-tabs-visual')"
+      },
+      {
+        "delay": 19138,
+        "fn": "fade('s0-tabs-visual'); show('s0-overwhelmed')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-01",
+    "clips": [
+      "s01a_data_satisfaction",
+      "s01b_data_gaps"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s1-heading')"
+      },
+      {
+        "delay": 4875,
+        "fn": "fade('s1-heading'); show('s1-stat-14pct')"
+      },
+      {
+        "delay": 10525,
+        "fn": "show('s1-stat-15pct')"
+      },
+      {
+        "delay": 17526,
+        "fn": "clearAll('scene-01'); show('s1-bar-preparation')"
+      },
+      {
+        "delay": 24338,
+        "fn": "show('s1-bar-profile')"
+      },
+      {
+        "delay": 28938,
+        "fn": "show('s1-bar-expectations')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-02",
+    "clips": [
+      "s02_tried"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s2-heading')"
+      },
+      {
+        "delay": 1850,
+        "fn": "fade('s2-heading'); show('s2-fragments')"
+      },
+      {
+        "delay": 15800,
+        "fn": "fade('s2-fragments'); show('s2-no-full-picture')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-03",
+    "clips": [
+      "s03_ceiling"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s3-heading')"
+      },
+      {
+        "delay": 4688,
+        "fn": "fade('s3-heading'); show('s3-perfect-platforms')"
+      },
+      {
+        "delay": 13425,
+        "fn": "show('s3-question-mark')"
+      },
+      {
+        "delay": 18825,
+        "fn": "clearAll('scene-03'); show('s3-dots-disconnect')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-04",
+    "clips": [
+      "s04_reframe"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s4-heading')"
+      },
+      {
+        "delay": 5438,
+        "fn": "fade('s4-heading'); show('s4-connections')"
+      },
+      {
+        "delay": 7863,
+        "fn": "show('s4-example-professor')"
+      },
+      {
+        "delay": 11475,
+        "fn": "show('s4-example-hackathon')"
+      },
+      {
+        "delay": 19150,
+        "fn": "clearAll('scene-04'); show('s4-punchline')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-05",
+    "clips": [
+      "s05_elevate_intro"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s5-logo')"
+      },
+      {
+        "delay": 10513,
+        "fn": "fade('s5-logo'); show('s5-lift-L')"
+      },
+      {
+        "delay": 13125,
+        "fn": "show('s5-lift-I')"
+      },
+      {
+        "delay": 14938,
+        "fn": "show('s5-lift-F')"
+      },
+      {
+        "delay": 16550,
+        "fn": "show('s5-lift-T')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-06",
+    "clips": [
+      "s06a_signals",
+      "s06b_outputs"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s6-heading')"
+      },
+      {
+        "delay": 1775,
+        "fn": "fade('s6-heading'); show('s6-signal-sources')"
+      },
+      {
+        "delay": 12200,
+        "fn": "show('s6-ai-layer')"
+      },
+      {
+        "delay": 19688,
+        "fn": "clearAll('scene-06'); show('s6-outputs')"
+      },
+      {
+        "delay": 32150,
+        "fn": "show('s6-path-forward')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-07",
+    "clips": [
+      "s07_prototype"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s7-heading')"
+      },
+      {
+        "delay": 2600,
+        "fn": "fade('s7-heading'); show('s7-app-mockup')"
+      },
+      {
+        "delay": 8350,
+        "fn": "show('s7-feature-chatbot')"
+      },
+      {
+        "delay": 11663,
+        "fn": "show('s7-feature-notifications')"
+      },
+      {
+        "delay": 15913,
+        "fn": "show('s7-feature-professors')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-08",
+    "clips": [
+      "s08_validation"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s8-heading')"
+      },
+      {
+        "delay": 3988,
+        "fn": "fade('s8-heading'); show('s8-stat-87pct')"
+      },
+      {
+        "delay": 13438,
+        "fn": "show('s8-student-quote')"
+      }
+    ]
+  },
+  {
+    "scene": "scene-09",
+    "clips": [
+      "s09_close"
+    ],
+    "triggers": [
+      {
+        "delay": 0,
+        "fn": "show('s9-team')"
+      },
+      {
+        "delay": 7625,
+        "fn": "show('s9-ask')"
+      },
+      {
+        "delay": 9138,
+        "fn": "show('s9-tagline')"
+      }
+    ]
+  }
+]; // patched by assemble.js
+const AUDIO_DATA = {}; // patched by build-video.js
+const WORD_META = {}; // patched by build-video.js
+
+// === ANIMATION HELPERS ===
+function show(id) {
+  const el = document.getElementById(id);
+  if(el) { el.classList.remove('hidden','fade-out'); el.classList.add('visible'); }
+  // Animate bar fills when bars become visible
+  if(id.startsWith('s1-bar')) {
+    setTimeout(() => {
+      const fills = el.querySelectorAll('.bar-fill');
+      fills.forEach(f => f.classList.add('animate'));
+    }, 50);
+  }
+}
+function hide(id) {
+  const el = document.getElementById(id);
+  if(el) { el.classList.remove('visible'); el.classList.add('hidden'); }
+}
+function fade(id) {
+  const el = document.getElementById(id);
+  if(el) { el.classList.add('fade-out'); setTimeout(()=>{ el.classList.remove('visible','fade-out'); el.classList.add('hidden'); }, 500); }
+}
+function clearAll(sceneId) {
+  const container = document.getElementById(sceneId);
+  if(container) {
+    container.querySelectorAll('.anim').forEach(el => {
+      el.classList.remove('visible','fade-out');
+      el.classList.add('hidden');
+    });
+  }
+}
+
+// === PLAYER ===
+async function playScene(scene) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  const sceneEl = document.getElementById(scene.scene);
+  if(sceneEl) sceneEl.classList.add('active');
+
+  if(sceneEl) sceneEl.querySelectorAll('.anim').forEach(el => {
+    el.classList.remove('visible','fade-out'); el.classList.add('hidden');
+  });
+
+  const timers = scene.triggers.map(t =>
+    setTimeout(() => { try { eval(t.fn); } catch(e) { console.warn(e); } }, t.delay)
+  );
+
+  for (const clipId of scene.clips) {
+    if (AUDIO_DATA[clipId]) {
+      await new Promise((resolve) => {
+        const audio = new Audio(AUDIO_DATA[clipId]);
+        audio.onended = resolve;
+        audio.onerror = resolve;
+        audio.play().catch(resolve);
+      });
+    }
+  }
+
+  await new Promise(r => setTimeout(r, 800));
+  timers.forEach(clearTimeout);
+}
+
+async function playAll() {
+  for (const scene of SCENES) {
+    await playScene(scene);
+  }
+}
+
+// === VIEWPORT SCALING ===
+function scaleViewport() {
+  const vp = document.getElementById('viewport');
+  const sw = window.innerWidth / 1920;
+  const sh = window.innerHeight / 1080;
+  const scale = Math.min(sw, sh);
+  vp.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+window.addEventListener('resize', scaleViewport);
+scaleViewport();
+
+// === PLAY BUTTON ===
+document.getElementById('play-overlay').addEventListener('click', () => {
+  document.getElementById('play-overlay').classList.add('hidden');
+  playAll();
+});
+</script>
+</body>
+</html>

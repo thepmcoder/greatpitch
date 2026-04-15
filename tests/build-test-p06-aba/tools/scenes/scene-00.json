@@ -1,0 +1,25 @@
+{
+  "scene": "scene-00",
+  "title": "The Student Experience",
+  "clips": ["s00_opening"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s0-heading" }]
+    },
+    {
+      "anchor": { "clip": "s00_opening", "word": "seventeen", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-heading" },
+        { "fn": "show", "id": "s0-tabs-visual" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s00_opening", "word": "overwhelmed", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s0-tabs-visual" },
+        { "fn": "show", "id": "s0-overwhelmed" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "scene": "scene-01",
+  "title": "The Problem",
+  "clips": ["s01_hook"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-01" },
+        { "fn": "show", "id": "s1-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "LinkedIn", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s1-platforms" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "fourteen", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-platforms" },
+        { "fn": "show", "id": "s1-stat-planted" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s01_hook", "word": "question", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s1-stat-planted" },
+        { "fn": "show", "id": "s1-question" }
+      ]
+    }
+  ]
+}

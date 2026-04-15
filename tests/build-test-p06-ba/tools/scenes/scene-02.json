@@ -1,0 +1,27 @@
+{
+  "scene": "scene-02",
+  "title": "The Data",
+  "clips": ["s02_data"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-02" },
+        { "fn": "show", "id": "s2-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_data", "word": "eighty", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s2-title" },
+        { "fn": "show", "id": "s2-stat-80" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s02_data", "word": "fifteen", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s2-stat-15" }
+      ]
+    }
+  ]
+}

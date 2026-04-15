@@ -1,0 +1,23 @@
+{
+  "scene": "scene-09",
+  "title": "Join Us",
+  "clips": ["s09_close"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s9-team" }]
+    },
+    {
+      "anchor": { "clip": "s09_close", "word": "demo", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s9-ask" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s09_close", "word": "friction", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s9-tagline" }
+      ]
+    }
+  ]
+}

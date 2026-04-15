@@ -1,0 +1,32 @@
+{
+  "scene": "scene-06",
+  "title": "What Elevate Delivers",
+  "clips": ["s06a_delivers", "s06b_delivers"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-06" },
+        { "fn": "show", "id": "s6-title" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06a_delivers", "word": "personalized", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-pillar1" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06b_delivers", "word": "tracks", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-pillar2" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s06b_delivers", "word": "third", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s6-pillar3" }
+      ]
+    }
+  ]
+}

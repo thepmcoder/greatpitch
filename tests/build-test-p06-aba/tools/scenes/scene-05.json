@@ -1,0 +1,36 @@
+{
+  "scene": "scene-05",
+  "title": "Elevate & LIFT",
+  "clips": ["s05_elevate_intro"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s5-logo" }]
+    },
+    {
+      "anchor": { "clip": "s05_elevate_intro", "word": "LIFT", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s5-logo" },
+        { "fn": "show", "id": "s5-lift-L" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_elevate_intro", "word": "Interpret", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-lift-I" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_elevate_intro", "word": "Follow", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-lift-F" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s05_elevate_intro", "word": "time", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s5-lift-T" }
+      ]
+    }
+  ]
+}

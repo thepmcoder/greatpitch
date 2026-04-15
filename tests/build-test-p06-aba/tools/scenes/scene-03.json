@@ -1,0 +1,31 @@
+{
+  "scene": "scene-03",
+  "title": "The Ceiling Question",
+  "clips": ["s03_ceiling"],
+  "triggers": [
+    {
+      "anchor": { "fixed": 0 },
+      "actions": [{ "fn": "show", "id": "s3-heading" }]
+    },
+    {
+      "anchor": { "clip": "s03_ceiling", "word": "perfectly", "n": 1 },
+      "actions": [
+        { "fn": "fade", "id": "s3-heading" },
+        { "fn": "show", "id": "s3-perfect-platforms" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_ceiling", "word": "enough", "n": 1 },
+      "actions": [
+        { "fn": "show", "id": "s3-question-mark" }
+      ]
+    },
+    {
+      "anchor": { "clip": "s03_ceiling", "word": "connecting", "n": 1 },
+      "actions": [
+        { "fn": "clearAll", "id": "scene-03" },
+        { "fn": "show", "id": "s3-dots-disconnect" }
+      ]
+    }
+  ]
+}
